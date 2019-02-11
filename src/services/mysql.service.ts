@@ -45,7 +45,35 @@ export class mysqlService{
     });
     //return info;
   }
-AgregarAuto(Auto)
+
+  ValidarrUsuario(Usuario)
+  {
+    let data={
+      "key":"validarUsuario",
+      "ci":Usuario.carnet,
+      "pass":Usuario.password
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+    this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header).subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+    });
+    //return info;
+  }
+  
+   //Autos
+  
+  AgregarAuto(Auto)
   {
     let info=new Array();
     let data={
@@ -77,29 +105,5 @@ AgregarAuto(Auto)
     });
     return info;
   }
-
-  ValidarrUsuario(Usuario)
-  {
-    let data={
-      "key":"validarUsuario",
-      "ci":Usuario.carnet,
-      "pass":Usuario.password
-    };
-
-    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
-    opsi   : any = JSON.stringify(data);
-    console.log('opsi',opsi);
-
-    this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header).subscribe(
-      data => {
-        console.log('data',data);
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-    });
-    //return info;
-  }
+  GetAutos(Auto){}
 }
