@@ -1,0 +1,52 @@
+<!--
+  Generated template for the RegistroPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="yellow">
+        <ion-title>Registro</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="imagen">
+    <ion-list>
+        <ion-item class="inputcolor">
+            <ion-label stacked color="dark">Nombre</ion-label>
+            <ion-input type="text" [(ngModel)]="dataMYSQL.nombre"></ion-input>
+        </ion-item>
+        <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-label stacked color="dark">Apellido</ion-label>
+            <ion-input type="text" [(ngModel)]="dataMYSQL.apellido"></ion-input>
+        </ion-item>
+        <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-label stacked color="dark">Carnet</ion-label>
+            <ion-input type="number" [(ngModel)]="dataMYSQL.carnet"></ion-input>
+        </ion-item>
+        <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-label stacked color="dark">Correo</ion-label>
+            <ion-input type="email" [(ngModel)]="data.correo"></ion-input>
+        </ion-item>
+        <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-label stacked color="dark">Password</ion-label>
+            <ion-input type="password" [(ngModel)]="dataMYSQL.pass1"></ion-input>
+        </ion-item>
+        <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-label stacked color="dark">Confirmar Password</ion-label>
+            <ion-input type="password" [(ngModel)]="pass2"></ion-input>
+        </ion-item>
+        <br>
+        <ion-item class="inputcolor">
+            <ion-label color="blue">Acepto los terminos.</ion-label>
+            <ion-checkbox color="dark"></ion-checkbox>
+        </ion-item>
+    </ion-list>
+
+    <div padding>
+        <button ion-button block (click)="registrar(dataMYSQL)" round>Registrar</button>
+    </div>
+</ion-content>

@@ -1,0 +1,22 @@
+<!--
+  Generated template for the ConductorPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+
+</ion-header>
+
+
+<ion-content padding class="imagen">
+    <ion-tabs>
+        <ion-tab tabIcon="git-pull-request" tabTitle="Rutas" [root]="tab1" [rootParams]="rootparamspage"></ion-tab>
+        <!--MODIFICADO PARA PASAR PARAMETROS-->
+        <ion-tab tabIcon="bookmarks" tabTitle="Agendado" [root]="tab2" [rootParams]="rootparamspage"></ion-tab>
+        <!--MODIFICADO PARA PASAR PARAMETROS-->
+        <ion-tab tabIcon="filing" tabTitle="Buzon" [root]="tab3" [rootParams]="rootparamspage" tabBadge="{{nuevas}}" tabBadgeStyle="danger"></ion-tab>
+        <ion-tab tabIcon="options" tabTitle="Opciones" [root]="tab4" [rootParams]="rootparamspage"></ion-tab>
+    </ion-tabs>
+</ion-content>

@@ -1,0 +1,37 @@
+<!--
+  Generated template for the VehiculoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="yellow">
+        <ion-title>Vehiculo</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="irAgregar()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+        </ion-buttons>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="imagen">
+    <ion-list>
+        <ion-list-header *ngIf="vehiculos$.length!==0">
+            <strong>VEHÍCULOS</strong>
+        </ion-list-header>
+
+        <ion-item *ngFor="let auto of vehiculos$" round (click)="irEditar(auto)">
+            {{auto.placa}}
+        </ion-item>
+
+        <!--si hay veiculos-->
+        <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="vehiculos$.length===0">
+            Usted no tiene vehículos.
+        </ion-item>
+
+    </ion-list>
+</ion-content>

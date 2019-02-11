@@ -1,0 +1,44 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+    <div class="flb">
+        <div class="Aligner-item Aligner-item--top"></div>
+        <img src="../assets/logo.png">
+        <!--<img src="../assets/logo.svg">-->
+        <div class="Aligner-item Aligner-item--bottom"></div>
+    </div>
+</div>
+<!--
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Auto Compartido</ion-title>
+  </ion-navbar>
+
+</ion-header>
+-->
+
+<ion-content padding class="imagen">
+    <ion-list style="margin-top:5em;">
+        <img src="../assets/logo.png">
+
+        <ion-item class="inputcolor">
+            <ion-label stacked color="blue">Carnet</ion-label>
+            <ion-input type="number" [(ngModel)]="user.carnet">Correo</ion-input>
+        </ion-item>
+        <ion-item class="inputcolor" style="margin-top:1em">
+            <ion-label stacked color="blue">Password</ion-label>
+            <ion-input class="redondeado" type="password" [(ngModel)]="user.password"></ion-input>
+        </ion-item>
+    </ion-list>
+    <div>
+        <button color="danger" ion-button block round (click)="ingresar(user)">Ingresar</button>
+    </div>
+    <div style="margin-top:1em">
+        <button color="danger" ion-button block round (click)="irRegistro()">Registrarme</button>
+    </div>
+</ion-content>

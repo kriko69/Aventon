@@ -1,0 +1,35 @@
+<!--
+  Generated template for the OpcionesConductorPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="yellow">
+        <ion-title>Opciones </ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="imagen">
+    <div class="list">
+        <button ion-button color="light" round block (click)="irPerfil()">
+      <ion-icon item-left name="person" style="margin-right:10px;"></ion-icon>
+      Perfil
+    </button>
+        <!--<button ion-item   >
+      <ion-icon item-left name="book"></ion-icon>
+      Historial de Viajes
+    </button>-->
+        <button ion-button color="light" round block (click)="cambiarUsuario()">
+      <ion-icon item-left name="body" style="margin-right:10px;"></ion-icon>
+      Cambiar Tipo de Usuario
+    </button>
+    <button ion-button color="light" round block (click)="CerrarSesion()">
+      <ion-icon item-left name="log-out" style="margin-right:10px;"></ion-icon>
+      Cerrar sesion
+    </button>
+    </div>
+</ion-content>

@@ -1,0 +1,49 @@
+<!--
+  Generated template for the MisRutasPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="yellow">
+        <ion-title>Mis Rutas</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="imagen">
+    <ion-list>
+        <ion-item-sliding #item>
+
+            <ion-item *ngFor="let vecs of vec">
+                {{vecs.nombre}}
+                <!-- <p>Nombre:{{vecs.nombre}}</p>
+          <p>Fecha:{{vecs.fecha}}</p>
+          <p>Hora:{{vecs.hora}}</p>-->
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button (click)="unread(item)">Eliminar</button>
+            </ion-item-options>
+            <ion-item-options side="left">
+                <button ion-button (click)="unread(item)">Ver Ruta</button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>
+
+<ion-content padding class="imagen">
+    <ion-list>
+        <ion-item-sliding #item *ngFor="let vecs of vec">
+            <ion-item>
+                <p>{{ vecs.nombre }}</p>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="danger" (click)="borrarRuta(vecs)"><ion-icon name="trash"></ion-icon>
+             Borrar
+          </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>

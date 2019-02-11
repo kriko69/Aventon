@@ -1,0 +1,26 @@
+
+    <ion-header>
+        <ion-navbar color="yellow">
+            <ion-title>
+                Calificacion
+            </ion-title>
+        </ion-navbar>
+    </ion-header>
+
+<ion-content class="imagen">
+    <ion-list *ngFor="let item of obj2">
+        <ion-item class="border">
+            <p class="cambioText">Pasajero: {{ item.email }}</p>
+            <p class="cambioText">Fecha: {{ item.fecha }}</p>
+            <ion-card padding>
+                <rating [(ngModel)]="item.calificacion" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false" (ngModelChange)="onModelChange($event,item)">
+                </rating>
+                <h2>Calificacion: {{item.calificacion}}</h2>
+            </ion-card>
+        </ion-item>
+    </ion-list>
+    <button ion-button color="primary" icon-start block round (click)="calif()">
+        <ion-icon name="checkmark-circle"></ion-icon>
+        Aceptar
+    </button>
+</ion-content>

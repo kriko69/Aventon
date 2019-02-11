@@ -1,0 +1,42 @@
+<ion-header>
+
+    <ion-navbar color="yellow">
+        <ion-title>Perfil</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="imagen">
+    <ion-item color="dark" class="item item-divider">Datos Personales</ion-item>
+
+    <ion-list #pc>
+        <ion-item>
+            <ion-label stacked>Nombre</ion-label>
+            <ion-input disabled="true" type="text" [(ngModel)]="user[9]"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Apellido</ion-label>
+            <ion-input disabled="true" type="text" [(ngModel)]="user[0]"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label stacked>Carnet</ion-label>
+            <ion-input disabled="true" type="text" [(ngModel)]="user[3]"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label stacked color="dark">Correo</ion-label>
+            <ion-input disabled="true" type="text" [(ngModel)]="user[4]"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label stacked color="dark">Calificacion Pasajero</ion-label>
+            <ion-input disabled="true" type="text" [(ngModel)]="user[2]"></ion-input>
+        </ion-item>
+
+        <button ion-button round block color=primary (click)="editPerfil()">Editar Datos de Perfil</button>
+
+    </ion-list>
+
+
+
+</ion-content>

@@ -1,0 +1,41 @@
+<!--
+  Generated template for the EditarVehiculoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar color="yellow">
+        <ion-title>Mi Vehiculo</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="imagen">
+    <ion-item>
+        <ion-label stacked color="dark">Capacidad</ion-label>
+        <ion-input type="number" [(ngModel)]="auto.capacidad">{{auto.capacidad}}</ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked color="dark">Color</ion-label>
+        <ion-input type="text" [(ngModel)]="auto.color">{{auto.color}}</ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked color="dark">Marca</ion-label>
+        <ion-input type="text" [(ngModel)]="auto.marca">{{auto.marca}}</ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label stacked color="dark">Modelo</ion-label>
+        <ion-input type="number" [(ngModel)]="auto.modelo">{{auto.modelo}}</ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Maletera</ion-label>
+        <ion-checkbox color="primary" [(ngModel)]="auto.maletera" checked="{{auto.maletera}}"></ion-checkbox>
+    </ion-item>
+    <button ion-button block round color="secondary" style="margin-top:25px;" (click)="irConductor()">Seleccionar Auto <ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
+    <button ion-button block round style="margin-top:25px;" (click)="actualizar()">Actualizar Datos<ion-icon name="create" style="margin-left:10px;"></ion-icon></button>
+    <button ion-button block round color="danger" style="margin-top:25px;" (click)="eliminar()">Eliminar Vehiculo<ion-icon name="trash" style="margin-left:10px;"></ion-icon></button>
+
+</ion-content>

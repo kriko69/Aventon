@@ -1,0 +1,91 @@
+<!--
+  Generated template for the ViajePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+
+<ion-header>
+
+  <ion-toolbar color="primary" >
+    <ion-title>Mis Rutas Programadas</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item *ngFor="let vecs of vec">
+      <p>Nombre de la ruta:{{vecs.nombre}}</p>
+      <p>Fecha:{{vecs.fecha}}</p>
+      <p>Hora:{{vecs.hora}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-fab top right>
+<button ion-fab color="secondary" (click)="seleccinaRuta()"><ion-icon name="add"></ion-icon></button>
+</ion-fab>-->
+
+
+
+<ion-header>
+
+    <ion-toolbar color="yellow">
+        <ion-title>Mis Rutas Programadas</ion-title>
+    </ion-toolbar>
+
+</ion-header>
+
+
+
+<ion-content padding class="imagen">
+    <ion-item>
+        <ion-label>Buscar por fecha</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fecha" (ionChange)="filtrarporfecha()"></ion-datetime>
+    </ion-item>
+    <ion-list>
+        <ion-item class="borde" style="background-color:#7cb9e3;color:white;" *ngIf="vec.length===0">
+            Usted no tiene rutas.
+        </ion-item>
+        <ion-item-sliding #item *ngFor="let vecs of vec">
+            <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha)=='falta'" style="background-color:#3CBC08">
+                <ion-badge color="danger" item-end>Aun Falta</ion-badge>
+                <p class="cambioText">Nombre de la Ruta: {{ vecs.nombre }}</p>
+                <p class="cambioText">Fecha: {{ vecs.fecha }}</p>
+                <p class="cambioText">Hora: {{ vecs.hora }}</p>
+                <p class="cambioText">Precio {{vecs.precio}} Bs.</p>
+            </ion-item>
+            <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha)=='pasado'" style="background-color:#D54100">
+                <ion-badge color="light" item-end>Ya Paso</ion-badge>
+                <p class="cambioText">Nombre de la Ruta: {{ vecs.nombre }}</p>
+                <p class="cambioText">Fecha: {{ vecs.fecha }}</p>
+                <p class="cambioText">Hora: {{ vecs.hora }}</p>
+                <p class="cambioText">Precio {{vecs.precio}} Bs.</p>
+            </ion-item>
+            <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha)=='falta un dia'" style="background-color:#FFA754">
+                <ion-badge color="danger" item-end>Un Dia</ion-badge>
+                <p>Nombre de la Ruta: {{ vecs.nombre }}</p>
+                <p>Fecha: {{ vecs.fecha }}</p>
+                <p>Hora: {{ vecs.hora }}</p>
+                <p>Precio {{vecs.precio}} Bs.</p>
+            </ion-item>
+            <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha)=='hoy'" color="primary" (click)="activarRuta(vecs)">
+                <ion-badge color="light" item-end>Hoy</ion-badge>
+                <p>Nombre de la Ruta: {{ vecs.nombre }}</p>
+                <p>Fecha: {{ vecs.fecha }}</p>
+                <p>Hora: {{ vecs.hora }}</p>
+                <p>Precio {{vecs.precio}} Bs.</p>
+            </ion-item>
+            <ion-item-options class="border" side="right">
+                <button ion-button color="danger" (click)="borrarRutaAgendada(vecs.nombre, vecs.correo,vecs.fecha,vecs.hora,vecs.integrantes)"><ion-icon name="trash"></ion-icon>
+            Borrar
+          </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+    <ion-fab bottom right>
+        <button ion-fab color="secondary" (click)="seleccinaRuta()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+</ion-content>

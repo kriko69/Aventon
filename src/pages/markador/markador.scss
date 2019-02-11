@@ -1,0 +1,22 @@
+page-markador {
+    #map {
+        height: 75%;
+        width: 100%;
+      }
+}
+.colorblanco{
+    background-color: #ffffff;
+  }
+  .inputcolor{
+    border-radius: 90px 90px 90px 90px;
+    -moz-border-radius: 90px 90px 90px 90px;
+    -webkit-border-radius: 90px 90px 90px 90px;
+    border: 0px solid #146b21;
+  }
+  .imagenciudad{
+    background: url('../assets/ciudad.png') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      background-size: cover;
+  }
+  
