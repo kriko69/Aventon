@@ -12,6 +12,7 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 import { firebaseService } from '../../services/firebase.service';
+import { mysqlService } from '../../services/mysql.service';
 
 @IonicPage()
 @Component({
@@ -20,51 +21,17 @@ import { firebaseService } from '../../services/firebase.service';
 })
 export class VehiculoPage {
 
-  vehiculos$=[];
+  vehiculos$;
   value;
-  email='';
-  aux;
-  rama;
+  id_usuario='';
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService,private platform:Platform) {
+  public servicio:firebaseService,private platform:Platform,
+  public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email=navParams.get('email');
-    this.aux=this.email.split('.');
-    this.rama=this.aux[0];
-    this.servicio.getAutosRef(this.rama).valueChanges().subscribe(
-      (datas)=>{
-        console.log("datas",datas);
-        //si quiero filtrar por modelo==2010
-        /*for(this.value of datas)
-        {
-          if(this.value.modelo==2010)
-          {
-            this.vehiculos$.push(this.value);
-          }
-        }*/
-        this.vehiculos$=datas;
-      },
-      (error) =>{
-        console.log("problems",error);
-        
-      }
-    );
-    //las keys
-    this.servicio.getAutosRef(this.rama).snapshotChanges().subscribe(
-      info=>{
-        for(let i=0;i<info.length;i++)
-        {
-          console.log(info[i].key);
-          
-        }
-        
-      }
-    );
-    
-    
-    
+    this.id_usuario=navParams.get('id_usuario');
+    this.vehiculos$=this.mysql.GetAutos(this.id_usuario);
   }
 
   ionViewDidLoad() {
@@ -73,12 +40,12 @@ export class VehiculoPage {
 
   irAgregar()
   {
-    this.navCtrl.push(AgregarVehiculosPage,{email:this.email});
+    this.navCtrl.push(AgregarVehiculosPage,{id_usuario:this.id_usuario});
     
   }
 
   irEditar(auto:Vehiculo)
   {
-    this.navCtrl.push(EditarVehiculoPage,{auto:auto,email:this.email});
+    this.navCtrl.push(EditarVehiculoPage,{auto:auto,id_usuario:this.id_usuario});
   }
 }
