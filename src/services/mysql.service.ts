@@ -55,7 +55,8 @@ AgregarAuto(Auto)
       "modelo":Auto.modelo,
       "color":Auto.color,
       "estado":Auto.estado,
-      "capacidad":Auto.capacidad
+      "capacidad":Auto.capacidad,
+      "maletera":Auto.maletera
     };
 
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
