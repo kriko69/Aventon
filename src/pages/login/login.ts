@@ -65,7 +65,17 @@ export class LoginPage {
   ingresar(user)
   {
     this.presentLoading();
-    this.mysql.ValidarrUsuario(user);
+    this.mysql.ValidarrUsuario(user).subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
 
   }
 

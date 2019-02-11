@@ -65,7 +65,7 @@ export class RegistrarPage {
 
   registrar(Usuario)
   {
-    let info:any;
+    let info={};
     console.log(Usuario);
     /*let stringToSplit = data.correo;//split el correo porel punto
     let x = stringToSplit.split(".");
@@ -77,9 +77,22 @@ export class RegistrarPage {
       this.navCtrl.push(LoginPage); //redirigir login
     })*/
 
-    this.mysql.AgregarUsuario(Usuario);
+    this.mysql.AgregarUsuario(Usuario).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
 
 
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      console.log('info',info);
+    },3000);
 
 
   }
