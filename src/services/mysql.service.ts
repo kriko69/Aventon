@@ -106,4 +106,6 @@ export class mysqlService{
     return info;
   }
   GetAutos(Auto){}
+  UpdateAutos(Auto){}
+  EliminarAuto(Auto){}
 }
