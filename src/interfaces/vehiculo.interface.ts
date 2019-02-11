@@ -7,4 +7,5 @@ export interface Vehiculo{
     marca:string;
     modelo:number;
     placa:string;
+    estado:boolean;
 }
