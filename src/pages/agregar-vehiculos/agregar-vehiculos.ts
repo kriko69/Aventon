@@ -20,14 +20,14 @@ import { mysqlService } from '../../services/mysql.service';
 })
 export class AgregarVehiculosPage {
 
-  public auto:{
+  public auto:Vehiculo={
     capacidad:0,
     color:'',
     maletera:false,
     marca:'',
     modelo:2000,
     placa:'',
-    estado:0
+    estado:false
   };
   id_usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -45,13 +45,24 @@ export class AgregarVehiculosPage {
 
   agregar()
   {
-    let h=this.mysql.AgregarAuto(this.auto);
-    if (h["mensaje"]!=null || h["mensaje"]!=undefined || h["mensaje"]!='')
-    {
-      this.toast.show(`Vehiculo ${this.auto.marca} ${this.auto.placa} agregado!`);
-      this.navCtrl.setRoot(VehiculoPage,{id_usuario: this.id_usuario}); //redirigir vehiculo
-      console.log("se agrego");
-    }
+    let info={};
+    this.mysql.AgregarAuto(this.auto).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      console.log('info',info);
+    },3000);
+
 
   }
 
