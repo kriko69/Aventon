@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { firebaseService } from '../../services/firebase.service';
 import { ToastService } from '../../services/toast.service';
+import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the AgregarVehiculosPage page.
@@ -19,25 +20,23 @@ import { ToastService } from '../../services/toast.service';
 })
 export class AgregarVehiculosPage {
 
-  public auto:Vehiculo={
+  public auto:{
     capacidad:0,
     color:'',
     maletera:false,
     marca:'',
     modelo:2000,
-    placa:''
+    placa:'',
+    estado:0
   };
-  email;
-  aux;
-  rama;
+  id_usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService,public toast:ToastService,private platform:Platform) {
+  public servicio:firebaseService,public toast:ToastService,private platform:Platform,
+  public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email=navParams.get('email');
-    this.aux=this.email.split('.');
-    this.rama=this.aux[0];
+    this.id_usuario=navParams.get('id_usuario');
   }
 
   ionViewDidLoad() {
@@ -46,14 +45,14 @@ export class AgregarVehiculosPage {
 
   agregar()
   {
-    this.servicio.definirAutoRef(this.auto.placa,this.rama);
-    this.servicio.addAuto(this.auto).then(ref=>{ //agrego
-      //si se tiene exito
+    let h=this.mysql.AgregarAuto(this.auto);
+    if (h["mensaje"]!=null || h["mensaje"]!=undefined || h["mensaje"]!='')
+    {
       this.toast.show(`Vehiculo ${this.auto.marca} ${this.auto.placa} agregado!`);
-      this.navCtrl.setRoot(VehiculoPage,{email: this.email}); //redirigir login
+      this.navCtrl.setRoot(VehiculoPage,{id_usuario: this.id_usuario}); //redirigir vehiculo
       console.log("se agrego");
-      
-    })
+    }
+
   }
 
 
