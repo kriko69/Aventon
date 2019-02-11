@@ -47,7 +47,7 @@ export class mysqlService{
   }
 
 
-  ValidarrUsuario(Usuario)
+  ValidarrUsuario(Usuario):Observable<any>
   {
     let data={
       "key":"validarUsuario",
@@ -59,7 +59,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-    this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header).subscribe(
+    return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);/*.subscribe(
       data => {
         console.log('data',data);
         console.log('exito');
@@ -69,6 +69,6 @@ export class mysqlService{
           console.log('error', error);
 
     });
-    //return info;
+    //return info;*/
   }
 }
