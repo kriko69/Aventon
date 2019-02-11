@@ -45,7 +45,37 @@ export class mysqlService{
     });
     //return info;
   }
+AgregarAuto(Auto)
+  {
+    let info=new Array();
+    let data={
+      "key":"registrarAuto",
+      "placa":Auto.placa,
+      "marca":Auto.marca,
+      "modelo":Auto.modelo,
+      "color":Auto.color,
+      "estado":Auto.estado,
+      "capacidad":Auto.capacidad
+    };
 
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+    this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header).subscribe(
+      data => {
+        console.log('data',data);
+        info["mensaje"]=data['message'];
+
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+    });
+    return info;
+  }
 
   ValidarrUsuario(Usuario)
   {
