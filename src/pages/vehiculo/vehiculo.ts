@@ -32,6 +32,8 @@ export class VehiculoPage {
     },10000);
     this.id_usuario=navParams.get('id_usuario');
     this.vehiculos$=this.mysql.GetAutos(this.id_usuario);
+    console.log(this.vehiculos$);
+    
   }
 
   ionViewDidLoad() {
