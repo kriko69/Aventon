@@ -12,7 +12,7 @@ import { AgregarVehiculosPage } from '../pages/agregar-vehiculos/agregar-vehicul
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = AgregarVehiculosPage;
+  rootPage:any = LoginPage;
 
   pages: Array<{title: string, component: any}>;
 
