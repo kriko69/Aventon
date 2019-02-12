@@ -45,7 +45,8 @@ export class VehiculoPage {
         }
     );
     setTimeout(()=>{
-      console.log(info);
+      this.vehiculos$=info;
+      console.log(this.vehiculos$);
     },3000);    
   }
 
@@ -59,7 +60,7 @@ export class VehiculoPage {
     
   }
 
-  irEditar(auto:Vehiculo)
+  irEditar(auto)
   {
     this.navCtrl.push(EditarVehiculoPage,{auto:auto,id_usuario:this.id_usuario});
   }
