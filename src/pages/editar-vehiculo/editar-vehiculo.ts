@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { firebaseService } from '../../services/firebase.service';
 import { ToastService } from '../../services/toast.service';
+import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the EditarVehiculoPage page.
@@ -20,20 +21,17 @@ import { ToastService } from '../../services/toast.service';
 })
 export class EditarVehiculoPage {
 
-  auto:Vehiculo;
-  email;
-  aux;
-  rama;
+  auto:any;
+  id_usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService, public toast:ToastService,private platform:Platform) {
+  public servicio:firebaseService, public toast:ToastService,private platform:Platform,
+  public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email=this.navParams.get('email');
-    this.aux=this.email.split('.');
-    this.rama=this.aux[0];
+    this.id_usuario=this.navParams.get('id_usuario');
     this.auto=this.navParams.get('auto');
-    console.log(this.email);
+    console.log(this.id_usuario);
     console.log('AUTO: '+this.auto.placa);
 
 
@@ -45,27 +43,28 @@ export class EditarVehiculoPage {
 
   actualizar()
   {
-    this.servicio.definirAutoRef(this.auto.placa,this.rama);
-    this.servicio.editarAutos(this.auto,this.auto.placa,this.rama).then(
-      ()=>{
-        this.toast.show(` Vehiculo ${this.auto.marca} ${this.auto.placa} actualizado!`);
-        this.navCtrl.setRoot(VehiculoPage,{email: this.email});
-      }
-    );
+    let h=this.mysql.UpdateAutos(this.auto);
+    if (h["mensaje"]!=null || h["mensaje"]!=undefined || h["mensaje"]!='')
+    {
+      this.toast.show(` Vehiculo ${this.auto.marca} ${this.auto.placa} actualizado!`);
+        this.navCtrl.setRoot(VehiculoPage,{id_usuario: this.id_usuario});
+      console.log("se edito");
+    }
   }
 
   eliminar()
   {
-    this.servicio.eliminarAutos(this.auto.placa,this.rama).then(
-      ()=>{
-        this.toast.show(` Vehiculo ${this.auto.marca} ${this.auto.placa} eliminado!`);
-        this.navCtrl.setRoot(VehiculoPage,{email: this.email});
-      }
-    );
+    let h=this.mysql.EliminarAuto(this.auto);
+    if (h["mensaje"]!=null || h["mensaje"]!=undefined || h["mensaje"]!='')
+    {
+      this.toast.show(` Vehiculo ${this.auto.marca} ${this.auto.placa} eliminado!`);
+        this.navCtrl.setRoot(VehiculoPage,{id_usuario: this.id_usuario});
+      console.log("se elimino");
+    }
   }
 
   irConductor()
   {
-    this.navCtrl.setRoot(ConductorPage,{email:this.email,capacidad:this.auto.capacidad,placa:this.auto.placa});
+    this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario,capacidad:this.auto.capacidad,placa:this.auto.id});
   }
 }

@@ -64,18 +64,22 @@ export class LoginPage {
 
   ingresar(user)
   {
-    this.presentLoading();
+    let info={};
     this.mysql.ValidarrUsuario(user).subscribe(
       data => {
         console.log('data',data);
         console.log('exito');
-
+        info=Object.assign(data);
 
         }, (error: any)=> {
           console.log('error', error);
 
         }
     );
+    this.presentLoading();
+    setTimeout(()=>{
+      this.navCtrl.setRoot(TipoUsuarioPage,{id_usuario:info['ci'],nombre_usuario:info['nombre']+' '+info['apellido']});
+    },3000);
 
   }
 

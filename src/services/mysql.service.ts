@@ -46,6 +46,7 @@ export class mysqlService{
     //return info;*/
   }
 
+  ValidarrUsuario(Usuario)
 
   ValidarrUsuario(Usuario):Observable<any>
   {
@@ -71,4 +72,43 @@ export class mysqlService{
     });
     //return info;*/
   }
+  
+   //Autos
+   AgregarAuto(Auto)
+
+  AgregarAuto(Auto):Observable<any>
+  {
+    let info=new Array();
+    let data={
+      "key":"registrarAuto",
+      "placa":Auto.placa,
+      "marca":Auto.marca,
+      "modelo":Auto.modelo,
+      "color":Auto.color,
+      "estado":Auto.estado,
+      "capacidad":Auto.capacidad,
+      "maletera":Auto.maletera
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);/*.subscribe(
+      data => {
+        console.log('data',data);
+        info["mensaje"]=data['message'];
+
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+    });
+    //return info;*/
+  }
+  GetAutos(Auto){}
+  UpdateAutos(Auto){}
+  EliminarAuto(Auto){}
 }
