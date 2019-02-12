@@ -22,7 +22,7 @@ import { mysqlService } from '../../services/mysql.service';
 export class VehiculoPage {
 
   vehiculos$;
-  value;
+  value='No se encontró';
   id_usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService,private platform:Platform,
@@ -47,6 +47,12 @@ export class VehiculoPage {
     setTimeout(()=>{
       this.vehiculos$=info;
       console.log(this.vehiculos$);
+      if(this.vehiculos$['message']!=this.value){
+        this.value='Si se encontro';
+      }
+      else{
+        this.vehiculos$=[];
+      }
     },3000);    
   }
 
