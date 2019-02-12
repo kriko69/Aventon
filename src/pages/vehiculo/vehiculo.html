@@ -20,18 +20,21 @@
 
 <ion-content padding class="imagen">
     <ion-list>
-        <ion-list-header *ngIf="vehiculos$.length!==0">
+        <ion-list-header >
             <strong>VEHÍCULOS</strong>
         </ion-list-header>
 
         <ion-item *ngFor="let auto of vehiculos$" round (click)="irEditar(auto)">
-            {{auto.placa}}
+            Placa: {{auto.placa}}<br>
+            Marca: {{auto.marca}}<br>
+            Color: {{auto.color}}<br>
+            Capacidad: {{auto.capacidad}}
         </ion-item>
 
-        <!--si hay veiculos-->
+        <!--si hay veiculos
         <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="vehiculos$.length===0">
             Usted no tiene vehículos.
-        </ion-item>
+        </ion-item>-->
 
     </ion-list>
 </ion-content>
