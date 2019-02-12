@@ -61,6 +61,7 @@ export class AgregarVehiculosPage {
 
     setTimeout(()=>{
       console.log('info',info);
+      this.navCtrl.setRoot(VehiculoPage,{id_usuario:this.id_usuario});
     },3000);
 
 
