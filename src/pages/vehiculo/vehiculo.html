@@ -20,7 +20,7 @@
 
 <ion-content padding class="imagen">
     <ion-list>
-        <ion-list-header >
+        <ion-list-header *ngIf="vehiculos$.length!=='No se encontró'">
             <strong>VEHÍCULOS</strong>
         </ion-list-header>
 
@@ -31,10 +31,10 @@
             Capacidad: {{auto.capacidad}}
         </ion-item>
 
-        <!--si hay veiculos
-        <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="vehiculos$.length===0">
+        <!--si hay veiculos-->
+        <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="vehiculos$.length=='No se encontró'">
             Usted no tiene vehículos.
-        </ion-item>-->
+        </ion-item>
 
     </ion-list>
 </ion-content>
