@@ -8,4 +8,5 @@ export interface Vehiculo{
     modelo:number;
     placa:string;
     estado:boolean;
+    id_usuario:number;
 }
