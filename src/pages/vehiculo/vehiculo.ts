@@ -31,9 +31,22 @@ export class VehiculoPage {
       console.log('');
     },10000);
     this.id_usuario=navParams.get('id_usuario');
-    this.vehiculos$=this.mysql.GetAutos(this.id_usuario);
-    console.log(this.vehiculos$);
-    
+
+    let info={};
+    this.mysql.GetAutos(this.id_usuario).subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+        info=Object.assign(data);
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+    setTimeout(()=>{
+      console.log(info);
+    },3000);    
   }
 
   ionViewDidLoad() {
