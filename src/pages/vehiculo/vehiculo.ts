@@ -23,7 +23,7 @@ export class VehiculoPage {
 
   vehiculos$;
   value;
-  id_usuario='';
+  id_usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService,private platform:Platform,
   public mysql:mysqlService) {
