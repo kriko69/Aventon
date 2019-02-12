@@ -78,7 +78,12 @@ export class LoginPage {
     );
     this.presentLoading();
     setTimeout(()=>{
+      if(info['nombre']!=undefined){
       this.navCtrl.setRoot(TipoUsuarioPage,{id_usuario:info['ci'],nombre_usuario:info['nombre']+' '+info['apellido']});
+      }
+      else{
+        this.mostrarAlerta();
+      }
     },3000);
 
   }
