@@ -50,7 +50,7 @@ export class mysqlService{
   ValidarrUsuario(Usuario):Observable<any>
   {
     let data={
-      "key":"validarUsuario",
+      "key":"verificarExistenciaDeUsuarioPorCi",
       "ci":Usuario.carnet,
       "pass":Usuario.password
     };
