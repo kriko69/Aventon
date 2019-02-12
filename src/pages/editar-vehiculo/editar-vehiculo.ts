@@ -76,6 +76,6 @@ export class EditarVehiculoPage {
 
   irConductor()
   {
-    this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario,capacidad:this.auto.capacidad,placa:this.auto.id});
+    this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario,auto:this.auto});
   }
 }
