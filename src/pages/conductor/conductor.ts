@@ -36,22 +36,19 @@ export class ConductorPage {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
-    let email = navParams.get('email');//MODIFICADO PARA PASAR LOS PARAMETROS
-    let capacidad=navParams.get('capacidad');
-    let placaAuto = navParams.get('placa');
-    this.rootparamspage={email: email,capacidad:capacidad,placa:placaAuto};//MODIFICADO PARA PASAR LOS PARAMETROS
+    let id_usuario = navParams.get('id_usuario');//MODIFICADO PARA PASAR LOS PARAMETROS
+    let auto=navParams.get('auto');
+    this.rootparamspage={id_usuario: id_usuario,auto:auto};//MODIFICADO PARA PASAR LOS PARAMETROS
     this.tab1 = MarkadorPage;
     this.tab2 = ViajePage;
     this.tab3=BuzonPage;
     this.tab4=OpcionesConductorPage;
-    let rama=email.split('.');
     setTimeout(()=>{
-      let aux=email.split('.');
-        this.servicio.eliminarRutaActiva(aux[0]);
+        this.servicio.eliminarRutaActiva(id_usuario);
       },1000);
       let longi=[];
       let auuux:any;
-    this.subscription1=this.servicio.getCantidadSolicitudesRef(rama[0]).valueChanges().subscribe(
+    this.subscription1=this.servicio.getCantidadSolicitudesRef(id_usuario).valueChanges().subscribe(
       data=>{
         for( auuux of data){
           if(auuux.estado=='pendiente' || auuux.estado=='No Calificado')
@@ -68,8 +65,8 @@ export class ConductorPage {
   }
 
   ionViewDidLoad() {
-    let email = this.navParams.get('email');
-    console.log(email);
+    let id_usuario = this.navParams.get('id_usuario');
+    console.log(id_usuario);
   }
 
 }
