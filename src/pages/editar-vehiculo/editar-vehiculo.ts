@@ -43,13 +43,24 @@ export class EditarVehiculoPage {
 
   actualizar()
   {
-    let h=this.mysql.UpdateAutos(this.auto);
-    if (h["mensaje"]!=null || h["mensaje"]!=undefined || h["mensaje"]!='')
-    {
-      this.toast.show(` Vehiculo ${this.auto.marca} ${this.auto.placa} actualizado!`);
-        this.navCtrl.setRoot(VehiculoPage,{id_usuario: this.id_usuario});
-      console.log("se edito");
-    }
+    let info={};
+    this.mysql.UpdateAutos(this.auto).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+        }, (error: any)=> {
+          console.log('error', error);
+        }
+    );
+    setTimeout(()=>{
+      if (info["message"]=='OK')
+      {
+        this.toast.show(` Vehiculo ${this.auto.marca} ${this.auto.placa} actualizado!`);
+          this.navCtrl.setRoot(VehiculoPage,{id_usuario: this.id_usuario});
+        console.log("se edito");
+      }
+    },3000);
   }
 
   eliminar()
