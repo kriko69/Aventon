@@ -6,12 +6,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
 import { TipoUsuarioPage } from '../pages/tipo-usuario/tipo-usuario';
+import { AgregarVehiculosPage } from '../pages/agregar-vehiculos/agregar-vehiculos';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = LoginPage;
+  rootPage:any = AgregarVehiculosPage;
 
   pages: Array<{title: string, component: any}>;
 
