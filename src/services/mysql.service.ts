@@ -108,7 +108,19 @@ export class mysqlService{
     });
     //return info;*/
   }
-  GetAutos(Auto){}
+  GetAutos(id_usuario){
+    let info=new Array();
+    let data={
+      "key":"listarAutos",
+      "id":id_usuario
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
+    }
   UpdateAutos(Auto){}
   EliminarAuto(Auto){}
 }
