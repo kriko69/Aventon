@@ -27,7 +27,8 @@ export class AgregarVehiculosPage {
     marca:'',
     modelo:2000,
     placa:'',
-    estado:false
+    estado:false,
+    id_usuario:0
   };
   id_usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -36,7 +37,10 @@ export class AgregarVehiculosPage {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.id_usuario=navParams.get('id_usuario');
+    //this.id_usuario=navParams.get('id_usuario');
+    this.id_usuario=6139532;
+
+    this.auto.id_usuario=this.id_usuario;
   }
 
   ionViewDidLoad() {
@@ -61,7 +65,28 @@ export class AgregarVehiculosPage {
 
     setTimeout(()=>{
       console.log('info',info);
-      this.navCtrl.setRoot(VehiculoPage,{id_usuario:this.id_usuario});
+     // this.navCtrl.setRoot(VehiculoPage,{id_usuario:this.id_usuario});
+
+     info={};
+     this.mysql.Intermedia(this.auto).subscribe(
+       data => {
+         console.log('data', data);
+         info= Object.assign(data);
+         console.log('exito');
+ 
+ 
+         }, (error: any)=> {
+           console.log('error', error);
+ 
+         }
+     );
+ 
+     setTimeout(()=>{
+       console.log('info',info);
+      // this.navCtrl.setRoot(VehiculoPage,{id_usuario:this.id_usuario});
+     },3000);
+
+
     },3000);
 
 
