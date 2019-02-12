@@ -65,8 +65,6 @@ export class AgregarVehiculosPage {
 
     setTimeout(()=>{
       console.log('info',info);
-     // this.navCtrl.setRoot(VehiculoPage,{id_usuario:this.id_usuario});
-
      info={};
      this.mysql.Intermedia(this.auto).subscribe(
        data => {
@@ -83,11 +81,11 @@ export class AgregarVehiculosPage {
  
      setTimeout(()=>{
        console.log('info',info);
-      // this.navCtrl.setRoot(VehiculoPage,{id_usuario:this.id_usuario});
-     },3000);
+       this.navCtrl.setRoot(VehiculoPage,{id_usuario:this.id_usuario});
+     },2000);
 
 
-    },3000);
+    },2000);
 
 
   }
