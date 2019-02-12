@@ -112,7 +112,7 @@ export class mysqlService{
     let info=new Array();
     let data={
       "key":"listarAutos",
-      "id":id_usuario
+      "ci":id_usuario
     };
 
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
