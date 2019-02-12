@@ -135,6 +135,23 @@ export class mysqlService{
   
        return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
       }
-  UpdateAutos(Auto){}
+  UpdateAutos(Auto){
+    let info=new Array();
+    let data={
+      "key":"editarAuto",
+      "placa":Auto.placa,
+      "marca":Auto.marca,
+      "modelo":Auto.modelo,
+      "color":Auto.color,
+      "capacidad":Auto.capacidad,
+      "maletera":Auto.maletera
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/actualizar.php', opsi, header);
+    }
   EliminarAuto(Auto){}
 }
