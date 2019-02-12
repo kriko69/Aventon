@@ -30,9 +30,9 @@ export class VehiculoPage {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.id_usuario=6139532;
+    this.id_usuario=navParams.get('id_usuario');
     this.vehiculos$=this.mysql.GetAutos(this.id_usuario);
-    console.log(this.mysql.GetAutos(this.id_usuario));
+    console.log(this.vehiculos$);
     
   }
 
