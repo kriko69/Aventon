@@ -119,8 +119,22 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
+     return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
     }
+    Intermedia(auto){
+      let info=new Array();
+      let data={
+        "key":"intermedia",
+        "ci":auto.id_usuario,
+        "placa":auto.placa
+      };
+  
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+  
+       return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
+      }
   UpdateAutos(Auto){}
   EliminarAuto(Auto){}
 }
