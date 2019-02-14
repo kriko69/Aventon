@@ -44,15 +44,7 @@ export class Vestimenta1Page {
       data.zsombrero='No lleva sombrero ni gorra.';
     }
     data.zaccesorio=this.ace;
-
-    //estructurar tabla ruta activa aqui se debe ver donde acomodar la vestimenta
-    //yo pensaba una tabla relacion ruta activa-pasajeros y atributos llaves, vestimenta
-    //si piuntos es otra tabla como saber el orden?? 
-    //let aux=this.email.split('.');
-    //this.servicio.editPerfil(data,aux[0]);
-
-
-    this.navCtrl.setRoot(HomePasajeroPage,{id_usuario: this.id_usuario,latitud:this.latitud,longitud:this.longitud});
+   this.navCtrl.setRoot(HomePasajeroPage,{id_usuario: this.id_usuario,latitud:this.latitud,longitud:this.longitud,vestimenta:this.data});
   }
   dismiss(){
         
