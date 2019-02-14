@@ -23,7 +23,7 @@ export class Vestimenta1Page {
     zinferior:'',
     zaccesorio:''
   };
-  email;latitud;longitud;
+  id_usuario;latitud;longitud;
   isgorra=false;
   ace='No lleva ningun accesorio';
   constructor(public navCtrl: NavController, public navParams: NavParams,private platform:Platform,
@@ -33,7 +33,7 @@ export class Vestimenta1Page {
     },10000);
   this.latitud=this.navParams.get('latitud');
   this.longitud=this.navParams.get('longitud');
-  this.email=this.navParams.get('email');
+  this.id_usuario=this.navParams.get('id_usuario');
   }
 
   ionViewDidLoad() {
@@ -44,14 +44,20 @@ export class Vestimenta1Page {
       data.zsombrero='No lleva sombrero ni gorra.';
     }
     data.zaccesorio=this.ace;
-    let aux=this.email.split('.');
-    this.servicio.editPerfil(data,aux[0]);
-    this.navCtrl.setRoot(HomePasajeroPage,{email: this.email,latitud:this.latitud,longitud:this.longitud});
+
+    //estructurar tabla ruta activa aqui se debe ver donde acomodar la vestimenta
+    //yo pensaba una tabla relacion ruta activa-pasajeros y atributos llaves, vestimenta
+    //si piuntos es otra tabla como saber el orden?? 
+    //let aux=this.email.split('.');
+    //this.servicio.editPerfil(data,aux[0]);
+
+
+    this.navCtrl.setRoot(HomePasajeroPage,{id_usuario: this.id_usuario,latitud:this.latitud,longitud:this.longitud});
   }
   dismiss(){
         
     console.log(this.ace);
-    this.navCtrl.setRoot(PuntoRecogidaPage,{email: this.email});
+    this.navCtrl.setRoot(PuntoRecogidaPage,{id_usuario: this.id_usuario});
   }
   valor(acec){
     this.ace=acec;
