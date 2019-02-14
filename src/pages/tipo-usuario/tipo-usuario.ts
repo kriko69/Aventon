@@ -18,6 +18,7 @@ import { firebaseService } from '../../services/firebase.service';
 import { Usuario } from '../../interfaces/usuario.interface';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { PasajeroPage } from '../pasajero/pasajero';
+import { mysqlService } from '../../services/mysql.service';
 
 @IonicPage()
 @Component({
@@ -31,68 +32,52 @@ export class TipoUsuarioPage {
   info;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private afAuth:AngularFireAuth, private toast:ToastController,
-  private servicio: firebaseService, private db:AngularFireDatabase,private platform:Platform) {
+  private servicio: firebaseService, private db:AngularFireDatabase,private platform:Platform
+  ,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    //this.email = navParams.get('email');
-    //let aux= this.email.split('.');
     this.id_usuario = navParams.get('id_usuario');
     this.nombre_usuario = navParams.get('nombre_usuario');
     console.log('id:',this.id_usuario);
 
-    /*this.servicio.obtenerInicioSesion(aux[0]).valueChanges().subscribe(
-      (data)=>{
-        this.info=data;
-      }
-    );*/
-
   }
 
   ionViewDidLoad() {
-      /*console.log(this.email);
-    this.afAuth.authState.subscribe(data =>{
-      if(data.email && data.uid)
-      {
-        this.toast.create({
-          message:`bienvenido, ${data.email}`,
-          duration:3000
-        }).present();
-      }
-    });*/
     this.toast.create({
       message:`bienvenido, ${this.nombre_usuario}`,
       duration:3000
     }).present();
   }
   tipo='';
-  //data={correo:this.email,tipo:this.tipo};
   irConductor()
   {
-    /*let aux= this.email.split('.');
-    this.data.correo = this.email;
-    this.tipo='c';
-    this.data.tipo = this.tipo;
-    this.servicio.editC(this.data,aux);//poner c en el perfil de la base de datos
-
-    //console.log(this.info[5]);
-    this.info[6]++;
-    //console.log(this.info[5]);
-
-    this.servicio.editarInicioSesionConductor(aux[0],this.info[6]);*/
-
-    this.navCtrl.push(VehiculoPage,{tipo:'conductor',id_usuario: this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
+    this.cambiarTipo('C');
+    this.navCtrl.push(VehiculoPage,{id_usuario: this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
   }
   irPasajero()
   {
-   /* let aux= this.email.split('.');
-    this.data.correo = this.email;
-    this.tipo='p';
-    this.data.tipo = this.tipo;
-    this.servicio.editP(this.data,aux);//poner p en el perfil de la base de dato
-    this.info[7]++;
-    this.servicio.editarInicioSesionPasajero(aux[0],this.info[7]);
-    this.navCtrl.setRoot(PasajeroPage,{tipo:this.tipo,email: this.email});//MODIFICADO PARA PASAR LOS PARAMETROS*/
+    this.cambiarTipo('P');
+    this.navCtrl.setRoot(PasajeroPage,{id_usuario: this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS
+  }
+  cambiarTipo(tipo){
+    let info;
+    this.mysql.Tipo(this.id_usuario,tipo).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      console.log('info',info);
+    },3000);
   }
 
 

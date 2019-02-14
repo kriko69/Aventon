@@ -60,19 +60,23 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-    return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);/*.subscribe(
-      data => {
-        console.log('data',data);
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-    });
-    //return info;*/
+    return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
   }
-  
+  //Cambiar tipo
+  Tipo(id,tipo){
+    let info=new Array();
+    let data={
+      "key":"TipoUsuario",
+      "id":id,
+      "tipo":tipo
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/actualizar.php', opsi, header);
+   }
    //Autos
    AgregarAuto(Auto)
 
