@@ -23,14 +23,14 @@ export class PuntoRecogidaPage {
   markeraux:any;
   latOri  = -16.503720;
   longOri = -68.131247;
-  email='';
+  id_usuario='';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public geolocation: Geolocation,private platform:Platform,
     public alerta:AlertController) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email = this.navParams.get('email');
+    this.id_usuario = navParams.get('id_usuario');
   }
 
   ionViewDidLoad() {
@@ -69,7 +69,6 @@ export class PuntoRecogidaPage {
         let prohibido;
         let alert1=this.alerta;
         let control=this.navCtrl;
-        let correo=this.email;
         directionsService.route(request, function(result, status) {
           if (status == 'OK') {
             directionsDisplay.setDirections(result);
@@ -93,10 +92,10 @@ export class PuntoRecogidaPage {
               buttons: ['OK']
             });
             alert.present();
-            control.setRoot(PuntoRecogidaPage,{email:correo});
+            control.setRoot(PuntoRecogidaPage,{id_usuario:this.id_usuario});
           }
         });
-         this.navCtrl.setRoot(Vestimenta1Page,{email: this.email,latitud:latitud,longitud:longitud});
+         this.navCtrl.setRoot(Vestimenta1Page,{id_usuario:this.id_usuario,latitud:latitud,longitud:longitud});
        }
        posicion(){
         this.geolocation.getCurrentPosition().then((result) => {

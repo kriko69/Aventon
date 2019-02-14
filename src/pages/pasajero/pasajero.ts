@@ -29,8 +29,8 @@ export class PasajeroPage {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    let email = navParams.get('email');
-    this.rootparamspage={email: email};
+    let id_usuario = navParams.get('id_usuario');
+    this.rootparamspage={id_usuario: id_usuario};
     this.tab1 = PuntoRecogidaPage;
     this.tab2 = ReservaPasajeroPage;
     this.tab3=BuzonPasajeroPage;
