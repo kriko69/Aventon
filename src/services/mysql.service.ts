@@ -66,8 +66,8 @@ export class mysqlService{
   Tipo(id,tipo){
     let info=new Array();
     let data={
-      "key":"TipoUsuario",
-      "id":id,
+      "key":"editarUsuarioTipo",
+      "ci":id,
       "tipo":tipo
     };
 
