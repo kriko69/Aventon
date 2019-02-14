@@ -32,19 +32,7 @@ export class mysqlService{
 
 
 
-    return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);/*.subscribe(
-      data => {
-        console.log('data', data);
-
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-    });
-
-    //return info;*/
+    return this.http.post('http://181.114.114.160/aventon/Procesos/insertar.php', opsi, header);
   }
 
   ValidarrUsuario(Usuario)

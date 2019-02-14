@@ -31,7 +31,7 @@ export class RegistrarPage {
     apellido:'',
     pass1:'',
     fecha_nac:this.dameFecha(),
-    tipo:'',
+    tipo:'C',
     telf:0
   };
 
