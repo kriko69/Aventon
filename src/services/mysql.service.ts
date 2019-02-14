@@ -22,7 +22,8 @@ export class mysqlService{
       "nombre":Usuario.nombre,
       "apellido":Usuario.apellido,
       "fecha_nac":Usuario.fecha_nac,
-      "telf":Usuario.telf
+      "telf":Usuario.telf,
+      "tipo":Usuario.tipo
     };
 
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
@@ -31,7 +32,7 @@ export class mysqlService{
 
 
 
-    return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);/*.subscribe(
+    return this.http.post('http://181.114.114.160/aventon/Procesos/insertar.php', opsi, header);/*.subscribe(
       data => {
         console.log('data', data);
 
