@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams, ModalController, Platform } from '
 import { ISubscription } from 'rxjs/Subscription';
 import { ConfirmarllevadaPage } from '../confirmarllevada/confirmarllevada';
 import { PuntoRecogidaPage } from '../punto-recogida/punto-recogida';
+import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the HomePasajeroPage page.
@@ -19,36 +20,46 @@ import { PuntoRecogidaPage } from '../punto-recogida/punto-recogida';
   templateUrl: 'home-pasajero.html',
 })
 export class HomePasajeroPage {
-  email;
+  id_usuario;
+  vestimenta;
   latitud;
   longitud;
   viajes=[];
   rutas=[];
   data:any;
+  value='No se encontró';
   control1:ISubscription;
   constructor(public navCtrl: NavController, public navParams: NavParams,public modalCtrl:ModalController
-    ,public servicio:firebaseService,private platform:Platform) {
+    ,public servicio:firebaseService,private platform:Platform,public mysql:mysqlService) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
-    this.email=this.navParams.get('email');
+    this.id_usuario=this.navParams.get('id_usuario');
     this.latitud=this.navParams.get('latitud');
     this.longitud=this.navParams.get('longitud');
-    this.control1=this.servicio.getActivasRef().valueChanges().subscribe(
-      datas=>{
-      for(this.data of datas){
-        this.rutas.push(this.data);
-      }
-      }
+    this.vestimenta=this.navParams.get('vestimenta');
+    
+    this.mysql.listarRuta_viaje().subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+        this.rutas=Object.assign(data);
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
     );
     setTimeout(()=>{
-      this.control1.unsubscribe();
-      console.log("ROMAAAA",this.rutas);
-      this.viajes=[];
-      for(let i=0;i<this.rutas.length;i++){
-        this.distancia(this.rutas[i]);
-        console.log(i+': '+this.viajes);
+      console.log(this.rutas);
+      if(this.rutas['message']!=this.value){
+        this.value='Si se encontro';
       }
+      else{
+        this.rutas=[];
+      }
+      console.log(this.value);
+      
     },3000);
   }
 
@@ -68,7 +79,7 @@ export class HomePasajeroPage {
         long=Number(latlong[1]);
         distancia=this.getKilometros(this.latitud,this.longitud,lat,long);
         console.log('DISTANCIA: '+distancia);
-        if(distancia<=0.5 && data.email!=this.email){
+        if(distancia<=0.5 && data.ci!=this.id_usuario){
             this.viajes.push(data);
             break;
         }
@@ -87,11 +98,11 @@ export class HomePasajeroPage {
  return d.toFixed(3); //Retorna tres decimales
   }
   seleccion(data){
-    this.navCtrl.setRoot(ConfirmarllevadaPage,{data:data,email:this.email,latitud:this.latitud,longitud:this.longitud});
+    this.navCtrl.setRoot(ConfirmarllevadaPage,{data:data,id_usuario:this.id_usuario,latitud:this.latitud,longitud:this.longitud});
 
   }
   dismiss(){
-    this.navCtrl.setRoot(PuntoRecogidaPage,{email:this.email});
+    this.navCtrl.setRoot(PuntoRecogidaPage,{id_usuario:this.id_usuario});
   }
 
 }

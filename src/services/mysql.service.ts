@@ -158,4 +158,18 @@ export class mysqlService{
      return this.http.post('http://181.114.114.160/aventon/procesos/actualizar.php', opsi, header);
     }
   EliminarAuto(Auto){}
+
+  //Ruta_Viaje
+  listarRuta_viaje(){
+    let info=new Array();
+    let data={
+      "key":"listarRuta_viaje"
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+    }
 }
