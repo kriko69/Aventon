@@ -20,7 +20,7 @@
 
 <ion-content padding class="imagen">
     <ion-list>
-        <ion-list-header *ngIf="value!='No se encontró'">
+        <ion-list-header *ngIf="value">
             <strong>VEHÍCULOS</strong>
         </ion-list-header>
 
@@ -32,7 +32,7 @@
         </ion-item>
 
         <!--si hay veiculos-->
-        <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="value=='No se encontró'">
+        <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="!value">
             Usted no tiene vehículos.
         </ion-item>
 

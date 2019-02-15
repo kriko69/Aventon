@@ -22,7 +22,7 @@ import { mysqlService } from '../../services/mysql.service';
 export class VehiculoPage {
 
   vehiculos$;
-  value='No se encontró';
+  value;
   id_usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService,private platform:Platform,
@@ -31,6 +31,7 @@ export class VehiculoPage {
       console.log('');
     },10000);
     this.id_usuario=navParams.get('id_usuario');
+    console.log('id:',this.id_usuario);
 
     let info={};
     this.mysql.GetAutos(this.id_usuario).subscribe(
@@ -45,15 +46,16 @@ export class VehiculoPage {
         }
     );
     setTimeout(()=>{
-      this.vehiculos$=info;
-      console.log(this.vehiculos$);
-      if(this.vehiculos$['message']!=this.value){
-        this.value='Si se encontro';
+
+      if(info['message']=='No se encontró'){
+        this.value=false;
       }
       else{
-        this.vehiculos$=[];
+        this.value=true;
+        this.vehiculos$=info;
+        console.log(this.vehiculos$);
       }
-    },3000);    
+    },3000);
   }
 
   ionViewDidLoad() {
@@ -63,7 +65,7 @@ export class VehiculoPage {
   irAgregar()
   {
     this.navCtrl.push(AgregarVehiculosPage,{id_usuario:this.id_usuario});
-    
+
   }
 
   irEditar(auto)

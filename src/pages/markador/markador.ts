@@ -41,15 +41,17 @@ longUCB = -68.112290;
   markersArray = [];
   contador=0;
   markeraux:any;
+
+  id_usuario;
+  id_auto;
   constructor(public app:App,public navCtrl: NavController, public alerta:AlertController,public geolocation: Geolocation, public platform:Platform,
     public navParams:NavParams,public servicio:firebaseService,public modalCtrl:ModalController) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
-    this.email = this.navParams.get('email');
-    this.capacidad = this.navParams.get('capacidad');
-    this.placa=navParams.get('placa');
-    console.log(this.email+'/'+this.capacidad+'/'+this.placa);
+    this.id_usuario = this.navParams.get('id_usuario');
+    this.id_auto = this.navParams.get('id_auto');
+    console.log(this.id_usuario+'/'+this.id_auto);
 
   }
   ionViewDidLoad() { this.geolocation.getCurrentPosition().then((result) => {
@@ -388,7 +390,7 @@ longUCB = -68.112290;
           handler: data => {
               if(data.precio!=0)
               this.monto=Number(data.precio);
-              
+
               this.activarRuta();
           }
         },

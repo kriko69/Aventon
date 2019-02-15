@@ -94,6 +94,7 @@ export class mysqlService{
       "maletera":Auto.maletera
     };
 
+
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
@@ -116,7 +117,7 @@ export class mysqlService{
     let info=new Array();
     let data={
       "key":"listarAutos",
-      "ci":id_usuario
+      "ci":Number(id_usuario)
     };
 
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
@@ -125,18 +126,32 @@ export class mysqlService{
 
      return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
     }
-    Intermedia(auto){
+
+    ObtenerIdAuto(placa){
       let info=new Array();
       let data={
-        "key":"intermedia",
-        "ci":auto.id_usuario,
-        "placa":auto.placa
+        "key":"obtenerIdAuto",
+        "placa":placa
       };
-  
+
       let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
-  
+
+       return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+      }
+    Intermedia(id_usuario,id_auto){
+      let info=new Array();
+      let data={
+        "key":"intermedia",
+        "id_usuario":id_usuario,
+        "id_auto":id_auto
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
        return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
       }
   UpdateAutos(Auto){
@@ -148,7 +163,8 @@ export class mysqlService{
       "modelo":Auto.modelo,
       "color":Auto.color,
       "capacidad":Auto.capacidad,
-      "maletera":Auto.maletera
+      "maletera":Auto.maletera,
+      "id_auto":Number(Auto.id_auto)
     };
 
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
@@ -157,5 +173,17 @@ export class mysqlService{
 
      return this.http.post('http://181.114.114.160/aventon/procesos/actualizar.php', opsi, header);
     }
-  EliminarAuto(Auto){}
+  EliminarAuto(id_auto){
+    let info=new Array();
+      let data={
+        "key":"eliminarAuto",
+        "id_auto":id_auto
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+       return this.http.post('http://181.114.114.160/aventon/procesos/eliminar.php', opsi, header);
+  }
 }

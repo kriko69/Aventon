@@ -43,19 +43,7 @@ export class LoginPage {
 
     },4000);
   }
-  /*ionViewDidLoad() {
-    this.pla.ready().then(()=>{
 
-      this.afAuth.authState.subscribe(session=>{
-        if(session){
-          this.navCtrl.setRoot(TipoUsuarioPage);
-      }
-        else{
-          this.navCtrl.setRoot(LoginPage);
-        }
-      });
-    });
-  }*/
 
   irRegistro()
   {

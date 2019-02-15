@@ -37,8 +37,8 @@ export class ConductorPage {
         console.log('');
       },10000);
     let id_usuario = navParams.get('id_usuario');//MODIFICADO PARA PASAR LOS PARAMETROS
-    let auto=navParams.get('auto');
-    this.rootparamspage={id_usuario: id_usuario,auto:auto};//MODIFICADO PARA PASAR LOS PARAMETROS
+    let id_auto=navParams.get('id_auto');
+    this.rootparamspage={id_usuario: id_usuario,id_auto:id_auto};//MODIFICADO PARA PASAR LOS PARAMETROS
     this.tab1 = MarkadorPage;
     this.tab2 = ViajePage;
     this.tab3=BuzonPage;

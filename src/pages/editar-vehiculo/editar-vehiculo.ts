@@ -32,7 +32,7 @@ export class EditarVehiculoPage {
     this.id_usuario=this.navParams.get('id_usuario');
     this.auto=this.navParams.get('auto');
     console.log(this.id_usuario);
-    console.log('AUTO: '+this.auto.placa);
+    console.log('AUTO: '+this.auto.placa+' id: '+this.auto.id_auto);
 
 
   }
@@ -60,22 +60,25 @@ export class EditarVehiculoPage {
           this.navCtrl.setRoot(VehiculoPage,{id_usuario: this.id_usuario});
         console.log("se edito");
       }
-    },3000);
+    },1000);
   }
 
   eliminar()
   {
-    let h=this.mysql.EliminarAuto(this.auto);
-    if (h["mensaje"]!=null || h["mensaje"]!=undefined || h["mensaje"]!='')
-    {
-      this.toast.show(` Vehiculo ${this.auto.marca} ${this.auto.placa} eliminado!`);
+    this.mysql.EliminarAuto(Number(this.auto.id_auto)).subscribe(
+      data => {
+        console.log('data eliminar', data);
+        }, (error: any)=> {
+          console.log('error', error);
+        }
+    );
+    this.toast.show(` Vehiculo ${this.auto.marca} ${this.auto.placa} eliminado!`);
         this.navCtrl.setRoot(VehiculoPage,{id_usuario: this.id_usuario});
       console.log("se elimino");
-    }
   }
 
   irConductor()
   {
-    this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario,auto:this.auto});
+    this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario,id_auto:this.auto.id_auto});
   }
 }
