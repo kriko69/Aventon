@@ -1,3 +1,4 @@
+import { mysqlService } from './../../services/mysql.service';
 import { VerMiRutaPage } from './../ver-mi-ruta/ver-mi-ruta';
 import { rutaactiva } from './../../interfaces/rutactiva.service';
 import { firebaseService } from './../../services/firebase.service';
@@ -44,8 +45,10 @@ longUCB = -68.112290;
 
   id_usuario;
   id_auto;
+  nombre_ruta;
+  id_ruta;
   constructor(public app:App,public navCtrl: NavController, public alerta:AlertController,public geolocation: Geolocation, public platform:Platform,
-    public navParams:NavParams,public servicio:firebaseService,public modalCtrl:ModalController) {
+    public navParams:NavParams,public servicio:firebaseService,public modalCtrl:ModalController, public mysql:mysqlService) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
@@ -144,6 +147,9 @@ longUCB = -68.112290;
    }
    //funcion para guardar los datos
    guardar(data:Ruta){
+
+    console.log('puntos:: ',this.markersArray);
+
     this.presentPrompt();
   }
   //funcion para mostrar alerta de confirmacion pasando un string
@@ -165,11 +171,6 @@ longUCB = -68.112290;
           name: 'nombre',
           placeholder: 'Nombre',
           type: 'text'
-        },
-        {
-          name: 'precio',
-          placeholder: 'Precio',
-          type: 'number'
         }
       ],
       buttons: [
@@ -178,22 +179,51 @@ longUCB = -68.112290;
           handler: data => {
               console.log(data.nombre);
               if(data.nombre!='' && data.nombre!=null)
-              this.ruta.nombre=data.nombre;
-              if(data.precio!=0)
-              this.ruta.precio=Number(data.precio);
-              //this.email='roma@ucb.com';
-     let cadena='';
-     for(let i=0;i<this.contador;i++){
-      cadena=cadena+this.markersArray[i].getPosition().lat()+"/"+this.markersArray[i].getPosition().lng();
-      if(i!=this.contador-1)
-        cadena=cadena+';';
+              this.nombre_ruta=data.nombre;
+
+      console.log('nombre ruta:',this.nombre_ruta);
+
+     for(let i=0;i<this.markersArray.length;i++){
+       console.log('punto '+(i+1));
+
+      console.log(this.markersArray[i].getPosition().lat()+"/"+this.markersArray[i].getPosition().lng());
+
       }
-     this.ruta.puntos=cadena;
-     this.ruta.placa=this.placa;
-     this.ruta.correousuario=this.email;
-    let aux=this.email.split('.');
-    this.servicio.definirRutaRef(aux[0],this.ruta.nombre);
-    this.servicio.addRuta(this.ruta);
+      this.mysql.agregarRuta(Number(this.id_usuario),this.nombre_ruta).subscribe(
+        data=>{
+          console.log(data);
+          console.log('exito');
+        },(error)=>{
+          console.log(error);
+        }
+      );
+      setTimeout(()=>{
+        this.mysql.obtenerIdRuta(this.nombre_ruta).subscribe(
+          data=>{
+            console.log('id_ruta:',data);
+            this.id_ruta=data
+            console.log('exito');
+          },(error)=>{
+            console.log(error);
+          }
+        );
+        setTimeout(()=>{
+          for(let i=0;i<this.markersArray.length;i++){
+            let latitud=Number(this.markersArray[i].getPosition().lat());
+            let longitud=Number(this.markersArray[i].getPosition().lng());
+           console.log('punto: '+this.markersArray[i].getPosition().lat()+"/"+this.markersArray[i].getPosition().lng());
+            this.mysql.agregarPunto(this.id_ruta,latitud,longitud).subscribe(
+              data=>{
+                console.log('puntos:',data);
+                this.id_ruta=data
+                console.log('exito');
+              },(error)=>{
+                console.log(error);
+              }
+            );
+          }
+        },1000);
+      },1000);
     let text='Ruta guardada con exito!';
     this.mostrarAlerta(text); //alerta
     this.isenabled1=false;

@@ -52,8 +52,8 @@ export class BuzonPasajeroPage {
       console.log(this.value);
       //aqui se acomoda los puntos de parada
     },3000);
-    
-    
+
+
   }
 
   ionViewDidLoad() {
@@ -65,13 +65,13 @@ export class BuzonPasajeroPage {
   mostrar(solicitud)
   {
     console.log(solicitud);
-    
+
   }
   calif(obj)
   {
     this.navCtrl.push(HomePage,{id_usuario:this.id_usuario,obj:obj});
   }
-  activada(obj){
+  /*activada(obj){
     let fechahora=obj.fecha.split('|');
     let aux=this.email.split('.');
     let varia=aux[0]+fechahora[0]+fechahora[1];
@@ -89,9 +89,9 @@ export class BuzonPasajeroPage {
     this.suscrito1.unsubscribe();
     let latitud=diferentes[5];
     let longitud=diferentes[6];
-    
+
     var nav = this.app.getRootNav();
     nav.setRoot(VerRutaDesdePasajeroPage,{email:this.email,otro:obj.de+'.com',latitud:latitud,longitud:longitud});
     }, 1000);
-  }
+  }*/
 }

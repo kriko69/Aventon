@@ -177,6 +177,55 @@ export class mysqlService{
   }
 
 
+  agregarRuta(id_usuario,nombre_ruta)
+  {
+    let data={
+      "key":"agregarRuta",
+      "id_usuario":id_usuario,
+      "nombre_ruta":nombre_ruta
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
+  }
+
+
+  obtenerIdRuta(nombre_ruta)
+  {
+    let data={
+      "key":"obtenerIdRuta",
+      "nombre_ruta":nombre_ruta
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+  }
+
+  agregarPunto(id_ruta,latitud,longitud)
+  {
+    let data={
+      "key":"agregarPunto",
+      "id_ruta":id_ruta,
+      "latitud":latitud,
+      "longitud":longitud
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
+  }
+
+
+
+
   //Ruta_Viaje
   listarRuta_viaje(estado){
     let info=new Array();
@@ -200,11 +249,11 @@ export class mysqlService{
         "ci":ci,
         "estado":estado
       };
-  
+
       let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
-  
+
        return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
       }
 }
