@@ -22,7 +22,8 @@ export class mysqlService{
       "nombre":Usuario.nombre,
       "apellido":Usuario.apellido,
       "fecha_nac":Usuario.fecha_nac,
-      "telf":Usuario.telf
+      "telf":Usuario.telf,
+      "tipo":Usuario.tipo
     };
 
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
@@ -31,19 +32,7 @@ export class mysqlService{
 
 
 
-    return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);/*.subscribe(
-      data => {
-        console.log('data', data);
-
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-    });
-
-    //return info;*/
+    return this.http.post('http://181.114.114.160/aventon/Procesos/insertar.php', opsi, header);
   }
 
   ValidarrUsuario(Usuario)
@@ -186,4 +175,19 @@ export class mysqlService{
 
        return this.http.post('http://181.114.114.160/aventon/procesos/eliminar.php', opsi, header);
   }
+
+
+  //Ruta_Viaje
+  listarRuta_viaje(){
+    let info=new Array();
+    let data={
+      "key":"listarRuta_viaje"
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+    }
 }

@@ -23,30 +23,16 @@ import { mysqlService } from '../../services/mysql.service';
 })
 export class RegistrarPage {
 
-  data:Usuario={
-    califconduc:0,
-    califpasa:0,
-    carnet:0,
-    correo:'',
-    nombre:'',
-    apellido:'',
-    pass1:'',
-    tipo:'',
-    lat:0,
-    long:0,
-    inicioSesionConductor:0,
-    inicioSesionPasajero:0,
-    viajesRealizadosConductor:0,
-    viajesRealizadosPasajero:0
-  };
+
 
   dataMYSQL={
     carnet:0,
     nombre:'',
     apellido:'',
     pass1:'',
-    fecha_nac:'2018-02-02',
-    telf:22244455
+    fecha_nac:this.dameFecha(),
+    tipo:'C',
+    telf:0
   };
 
 
@@ -67,15 +53,6 @@ export class RegistrarPage {
   {
     let info={};
     console.log(Usuario);
-    /*let stringToSplit = data.correo;//split el correo porel punto
-    let x = stringToSplit.split(".");
-    this.servicio.definirUsusarioRef(x[0]); //defino nombre de rama
-    this.servicio.add(data).then(ref=>{ //agrego
-      //si se tiene exito
-      this.registrarAuth();
-      this.mostrarAlerta(); //alerta
-      this.navCtrl.push(LoginPage); //redirigir login
-    })*/
 
     this.mysql.AgregarUsuario(Usuario).subscribe(
       data => {
@@ -97,19 +74,6 @@ export class RegistrarPage {
 
   }
 
-  async registrarAuth()
-  {
-    try {
-      const resultado = await this.afAauth.auth.createUserWithEmailAndPassword(this.data.correo,this.data.pass1);
-      console.log(resultado);
-
-
-    } catch (error) {
-      console.log(error);
-
-    }
-  }
-
   mostrarAlerta() {
     const alert = this.alerta.create({
       title: 'Registrado exitoso!',
@@ -118,5 +82,14 @@ export class RegistrarPage {
     });
     alert.present();
   }
+  dameFecha()
+  {
+    let hoy = new Date();
+    let dd = hoy.getDate();
+    let mm = hoy.getMonth()+1;
+    let yyyy = hoy.getFullYear();
+    let date=yyyy+'-'+mm+'-'+dd;
 
+    return date;
+  }
 }

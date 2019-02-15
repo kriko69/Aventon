@@ -28,9 +28,15 @@
             <ion-input type="number" [(ngModel)]="dataMYSQL.carnet"></ion-input>
         </ion-item>
         <ion-item class="inputcolor" style="margin-top:0.5em">
-            <ion-label stacked color="dark">Correo</ion-label>
-            <ion-input type="email" [(ngModel)]="data.correo"></ion-input>
+            <ion-label stacked color="dark">Telefono</ion-label>
+            <ion-input type="number" [(ngModel)]="dataMYSQL.telf"></ion-input>
         </ion-item>
+
+        <ion-item>
+            <ion-label>Fecha de Nacimiento</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="dataMYSQL.fecha_nac"></ion-datetime>
+        </ion-item>
+
         <ion-item class="inputcolor" style="margin-top:0.5em">
             <ion-label stacked color="dark">Password</ion-label>
             <ion-input type="password" [(ngModel)]="dataMYSQL.pass1"></ion-input>
