@@ -30,7 +30,7 @@ export class BuzonPasajeroPage {
     },10000);
     this.id_usuario=this.navParams.get('id_usuario');
 
-     this.mysql.listarSolicitudes(this.id_usuario,'todo').subscribe(
+     this.mysql.listarSolicitudesPasajero(this.id_usuario,'todo').subscribe(
       data => {
         console.log('data',data);
         console.log('exito');
@@ -43,14 +43,13 @@ export class BuzonPasajeroPage {
     );
     setTimeout(()=>{
       console.log(this.solicitudes);
-      if(this.solicitudes['message']!=this.value){
+     /* if(this.solicitudes['message']!=this.value){
         this.value='Si se encontro';
       }
       else{
         this.solicitudes=[];
       }
-      console.log(this.value);
-      //aqui se acomoda los puntos de parada
+      console.log(this.value);*/
     },3000);
 
 

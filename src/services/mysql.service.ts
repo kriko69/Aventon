@@ -273,10 +273,10 @@ export class mysqlService{
     }
 
     //Solicitudes
-    listarSolicitudes(ci,estado){
+    listarSolicitudesPasajero(ci,estado){
       let info=new Array();
       let data={
-        "key":"listarSolicitudes",
+        "key":"listarSolicitudesPasajero",
         "ci":ci,
         "estado":estado
       };
