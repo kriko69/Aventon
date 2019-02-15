@@ -4,6 +4,7 @@ import { firebaseService } from '../../services/firebase.service';
 import { ISubscription } from "rxjs/Subscription";
 import{HomePage} from '../home/home';
 import { VerRutaDesdePasajeroPage } from '../ver-ruta-desde-pasajero/ver-ruta-desde-pasajero';
+import { mysqlService } from '../../services/mysql.service';
 /**
  * Generated class for the BuzonPasajeroPage page.
  *
@@ -18,26 +19,39 @@ import { VerRutaDesdePasajeroPage } from '../ver-ruta-desde-pasajero/ver-ruta-de
 })
 export class BuzonPasajeroPage {
 
-  email;
+  id_usuario;
   suscrito1:ISubscription;
-  rama;
   solicitudes=[];
+  value='No se encontró';
   constructor(public app:App,public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService,private platform:Platform) {
+  public servicio:firebaseService,private platform:Platform,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email=this.navParams.get('email');
-    this.rama=this.email.split('.');
-    console.log(this.rama[0]);
+    this.id_usuario=this.navParams.get('id_usuario');
 
-    this.servicio.getMisSolicitudesRef(this.rama[0]).valueChanges().subscribe(
-      info=>{
-        this.solicitudes=info;
-        console.log(info);
-        
-      }
+     this.mysql.listarSolicitudes(this.id_usuario,'todo').subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+        this.solicitudes=Object.assign(data);
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
     );
+    setTimeout(()=>{
+      console.log(this.solicitudes);
+      if(this.solicitudes['message']!=this.value){
+        this.value='Si se encontro';
+      }
+      else{
+        this.solicitudes=[];
+      }
+      console.log(this.value);
+      //aqui se acomoda los puntos de parada
+    },3000);
     
     
   }
@@ -55,7 +69,7 @@ export class BuzonPasajeroPage {
   }
   calif(obj)
   {
-    this.navCtrl.push(HomePage,{email:this.email,obj:obj,rama:this.rama});
+    this.navCtrl.push(HomePage,{id_usuario:this.id_usuario,obj:obj});
   }
   activada(obj){
     let fechahora=obj.fecha.split('|');
