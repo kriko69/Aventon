@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams, ModalController, Platform } from '
 import { VerProgramadasPasajeroPage } from '../ver-programadas-pasajero/ver-programadas-pasajero';
 import { firebaseService } from '../../services/firebase.service';
 import { OpcionReservaPage } from '../opcion-reserva/opcion-reserva';
+import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the ReservaPasajeroPage page.
@@ -20,29 +21,39 @@ import { OpcionReservaPage } from '../opcion-reserva/opcion-reserva';
 })
 export class ReservaPasajeroPage {
 
-  email;
-  rama;
+  id_usuario;
   solicitudes=[];
-  aux;
+  value='No se encontró';
   constructor(public navCtrl: NavController, public navParams: NavParams,public modal:ModalController,
-  public servicio:firebaseService,private platform:Platform) {
+  public servicio:firebaseService,private platform:Platform,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email=this.navParams.get('email');
-    console.log(this.email);
-    this.rama=this.email.split('.');
-    this.servicio.getMisSolicitudesRef(this.rama[0]).valueChanges().subscribe(
-      data=>{
-        for(this.aux of data)
-        {
-          if(this.aux.estado=='aceptado')
-          {
-            this.solicitudes.push(this.aux);
-          }
+    this.id_usuario=this.navParams.get('id_usuario');
+
+
+    this.mysql.listarSolicitudes(this.id_usuario,'aceptada').subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+        this.solicitudes=Object.assign(data);
+
+        }, (error: any)=> {
+          console.log('error', error);
+
         }
-      }
     );
+    setTimeout(()=>{
+      console.log(this.solicitudes);
+      if(this.solicitudes['message']!=this.value){
+        this.value='Si se encontro';
+      }
+      else{
+        this.solicitudes=[];
+      }
+    },3000);
+
+
   }
 
   ionViewDidLoad() {
@@ -50,10 +61,10 @@ export class ReservaPasajeroPage {
   }
 
   irProgramadas() {
-    this.navCtrl.setRoot(PuntoRecogidaReservaPage,{email:this.email});
+    this.navCtrl.setRoot(PuntoRecogidaReservaPage,{id_usuario:this.id_usuario});
   }
   irOpcionreserva(reserva:any){
     
-    this.navCtrl.push(OpcionReservaPage,{email:this.email,reserva:reserva});
+    this.navCtrl.push(OpcionReservaPage,{id_usuario:this.id_usuario,reserva:reserva});
   }
 }
