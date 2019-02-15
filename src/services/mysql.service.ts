@@ -23,7 +23,9 @@ export class mysqlService{
       "apellido":Usuario.apellido,
       "fecha_nac":Usuario.fecha_nac,
       "telf":Usuario.telf,
-      "tipo":Usuario.tipo
+      "tipo":Usuario.tipo,
+      "calif_pasa":Usuario.calif_pasa,
+      "calif_cond":Usuario.calif_cond
     };
 
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),

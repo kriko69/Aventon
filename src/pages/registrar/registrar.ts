@@ -32,7 +32,9 @@ export class RegistrarPage {
     pass1:'',
     fecha_nac:'',
     tipo:'',
-    telf:0
+    telf:0,
+    calif_pasa:0,
+    calif_cond:0
   };
 
   submitAttempt: boolean = false;
@@ -109,6 +111,8 @@ export class RegistrarPage {
 
     setTimeout(()=>{
       console.log('info',info);
+      this.mostrarAlerta();
+      this.navCtrl.push(LoginPage);
     },3000);
 
 
