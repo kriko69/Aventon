@@ -45,10 +45,10 @@
             </ion-item>
           <ion-item class="inputcolor" style="margin-top:0.5em">
               <ion-label stacked color="dark">Telefono</ion-label>
-              <ion-input type="number" formControlName="telefono"></ion-input>
+              <ion-input type="number" formControlName="telf"></ion-input>
           </ion-item>
-          <ion-item *ngIf="myForm.get('telefono').errors && myForm.get('telefono').dirty">
-              <p color="danger" ion-text *ngIf="myForm.get('telefono').hasError('required')">*Campo requerido</p>
+          <ion-item *ngIf="myForm.get('telf').errors && myForm.get('telf').dirty">
+              <p color="danger" ion-text *ngIf="myForm.get('telf').hasError('required')">*Campo requerido</p>
             </ion-item>
         
         <ion-item class="inputcolor" style="margin-top:0.5em">

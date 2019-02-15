@@ -71,6 +71,7 @@ export class BuzonPasajeroPage {
   {
     this.navCtrl.push(HomePage,{id_usuario:this.id_usuario,obj:obj});
   }
+  /*
   activada(obj){
     let fechahora=obj.fecha.split('|');
     let aux=this.email.split('.');
@@ -93,5 +94,5 @@ export class BuzonPasajeroPage {
     var nav = this.app.getRootNav();
     nav.setRoot(VerRutaDesdePasajeroPage,{email:this.email,otro:obj.de+'.com',latitud:latitud,longitud:longitud});
     }, 1000);
-  }
+  }*/
 }
