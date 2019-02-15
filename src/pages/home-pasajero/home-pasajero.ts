@@ -39,7 +39,7 @@ export class HomePasajeroPage {
     this.longitud=this.navParams.get('longitud');
     this.vestimenta=this.navParams.get('vestimenta');
     
-    this.mysql.listarRuta_viaje().subscribe(
+    this.mysql.listarRuta_viaje('activa').subscribe(
       data => {
         console.log('data',data);
         console.log('exito');
@@ -59,7 +59,7 @@ export class HomePasajeroPage {
         this.rutas=[];
       }
       console.log(this.value);
-      
+      //aqui se acomoda los puntos de parada
     },3000);
   }
 
