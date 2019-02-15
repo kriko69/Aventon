@@ -21,52 +21,22 @@ import { EditarPasajeroPage } from '../editar-pasajero/editar-pasajero';
 export class PerfilPasajeroPage {
 
 
-  email='';
-  tipo='';
-  rama;
-  value;
-  data:Usuario={  };
-  info:any;
-  user=[];
-  vehiculos=[];
-  control:ISubscription;
+  usuario='';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public app:App,
     public servicio: firebaseService,private platform:Platform) {
       this.platform.registerBackButtonAction(() => {
-        console.log('');
       },10000);
-    this.email = navParams.get('email');
-    this.rama = this.email.split('.');
-    console.log('la rama: '+this.rama[0]);
-
-    this.control = this.servicio.getUser(this.rama[0]).valueChanges().subscribe( // variable para agarrar la rama
-      (datas)=>{
-        console.log(datas);
-        this.user=datas;
-      },
-      (error)=>{
-        console.log('problems',error);
-      }
-    );
-
-    setTimeout(
-      ()=>{
-        this.control.unsubscribe();
-      },3000
-    );
+    this.usuario = navParams.get('usuario');
+    console.log(this.usuario);
   }
 
   ionViewDidLoad() {
-    console.log(this.email);
   }
   editPerfil()
   {
-
-    let aux= this.email.split('.');
-    this.data.correo = this.email;
     var nav = this.app.getRootNav();
-    nav.setRoot(EditarPasajeroPage,{email: this.email});//MODIFICADO PARA PASAR LOS PARAMETROS
+    nav.setRoot(EditarPasajeroPage,{usuario: this.usuario});//MODIFICADO PARA PASAR LOS PARAMETROS
   }
 
 

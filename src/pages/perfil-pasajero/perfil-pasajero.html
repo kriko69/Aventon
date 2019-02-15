@@ -11,26 +11,29 @@
     <ion-list #pc>
         <ion-item>
             <ion-label stacked>Nombre</ion-label>
-            <ion-input disabled="true" type="text" [(ngModel)]="user[9]"></ion-input>
+            <ion-input disabled="true" type="text" [(ngModel)]="usuario.nombre"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label stacked>Apellido</ion-label>
-            <ion-input disabled="true" type="text" [(ngModel)]="user[0]"></ion-input>
+            <ion-input disabled="true" type="text" [(ngModel)]="usuario.apellido"></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label stacked>Carnet</ion-label>
-            <ion-input disabled="true" type="text" [(ngModel)]="user[3]"></ion-input>
+            <ion-input disabled="true" type="text" [(ngModel)]="usuario.ci"></ion-input>
         </ion-item>
 
         <ion-item>
-            <ion-label stacked color="dark">Correo</ion-label>
-            <ion-input disabled="true" type="text" [(ngModel)]="user[4]"></ion-input>
+            <ion-label stacked color="dark">Telefono</ion-label>
+            <ion-input disabled="true" type="text" [(ngModel)]="usuario.telf"></ion-input>
         </ion-item>
-
+        <ion-item>
+            <ion-label stacked color="dark">Fecha de nacimiento</ion-label>
+            <ion-datetime disabled="true" displayFormat="DD/MM/YYYY" [(ngModel)]="usuario.fecha_nac"></ion-datetime>
+          </ion-item>
         <ion-item>
             <ion-label stacked color="dark">Calificacion Pasajero</ion-label>
-            <ion-input disabled="true" type="text" [(ngModel)]="user[2]"></ion-input>
+            <ion-input disabled="true" type="text" [(ngModel)]="usuario.calif_pasa"></ion-input>
         </ion-item>
 
         <button ion-button round block color=primary (click)="editPerfil()">Editar Datos de Perfil</button>

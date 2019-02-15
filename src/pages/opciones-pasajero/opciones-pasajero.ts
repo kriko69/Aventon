@@ -5,6 +5,7 @@ import { LoginPage } from '../login/login';
 import { firebaseService } from '../../services/firebase.service';
 import { Usuario } from '../../interfaces/usuario.interface';
 import { PerfilPasajeroPage } from '../perfil-pasajero/perfil-pasajero';
+import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the OpcionesPasajeroPage page.
@@ -21,44 +22,88 @@ import { PerfilPasajeroPage } from '../perfil-pasajero/perfil-pasajero';
 export class OpcionesPasajeroPage {
   @ViewChild(Nav) nav: Nav;
   
-  email='';
-  tipo='';
-  data:Usuario={};
+  id_usuario;
+  usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public servicio: firebaseService, public app:App,private platform:Platform) {
+    public servicio: firebaseService, public app:App,private platform:Platform
+    ,public mysql:mysqlService) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
-    this.email = navParams.get('email');
-    this.tipo = navParams.get('tipo');
+    this.id_usuario = navParams.get('id_usuario');
+      let info;
+    this.mysql.GetUsuario(this.id_usuario).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      this.usuario=info;
+      console.log(this.usuario[0]);
+      
+    },3000);
   }
 
   ionViewDidLoad() {
-    console.log(this.email);
+    console.log(this.id_usuario);
   }
   irPerfil()
   {
-    this.navCtrl.push(PerfilPasajeroPage,{email: this.email});
+    this.navCtrl.push(PerfilPasajeroPage,{usuario:this.usuario[0]});
   }
   cambiarUsuario()
   {
-    let aux= this.email.split('.');
-    this.data.correo = this.email;
-    this.tipo='c';
-    this.data.tipo = this.tipo;
-    this.servicio.editP(this.data,aux);//poner p en el perfil de la base de datos
-    var nav = this.app.getRootNav();
-    nav.setRoot(TipoUsuarioPage ,{tipo:this.tipo,email: this.email});//MODIFICADO PARA PASAR LOS PARAMETROS
+    let info;
+    this.mysql.Tipo(this.id_usuario,'').subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      console.log('info',info);
+      var nav = this.app.getRootNav();
+      let nom=this.usuario[0].nombre+' '+this.usuario[0].apellido;
+      nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario,nombre_usuario:nom});
+    },3000);
   }
   CerrarSesion()
   {
-    let aux= this.email.split('.');
-    this.data.correo = this.email;
-    this.tipo='';
-    this.data.tipo = this.tipo;
-    this.servicio.editP(this.data,aux);//poner p en el perfil de la base de datos
-    var nav = this.app.getRootNav();
-    nav.setRoot(LoginPage);//MODIFICADO PARA PASAR LOS PARAMETROS
+    let info;
+    this.mysql.Tipo(this.id_usuario,'').subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      console.log('info',info);
+      var nav = this.app.getRootNav();
+    nav.setRoot(LoginPage);
+    },3000);
+    
   }
 
 }

@@ -51,6 +51,35 @@ export class mysqlService{
 
     return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
   }
+  GetUsuario(ci){
+    let data={
+      "key":"obtenerUsuario",
+      "ci":ci
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+    return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+  }
+  EditarUser(usuario){
+    let info=new Array();
+    let data={
+      "key":"editarUsuario",
+      "ci":usuario.ci,
+      "nombre":usuario.nombre,
+      "apellido":usuario.apellido,
+      "telf":usuario.telf,
+      "fecha_nac":usuario.fecha_nac
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/actualizar.php', opsi, header);
+   }
   //Cambiar tipo
   Tipo(id,tipo){
     let info=new Array();

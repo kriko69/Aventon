@@ -6,6 +6,8 @@ import { Usuario } from '../../interfaces/usuario.interface';
 import { ISubscription } from 'rxjs/Subscription';
 import { firebaseService } from '../../services/firebase.service';
 import { PasajeroPage } from '../pasajero/pasajero';
+import { mysqlService } from '../../services/mysql.service';
+import { ToastService } from '../../services/toast.service';
 
 /**
  * Generated class for the EditarPasajeroPage page.
@@ -31,33 +33,17 @@ export class EditarPasajeroPage {
   lista;
   user=[];
   info:any;
+
+
+  usuario;
   control:ISubscription;
    constructor(public navCtrl: NavController, public navParams: NavParams, public servicio:firebaseService
-    ,public alerta:AlertController, public database: AngularFireDatabase,private platform:Platform) {
+    ,public alerta:AlertController, public database: AngularFireDatabase,private platform:Platform,
+    public mysql:mysqlService,public toast:ToastService) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
-      this.email = navParams.get('email');
-      this.x=this.email.split('.');
-      console.log(this.x[0]);
-
-      //this.servicio.definirUsusarioRef(); //defino nombre de rama
-
-      this.control = this.servicio.getUser(this.x[0]).valueChanges().subscribe( // variable para agarrar la rama
-        (datas)=>{
-          console.log(datas);
-          this.user=datas;
-        },
-        (error)=>{
-          console.log('problems',error);
-        }
-      );
-
-      setTimeout(
-        ()=>{
-          this.control.unsubscribe();
-        },3000
-      );
+      this.usuario = navParams.get('usuario');
     }
 
     ionViewDidLoad(){
@@ -65,18 +51,21 @@ export class EditarPasajeroPage {
 
     actualizarPerfil(user)//funcion para actializar el perfil
       {
-        let aux= this.email.split('.');
-      console.log(aux[0]);
-       this.data.nombre=this.user[9];
-       this.data.apellido=this.user[0];
-       this.data.carnet=this.user[3];
-       this.servicio.editPerfil(this.data,aux[0]).then(ref=>{ //agrego
-        //si se tiene exito
-        this.user=[];
+        let info={};
+    this.mysql.EditarUser(this.usuario).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+        }, (error: any)=> {
+          console.log('error', error);
+        }
+    );
+    setTimeout(()=>{
         this.mostrarAlerta(); //alerta
-        this.navCtrl.setRoot(PasajeroPage,{email:this.email}); //redirigir login
-      });
-
+        this.navCtrl.setRoot(PasajeroPage,{id_usuario:this.usuario.ci}); //redirigir login
+      
+    },1000);
     }
 
 

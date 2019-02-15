@@ -71,12 +71,9 @@ export class BuzonPasajeroPage {
   {
     this.navCtrl.push(HomePage,{id_usuario:this.id_usuario,obj:obj});
   }
-<<<<<<< HEAD
   /*activada(obj){
-=======
   /*
   activada(obj){
->>>>>>> 3f8531c22366f4689a67d83c6fd43cd22011807e
     let fechahora=obj.fecha.split('|');
     let aux=this.email.split('.');
     let varia=aux[0]+fechahora[0]+fechahora[1];
