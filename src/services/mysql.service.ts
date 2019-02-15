@@ -254,7 +254,35 @@ export class mysqlService{
      return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
   }
 
+  listarRutas(id_usuario){
+    let info=new Array();
+    let data={
+      "key":"listarRutas",
+      "id_usuario":Number(id_usuario)
+    };
 
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+    }
+
+    obtenerPuntosDeRuta(nombre_ruta,id_usuario)
+    {
+      let info=new Array();
+      let data={
+        "key":"listarPuntos",
+        "id_usuario":Number(id_usuario),
+        "nombre_ruta":nombre_ruta
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+      return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+    }
 
 
   //Ruta_Viaje

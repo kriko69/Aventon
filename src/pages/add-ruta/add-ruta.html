@@ -19,8 +19,8 @@
 
 <ion-content padding class="imagen">
     <ion-list>
-        <ion-item *ngFor="let vecs of vec | async">
-            <p (click)="submit(vecs.puntos)">{{vecs.nombre}}</p>
+        <ion-item *ngFor="let vecs of vec">
+            <p (click)="submit(vecs.nombre)">{{vecs.nombre}}</p>
         </ion-item>
     </ion-list>
 </ion-content>

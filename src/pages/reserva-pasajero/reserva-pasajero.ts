@@ -32,7 +32,7 @@ export class ReservaPasajeroPage {
     this.id_usuario=this.navParams.get('id_usuario');
 
 
-    this.mysql.listarSolicitudes(this.id_usuario,'aceptada').subscribe(
+    this.mysql.listarSolicitudesPasajero(this.id_usuario,'aceptada').subscribe(
       data => {
         console.log('data',data);
         console.log('exito');
@@ -64,7 +64,7 @@ export class ReservaPasajeroPage {
     this.navCtrl.setRoot(PuntoRecogidaReservaPage,{id_usuario:this.id_usuario});
   }
   irOpcionreserva(reserva:any){
-    
+
     this.navCtrl.push(OpcionReservaPage,{id_usuario:this.id_usuario,reserva:reserva});
   }
 }

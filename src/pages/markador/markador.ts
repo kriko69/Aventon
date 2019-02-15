@@ -238,35 +238,38 @@ longUCB = -68.112290;
     console.log(alert);
   }
   seleccinaRuta(){
-    let modal=this.modalCtrl.create(AddRutaPage,{datos:this.email});
+    let modal=this.modalCtrl.create(AddRutaPage,{id_usuario:this.id_usuario});
     modal.present();
-    console.log(this.email);
     modal.onDidDismiss(data=>{
       if(data){
         this.recargar(data);
       }
     });
   }
+  cambiar(valor:string)
+  {
+    let aux1,aux2;
+    aux1=valor.substring(0,3);
+    aux2=valor.substr(3,valor.length);
+    return aux1+'.'+aux2;
+  }
   recargar(points:any){
     this.markersArray=[];
-    let latlon=points.split(';');
-    let aux:any;
-    console.log(latlon);
-    let puntos=latlon.length;
-    console.log(puntos);
-    for(let i=0;i<puntos;i++)
+
+    let latitud,longitud;
+    for(let i=0;i<points.length;i++)
     {
-      aux=latlon[i];
-      let partida=aux.split('/');
-      this.markeraux = new google.maps.Marker({position: {lat: Number(partida[0]), lng: Number(partida[1])},map: this.map,draggable: false});
-      console.log(Number(partida[0])+'/'+Number(partida[1]));
-      if(i!=0 && i!=puntos-1){
+      latitud=Number(this.cambiar(points[i].latitud));
+      longitud=Number(this.cambiar(points[i].longitud));
+      this.markeraux = new google.maps.Marker({position: {lat: latitud, lng: longitud},map: this.map,draggable: false});
+      console.log(latitud+'/'+longitud);
+      if(i!=0 && i!=points.length-1){
         this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
       }
       this.markersArray.push(this.markeraux);
     }
     let arrayaux=[];
-    for(let i=0;i<puntos;i++)
+    for(let i=0;i<points.length;i++)
     {
       arrayaux[i]=this.markersArray[i];
     }
@@ -281,7 +284,7 @@ longUCB = -68.112290;
       zoom:15
     });
     let waypts=[];
-    for(let i=0;i<puntos;i++){
+    for(let i=0;i<points.length;i++){
     waypts.push({
       location: this.markersArray[i].getPosition(),
       stopover: false
@@ -289,7 +292,7 @@ longUCB = -68.112290;
     console.log(waypts);
     directionsDisplay.setMap(this.map);
      var start = this.markersArray[0].getPosition();
-     var end = this.markersArray[puntos-1].getPosition();
+     var end = this.markersArray[points.length-1].getPosition();
      var request = {
       origin: start,
       destination: end,
@@ -303,16 +306,16 @@ longUCB = -68.112290;
         window.alert('Directions request failed due to ' + status);
       }
     });
-    for(let i=1;i<puntos-1;i++){
+    for(let i=1;i<points.length-1;i++){
       this.markersArray[i].setMap(this.map);
     }
     let text='Ruta generada con exito!';
     this.mostrarAlerta(text); //alerta
-    for(let i=0;i<puntos;i++)
+    for(let i=0;i<points.length;i++)
     {
       this.markersArray[i]=arrayaux[i];
     }
-    this.contador=puntos;
+    this.contador=points.length;
     this.isenabled=false;
     this.isenabled1=true;
     this.isenabled2=false;
