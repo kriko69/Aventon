@@ -14,29 +14,50 @@
 
 
 <ion-content padding class="imagen">
-    <ion-item>
-        <ion-label stacked color="dark">Capacidad</ion-label>
-        <ion-input placeholder="4" type="number" [(ngModel)]="auto.capacidad"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label stacked color="dark">Color</ion-label>
-        <ion-input placeholder="Negro" type="text" [(ngModel)]="auto.color"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label stacked color="dark">Marca</ion-label>
-        <ion-input placeholder="Toyota" type="text" [(ngModel)]="auto.marca"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label stacked color="dark">Modelo</ion-label>
-        <ion-input placeholder="2004" type="number" [(ngModel)]="auto.modelo"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label stacked color="dark">Placa</ion-label>
-        <ion-input placeholder="1234-ABC" type="text" [(ngModel)]="auto.placa"></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label>Maletera</ion-label>
-        <ion-checkbox color="primary" [(ngModel)]="auto.maletera"></ion-checkbox>
-    </ion-item>
-    <button ion-button color="danger" block style="margin-top:25px;" (click)="agregar()">Agregar <ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
+    <form [formGroup]="myForm">
+
+        <ion-item class="inputcolor">
+            <ion-label stacked color="dark">Capacidad</ion-label>
+            <ion-input type="number" formControlName="capacidad"  name="capacidad" ></ion-input>
+        </ion-item>
+        <ion-item *ngIf="myForm.get('capacidad').errors && myForm.get('capacidad').dirty">
+            <p color="danger" ion-text *ngIf="myForm.get('capacidad').hasError('required')">*Campo requerido</p>
+            <p color="danger" ion-text *ngIf="myForm.controls['capacidad'].hasError('maxlength')">*Un vehiculo no puede tener más de 9 espacios</p>
+        </ion-item>
+        <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-label stacked color="dark">Color</ion-label>
+            <ion-input type="text" formControlName="color" name="color"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="myForm.get('color').errors && myForm.get('color').dirty">
+                <p color="danger" ion-text *ngIf="myForm.get('color').hasError('required')">*Campo requerido</p>
+        </ion-item>
+        <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-label stacked color="dark">Marca</ion-label>
+            <ion-input type="text" formControlName="marca" name="marca"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="myForm.get('marca').errors && myForm.get('marca').dirty">
+                <p color="danger" ion-text *ngIf="myForm.get('marca').hasError('required')">*Campo requerido</p>
+        </ion-item>
+        <ion-item class="inputcolor" style="margin-top: 0.5em">
+                <ion-label stacked color="dark">Modelo</ion-label>
+                <ion-input type="number" formControlName="modelo"  name="modelo" ></ion-input>
+            </ion-item>
+            <ion-item *ngIf="myForm.get('modelo').errors && myForm.get('modelo').dirty">
+                <p color="danger" ion-text *ngIf="myForm.get('modelo').hasError('required')">*Campo requerido</p>
+                <p color="danger" ion-text *ngIf="myForm.controls['modelo'].hasError('maxlength')">*Un modelo de un vehiculo debe poseer 4 digitos(AAAA)</p>
+            </ion-item>
+        <ion-item class="inputcolor" style="margin-top: 0.5em">
+                <ion-label stacked color="dark">Placa </ion-label>
+                <ion-input type="text" formControlName="placa"  name="placa" placeholder="1234-ABC"></ion-input>
+        </ion-item >
+        <ion-item *ngIf="myForm.get('placa').errors && myForm.get('placa').dirty">
+                <p color="danger" ion-text *ngIf="myForm.get('placa').hasError('required')">*Campo requerido</p>
+        </ion-item>
+
+        <ion-item class="inputcolor" style="margin-top: 0.5em">
+            <ion-label>Maletera</ion-label>
+            <ion-checkbox color="primary" formControlName="maletera"></ion-checkbox>
+        </ion-item>
+        <button ion-button color="danger" [disabled]="myForm.invalid" block style="margin-top:25px;" (click)="agregar()">Agregar <ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
+    </form>
 </ion-content>

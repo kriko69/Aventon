@@ -6,6 +6,7 @@ import { firebaseService } from '../../services/firebase.service';
 import { ToastService } from '../../services/toast.service';
 import { mysqlService } from '../../services/mysql.service';
 
+import {FormGroup, FormBuilder, Validators} from '@angular/forms'; // Para la validacion del formulario
 /**
  * Generated class for the AgregarVehiculosPage page.
  *
@@ -31,16 +32,31 @@ export class AgregarVehiculosPage {
     id_usuario:0
   };
   id_usuario;
+
+  submitAttempt: boolean = false;
+  myForm: FormGroup;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService,public toast:ToastService,private platform:Platform,
-  public mysql:mysqlService) {
+  public mysql:mysqlService, public formBuilder: FormBuilder) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
     this.id_usuario=navParams.get('id_usuario');
 
     this.auto.id_usuario=this.id_usuario;
-    console.log('id_udsuario:',                                                                                                                                                                                                                                                                                                                                                                                                this.auto.id_usuario);
+    console.log('id_udsuario:',this.auto.id_usuario);
+
+    this.myForm = this.formBuilder.group({
+      capacidad: [ 0, Validators.compose([Validators.maxLength(1), Validators.required])],
+      color:['',Validators.compose([Validators.required])],
+      maletera:false,
+      marca:['',Validators.compose([Validators.required])],
+      modelo:[ 0, Validators.compose([Validators.maxLength(4), Validators.required,Validators.minLength(4)])],
+      placa:'',
+      estado:false,
+      id_usuario:0
+      });   
 
   }
 
@@ -52,7 +68,7 @@ export class AgregarVehiculosPage {
   {
     let info={};
     let id_auto;
-    this.mysql.AgregarAuto(this.auto).subscribe(
+    this.mysql.AgregarAuto(this.myForm.value).subscribe( // cambie this.auto por this.myForm.valueS
       data => {
         console.log('data auto', data);
         info= Object.assign(data);
