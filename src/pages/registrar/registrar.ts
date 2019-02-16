@@ -16,6 +16,7 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms'; // Para la va
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { mysqlService } from '../../services/mysql.service';
+import { pD } from '@angular/core/src/render3';
 
 @IonicPage()
 @Component({
@@ -39,8 +40,8 @@ export class RegistrarPage {
   myForm: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public servicio:firebaseService
-  ,public alerta:AlertController,private afAauth:AngularFireAuth,private platform:Platform,
-    public mysql:mysqlService, public formBuilder: FormBuilder) {
+  ,public alerta:AlertController,private afAauth:AngularFireAuth,private platform:Platform, private http: HttpClient
+   , public mysql:mysqlService, public formBuilder: FormBuilder) {
 
       this.platform.registerBackButtonAction(() => {
         console.log('');
@@ -121,6 +122,19 @@ export class RegistrarPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+  selectedFile:File = null;
+
+  onFileSelected(event){
+    this.selectedFile = <File>event.target.files[0];
+  }
+
+  uploadingFoto(){
+    const fd =new FormData();
+    fd.append('image', this.selectedFile,this.selectedFile.name)
+    this.http.post('http://181.114.114.160/aventon/img/Perfil',fd).subscribe(res=>{
+      console.log(res);
+    });
   }
   dameFecha()
   {

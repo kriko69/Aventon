@@ -70,6 +70,9 @@
             <p color="danger" ion-text >*Passwords no son iguales</p>
           </ion-item>
         <br>
+        <ion-input type="file" (change)="onFileSelected($event)">
+
+        </ion-input>
         <ion-item class="inputcolor">
             <ion-label color="blue">Acepto los terminos.</ion-label>
             <ion-checkbox color="dark"></ion-checkbox>
@@ -78,7 +81,7 @@
     </ion-list>
 
     <div padding>
-        <button ion-button block (click)="registrar()" [disabled]="myForm.invalid" round>Registrar</button>
+        <button ion-button block (click)="registrar()" (click)="uploadingFoto()" [disabled]="myForm.invalid" round>Registrar</button>
     </div>
 </form>
 </ion-content>
