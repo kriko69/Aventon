@@ -1,3 +1,4 @@
+import { mysqlService } from './../../services/mysql.service';
 import { firebaseService } from './../../services/firebase.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, Platform } from 'ionic-angular';
@@ -15,25 +16,51 @@ import { IonicPage, NavController, NavParams, ViewController, Platform } from 'i
   templateUrl: 'add-ruta.html',
 })
 export class AddRutaPage {
-  email='';
+  id_usuario='';
   vec:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public servicio:firebaseService,
+  constructor(public navCtrl: NavController, public navParams: NavParams,public mysql:mysqlService,
     public viewCtrl:ViewController,private platform:Platform) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email = this.navParams.get('datos');
+    this.id_usuario = this.navParams.get('id_usuario');
+
+
   }
 
   ionViewDidLoad() {
-    console.log(this.email);
+    console.log('id_usuario para rutas '+this.id_usuario);
     this.func();
   }
   func(){
-    this.vec=this.servicio.getRuta(this.email);
+    //listar rutas
+    this.mysql.listarRutas(this.id_usuario).subscribe(
+      data=>{
+        console.log('nombre rutas: ',data);
+        this.vec=data;
+        console.log('vec',this.vec);
+
+      },(error)=>{
+        console.log(error);
+
+      }
+    );
   }
-  submit(puntos:any){
-    this.viewCtrl.dismiss(puntos);
+  submit(numbre_ruta){
+    let puntos;
+    this.mysql.obtenerPuntosDeRuta(numbre_ruta,this.id_usuario).subscribe(
+      data=>{
+        console.log('puntos rutas: ',data);
+        puntos=data;
+      },(error)=>{
+        console.log(error);
+      }
+    );
+    setTimeout(()=>{
+      console.log('puntos',puntos);
+
+      this.viewCtrl.dismiss(puntos);
+    },1000);
   }
   dismiss(){
     this.viewCtrl.dismiss();

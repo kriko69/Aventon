@@ -30,7 +30,7 @@ export class BuzonPasajeroPage {
     },10000);
     this.id_usuario=this.navParams.get('id_usuario');
 
-     this.mysql.listarSolicitudes(this.id_usuario,'todo').subscribe(
+     this.mysql.listarSolicitudesPasajero(this.id_usuario,'todo').subscribe(
       data => {
         console.log('data',data);
         console.log('exito');
@@ -43,17 +43,16 @@ export class BuzonPasajeroPage {
     );
     setTimeout(()=>{
       console.log(this.solicitudes);
-      if(this.solicitudes['message']!=this.value){
+     /* if(this.solicitudes['message']!=this.value){
         this.value='Si se encontro';
       }
       else{
         this.solicitudes=[];
       }
-      console.log(this.value);
-      //aqui se acomoda los puntos de parada
+      console.log(this.value);*/
     },3000);
-    
-    
+
+
   }
 
   ionViewDidLoad() {
@@ -65,12 +64,13 @@ export class BuzonPasajeroPage {
   mostrar(solicitud)
   {
     console.log(solicitud);
-    
+
   }
   calif(obj)
   {
     this.navCtrl.push(HomePage,{id_usuario:this.id_usuario,obj:obj});
   }
+  /*activada(obj){
   /*
   activada(obj){
     let fechahora=obj.fecha.split('|');
@@ -90,7 +90,7 @@ export class BuzonPasajeroPage {
     this.suscrito1.unsubscribe();
     let latitud=diferentes[5];
     let longitud=diferentes[6];
-    
+
     var nav = this.app.getRootNav();
     nav.setRoot(VerRutaDesdePasajeroPage,{email:this.email,otro:obj.de+'.com',latitud:latitud,longitud:longitud});
     }, 1000);

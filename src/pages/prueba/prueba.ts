@@ -1,3 +1,4 @@
+import { mysqlService } from './../../services/mysql.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, ToastController } from 'ionic-angular';
 import { VerMiRutaPage } from '../ver-mi-ruta/ver-mi-ruta';
@@ -25,7 +26,7 @@ export class PruebaPage {
   info=[];
   nombre='';
   email='';
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(public navCtrl: NavController,public mysql:mysqlService,public navParams: NavParams,
   private servicio:firebaseService,private platform:Platform, private toast:ToastController) {
     this.aceptar();
     this.platform.registerBackButtonAction(() => {
@@ -65,9 +66,24 @@ export class PruebaPage {
           return 0;
         });
         console.log(this.info);
-        
+
       }
     );
+  }
+
+  submit(){
+    let puntos;
+    this.mysql.obtenerPuntosDeRuta('jueves',4875800).subscribe(
+      data=>{
+        console.log('puntos rutas: ',data);
+        puntos=data;
+      },(error)=>{
+        console.log(error);
+      }
+    );
+    setTimeout(()=>{
+      console.log('puntos',puntos[0].latitud);
+    },1000);
   }
 
 }
