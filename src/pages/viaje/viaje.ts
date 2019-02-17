@@ -1,3 +1,4 @@
+import { mysqlService } from './../../services/mysql.service';
 import { ActivarRutaPage } from './../activar-ruta/activar-ruta';
 import { ToastService } from './../../services/toast.service';
 import { Component } from '@angular/core';
@@ -31,59 +32,69 @@ export class ViajePage {
   resultados=[];
   copia=[];
   public viajes:RutaModel[];
+
+
+
+  id_usuario;
+  id_auto;
+  nombres=[];
+  value=false;
   constructor(public navCtrl: NavController,
     public alertCtrl:AlertController, public toast:ToastService,public navParams: NavParams,
-    public modalCtrl:ModalController,public servicio:firebaseService,
-    public viewCtrl:ViewController,private platform:Platform) {
+    public modalCtrl:ModalController,public mysql:mysqlService, public servicio:firebaseService,
+    public viewCtrl:ViewController,private platform:Platform)
+    {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
-    this.email = this.navParams.get('email');
-    this.cacpacidad = this.navParams.get('capacidad');
-    this.placa=navParams.get('placa');
-    console.log(this.email);
-    this.func();
-    setTimeout(()=>{
-      this.control1.unsubscribe();
-    },3000);
-    this.fecha=this.dameFecha();
-    this.copia=this.vec;
+
+      this.id_auto=this.navParams.get('id_auto');
+      this.id_usuario=this.navParams.get('id_usuario');
+
+      this.listarProgramadas();
+
+      this.fecha=this.dameFecha();
+      this.copia=this.vec;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajePage');
   }
-  func(){
-    let aux;
-    this.control1=this.servicio.getRutasPro().valueChanges().subscribe(
+  listarProgramadas(){
+    let info;
+    this.mysql.listarProgramadas(this.id_usuario).subscribe(
       data=>{
-        for(aux of data)
-        {
-          if(aux.correo==this.email)
-          {
-            console.log(aux);
-            this.vec.push(aux);
-          }
-        }
-        console.log(this.vec);
+        console.log('data:',data);
+        info=Object.assign(data);
+
+      },(error)=>{
+        console.log(error);
+
       }
     );
+    setTimeout(()=>{
+      let mensaje='';
+      mensaje=info['message'];
+      if(typeof mensaje != 'undefined')
+      {
+        if(mensaje=="No se encontro rutas_viaje")
+          this.value=true;
+      }else{
+        this.vec=info;
+      }
+    },1000);
+
   }
+
   seleccinaRuta(){
-    this.navCtrl.setRoot(AddrutaproPage,{email:this.email,capacidad:this.cacpacidad,placa:this.placa});
+    this.navCtrl.setRoot(AddrutaproPage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
   }
   // En viaje.ts luego de de la funcion seleccionaRuta()
 //funcion para eliminar rutas
 
-borrarRutaAgendada(nombre,correo,fecha,hora,pasajeros){
+borrarRutaAgendada(id_viaje){
 
-  let aux=this.email.split('.');
-  let rama=aux[0]+fecha+hora;
-  let integrantes=pasajeros.split(';');
-  
-
-
-  let alert = this.alertCtrl.create({
+   let alert = this.alertCtrl.create({
     title: 'Confirmar borrado',
     message: '¿Estás seguro de que deseas eliminar esta ruta?',
     buttons: [
@@ -98,7 +109,7 @@ borrarRutaAgendada(nombre,correo,fecha,hora,pasajeros){
         text: 'Si',
         handler: () => {
              // AquÍ borramos el sitio en la base de datos
-          for (let i = 0; i < integrantes.length; i++) {
+          /*for (let i = 0; i < integrantes.length; i++) {
             if (integrantes[i] != '')
               this.servicio.quitarSolicitudesIntegrantes(integrantes[i], rama);
           }
@@ -107,8 +118,20 @@ borrarRutaAgendada(nombre,correo,fecha,hora,pasajeros){
               this.toast.show(` Ruta eliminada!`);
               this.navCtrl.setRoot(ViajePage, { email: this.email, placa: this.placa, capacidad: this.cacpacidad });
             }
-      );
+      );*/
+          this.mysql.EliminarRutaProgramada(id_viaje).subscribe(
+            data=>{
+              console.log(data);
+              if(data['message']=='OK')
+              {
+                this.toast.show('Ruta eliminada!');
+                this.navCtrl.setRoot(ViajePage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
+              }
+            },(error)=>{
+              console.log(error);
 
+            }
+          );
 
          }
       }
@@ -142,38 +165,40 @@ filtrarporfecha()
   console.log(this.resultados);
   this.vec=this.resultados;
 }
-verificarFecha(fecha)
+verificarFecha(fecha_hora)
 {
-  let divisor=fecha.split('-'); //2018-10-20
+  let divisor=fecha_hora.split(' '); //2018-02-24 17:15:00
+  let fecha=divisor[0].split('-'); //2018-10-20
+  let hora=divisor[1].split(':'); //17:15:00
   let hoy = new Date();
   let dd = hoy.getDate();
   let mm = hoy.getMonth()+1;
   let yyyy = hoy.getFullYear();
-  if((Number(divisor[0])==yyyy) && (Number(divisor[1])==mm) && ((Number(divisor[2]))==dd+1))
+  if((Number(fecha[0])==yyyy) && (Number(fecha[1])==mm) && ((Number(fecha[2]))==dd+1))
   {
     //console.log('falta un dia');
     return 'falta un dia';
   }
   else
   {
-    if(((Number(divisor[0])<yyyy) && (Number(divisor[1])<mm) && (Number(divisor[2])<dd))
-    || ((Number(divisor[0])==yyyy) && (Number(divisor[1])==mm) && (Number(divisor[2])<dd))
-    || ((Number(divisor[0])==yyyy) && (Number(divisor[1])<mm))
-    || ((Number(divisor[0])<yyyy)))
+    if(((Number(fecha[0])<yyyy) && (Number(fecha[1])<mm) && (Number(fecha[2])<dd))
+    || ((Number(fecha[0])==yyyy) && (Number(fecha[1])==mm) && (Number(fecha[2])<dd))
+    || ((Number(fecha[0])==yyyy) && (Number(fecha[1])<mm))
+    || ((Number(fecha[0])<yyyy)))
     {
       //console.log('pasado');
       return 'pasado';
     }
     else
     {
-      if((Number(divisor[0])==yyyy) && (Number(divisor[1])==mm) && (Number(divisor[2])==dd))
+      if((Number(fecha[0])==yyyy) && (Number(fecha[1])==mm) && (Number(fecha[2])==dd))
       {
         //console.log('es hoy');
         return 'hoy';
       }
       else
       {
-        if((Number(divisor[0])>yyyy) || (Number(divisor[1])>mm) || (Number(divisor[2])>dd+1))
+        if((Number(fecha[0])>yyyy) || (Number(fecha[1])>mm) || (Number(fecha[2])>dd+1))
         {
           //console.log('aun falta');
           return 'falta';
@@ -188,6 +213,6 @@ verificarFecha(fecha)
 
   activarRuta(ruta)
   {
-    this.navCtrl.push(ActivarRutaPage,{email:this.email,ruta:ruta,capacidad:this.cacpacidad,placa:this.placa})
+    this.navCtrl.setRoot(ActivarRutaPage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
   }
 }

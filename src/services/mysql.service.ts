@@ -268,6 +268,20 @@ export class mysqlService{
      return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
     }
 
+    listarRutasParaProgramar(id_usuario){
+      let info=new Array();
+      let data={
+        "key":"listarRutasParaProgramar",
+        "id_usuario":Number(id_usuario)
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+       return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+      }
+
     obtenerPuntosDeRuta(nombre_ruta,id_usuario)
     {
       let info=new Array();
@@ -283,6 +297,72 @@ export class mysqlService{
 
       return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
     }
+
+    listarProgramadas(id_usuario)
+    {
+      let info=new Array();
+      let data={
+        "key":"listarRuta_viaje",
+        "id_usuario":Number(id_usuario)
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+      return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+    }
+
+
+    obtenerCapacidadAuto(id_auto)
+  {
+    let data={
+      "key":"obtenerCapacidadAuto",
+      "id_auto":Number(id_auto)
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+  }
+
+
+  agregarRutaProgramada(programada)
+  {
+    let data={
+      "key":"agregarRutaProgramada",
+      'id_auto':Number(programada.id_auto),
+      'capacidad':Number(programada.capacidad),
+      'fecha_hora':programada.fecha_hora,
+      'id_ruta':Number(programada.id_ruta),
+      'estado':'programada',
+      'latitud':0,
+      'longitud':0,
+      'id_conductor':Number(programada.id_conductor)
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
+  }
+
+  EliminarRutaProgramada(id_viaje){
+    let info=new Array();
+      let data={
+        "key":"EliminarRutaProgramada",
+        "id_viaje":id_viaje
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+       return this.http.post('http://181.114.114.160/aventon/procesos/eliminar.php', opsi, header);
+  }
 
 
   //Ruta_Viaje

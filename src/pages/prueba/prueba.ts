@@ -72,18 +72,7 @@ export class PruebaPage {
   }
 
   submit(){
-    let puntos;
-    this.mysql.obtenerPuntosDeRuta('jueves',4875800).subscribe(
-      data=>{
-        console.log('puntos rutas: ',data);
-        puntos=data;
-      },(error)=>{
-        console.log(error);
-      }
-    );
-    setTimeout(()=>{
-      console.log('puntos',puntos[0].latitud);
-    },1000);
+
   }
 
 }

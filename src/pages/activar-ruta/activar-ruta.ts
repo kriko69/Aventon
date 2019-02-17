@@ -24,23 +24,17 @@ export class ActivarRutaPage {
   capacidad;
   placa;
   rutaprogramada=[];
+
+
+  id_usuario;
+  id_auto;
   constructor(public app:App,public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService, public alerta:AlertController,private platform:Platform) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email=navParams.get('email');
-    this.ruta=navParams.get('ruta');
-    this.capacidad=navParams.get('capacidad');
-    this.placa=navParams.get('placa');
-    console.log(this.email);
-    console.log(this.ruta);
-    let aux=this.email.split('.');
-    let fecha=this.ruta.fecha.split('-');
-    let hora=this.ruta.hora.split(':');
-    this.rama=aux[0]+fecha[0]+fecha[1]+fecha[2]+hora[0]+hora[1];
-    this.ramaMiSolicitud=aux[0]+fecha[0]+'-'+fecha[1]+'-'+fecha[2]+hora[0]+':'+hora[1];
-    console.log(this.rama);
+    this.id_auto=this.navParams.get('id_auto');
+    this.id_usuario=this.navParams.get('id_usuario');
 
     this.servicio.obtenerRuta(this.rama).valueChanges().subscribe(
       (data)=>{
@@ -48,7 +42,7 @@ export class ActivarRutaPage {
         console.log(this.rutaprogramada);
       }
     );
-    
+
   }
 
   ionViewDidLoad() {
@@ -80,7 +74,7 @@ export class ActivarRutaPage {
     let splitemail=this.email.split('.');
     console.log(this.rutaprogramada[7]);
     console.log(splitemail[0]);
-    
+
     this.enviarSolicitudes(this.rutaprogramada[7],splitemail[0]);
 
     this.servicio.agregarRutaActiva(pet[0],activa);

@@ -24,15 +24,15 @@
         <ion-label>Fecha</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY HH:mm" [(ngModel)]="fechahora"></ion-datetime>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
         <ion-label>Deseo que me paguen</ion-label>
         <ion-checkbox color="primary" [(ngModel)]="paga" checked="{{paga}}"></ion-checkbox>
-    </ion-item>
+    </ion-item> -->
     <ion-item>
         <ion-label>Seleccione la Ruta:</ion-label>
     </ion-item>
     <ion-list>
-        <ion-item *ngFor="let vecs of vec | async">
+        <ion-item *ngFor="let vecs of vec">
             <button ion-button block round (click)="submit(vecs)">{{vecs.nombre}}</button>
         </ion-item>
     </ion-list>
