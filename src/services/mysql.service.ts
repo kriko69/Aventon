@@ -395,4 +395,53 @@ export class mysqlService{
 
        return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
       }
+      listarRuta_viaje_programada(){
+        let info=new Array();
+      let data={
+        "key":"listarSolicitudesPasajero"
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+       return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+      }
+      Get_Puntos(id_ruta){
+        let info=new Array();
+      let data={
+        "key":"Get_Puntos",
+        "id_ruta":id_ruta
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+       return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+      }
+      insertarSolicitud(solicitud)
+      {
+        let data={
+          "key":"insertarSolicitud",
+          "id_de":solicitud.id_de,
+    "id_para":solicitud.id_para,
+    "id_viaje":solicitud.id_viaje,
+    "mensaje":solicitud.mensaje,
+    "estado":solicitud.estado,
+    "fecha":solicitud.fecha,
+    "latitud":solicitud.latitud,
+    "longitud":solicitud.longitud,
+    "sombrero":solicitud.sombrero,
+    "superior":solicitud.superior,
+    "inferior":solicitud.inferior,
+    "accesorio":solicitud.accesorio
+        };
+    
+        let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+        opsi   : any = JSON.stringify(data);
+        console.log('opsi',opsi);
+    
+         return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
+      }
 }

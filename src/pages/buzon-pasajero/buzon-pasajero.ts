@@ -43,13 +43,6 @@ export class BuzonPasajeroPage {
     );
     setTimeout(()=>{
       console.log(this.solicitudes);
-     /* if(this.solicitudes['message']!=this.value){
-        this.value='Si se encontro';
-      }
-      else{
-        this.solicitudes=[];
-      }
-      console.log(this.value);*/
     },3000);
 
 

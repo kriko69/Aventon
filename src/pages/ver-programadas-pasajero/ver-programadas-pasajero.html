@@ -25,7 +25,6 @@
         <ion-select [(ngModel)]="filtro" (ionChange)="mostrar()">
             <ion-option>Nombre</ion-option>
             <ion-option>Fecha</ion-option>
-            <ion-option>Precio</ion-option>
         </ion-select>
     </ion-item>
     <ion-searchbar *ngIf="filtro==='Nombre'" type="text" placeholder="Nombre Conductor..." [(ngModel)]="nombre" (ionInput)="filtrarpornombre()"></ion-searchbar>
@@ -33,15 +32,12 @@
         <ion-label>Date</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fecha" (ionChange)="filtrarporfecha()"></ion-datetime>
     </ion-item>
-    <ion-searchbar *ngIf="filtro==='Precio'" type="number" placeholder="Precio..." [(ngModel)]="precio" (ionInput)="filtrarporprecio()"></ion-searchbar>
     <ion-list>
         <button ion-item *ngFor="let rutas of viajes" (click)="irReservarProgramada(rutas)">
-      <p>Nombre de la Ruta: {{rutas.nombre}}</p>
-      <p>Nombre Conductor: {{rutas.conductor}}</p>
+      <p>Nombre de la Ruta: {{rutas.ruta}}</p>
+      <p>Nombre Conductor: {{rutas.nombre+' '+rutas.apellido}}</p>
       <p>Capacidad: {{rutas.capacidad}}</p>
-      <p>Correo: {{rutas.correo}}</p>
-       <p>Fecha: {{rutas.fecha}}  Hora: {{rutas.hora}}</p>
-       <p>Precio {{rutas.precio}} Bs.</p>
+       <p>Fecha: {{rutas.fecha}}</p>
     <!--  <p>Calificacion: {{rutas.calificacion}} <ion-icon name="star"></ion-icon></p>-->
     </button>
         <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="viajes.length===0">

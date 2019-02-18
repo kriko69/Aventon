@@ -23,7 +23,7 @@ export class VestimentaPage {
     zinferior:'',
     zaccesorio:''
   };
-  email;latitud;longitud;
+  id_usuario;latitud;longitud;
   isgorra=false;
   ace='No lleva ningun accesorio';
   constructor(public navCtrl: NavController, public navParams: NavParams,private platform:Platform,
@@ -33,7 +33,7 @@ export class VestimentaPage {
     },10000);
   this.latitud=this.navParams.get('latitud');
   this.longitud=this.navParams.get('longitud');
-  this.email=this.navParams.get('email');
+  this.id_usuario=this.navParams.get('id_usuario');
   }
 
   ionViewDidLoad() {
@@ -44,14 +44,12 @@ export class VestimentaPage {
       data.zsombrero='No lleva sombrero ni gorra.';
     }
     data.zaccesorio=this.ace;
-    let aux=this.email.split('.');
-    this.servicio.editPerfil(data,aux[0]);
-    this.navCtrl.setRoot(VerProgramadasPasajeroPage,{email: this.email,latitud:this.latitud,longitud:this.longitud});
+    this.navCtrl.setRoot(VerProgramadasPasajeroPage,{vestimenta:data,id_usuario: this.id_usuario,latitud:this.latitud,longitud:this.longitud});
   }
   dismiss(){
         
     console.log(this.ace);
-    this.navCtrl.setRoot(ReservaPasajeroPage,{email: this.email});
+    this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario: this.id_usuario});
   }
   valor(acec){
     this.ace=acec;
