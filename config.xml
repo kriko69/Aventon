@@ -87,5 +87,6 @@
         <variable name="API_KEY_FOR_IOS" value="AIzaSyARokNtzS531IucAJUjhKogio03QVBZQrk" />
     </plugin>
     <plugin name="phonegap-plugin-barcodescanner" spec="^8.0.1" />
-    <engine name="android" spec="7.0.0" />
+    <plugin name="cordova-plugin-camera" spec="4.0.3" />
+    <engine name="android" spec="7.1.4" />
 </widget>

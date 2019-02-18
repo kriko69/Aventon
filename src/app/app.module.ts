@@ -46,6 +46,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -67,6 +68,7 @@ import { Vestimenta1Page } from '../pages/vestimenta1/vestimenta1';
 
 
 import { HttpClientModule } from '@angular/common/http';
+import { Camera} from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -178,6 +180,7 @@ import { HttpClientModule } from '@angular/common/http';
     ToastService,
     UbicacionService,
     BarcodeScanner,
+    Camera
 
   ]
 })

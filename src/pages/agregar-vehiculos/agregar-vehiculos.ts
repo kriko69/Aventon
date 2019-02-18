@@ -53,7 +53,7 @@ export class AgregarVehiculosPage {
       maletera:false,
       marca:['',Validators.compose([Validators.required])],
       modelo:[ 0, Validators.compose([Validators.maxLength(4), Validators.required,Validators.minLength(4)])],
-      placa:'',
+      placa:['',Validators.compose([Validators.required])],
       estado:false,
       id_usuario:0
       });   
