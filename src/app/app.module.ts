@@ -66,6 +66,8 @@ import { EsPasajeroPage } from '../pages/es-pasajero/es-pasajero';
 import { VestimentaPage } from '../pages/vestimenta/vestimenta';
 import { Vestimenta1Page } from '../pages/vestimenta1/vestimenta1';
 
+import { SliderPrincipalPage } from './../pages/slider-principal/slider-principal';
+
 
 import { HttpClientModule } from '@angular/common/http';
 import { Camera} from '@ionic-native/camera';
@@ -113,7 +115,8 @@ import { Camera} from '@ionic-native/camera';
     VerMiQrPage,
     EsPasajeroPage,
     VestimentaPage,
-    Vestimenta1Page
+    Vestimenta1Page,
+    SliderPrincipalPage
   ],
   imports: [
     BrowserModule,
@@ -168,7 +171,8 @@ import { Camera} from '@ionic-native/camera';
     VerMiQrPage,
     EsPasajeroPage,
     VestimentaPage,
-    Vestimenta1Page
+    Vestimenta1Page,
+    SliderPrincipalPage
   ],
   providers: [
     StatusBar,

@@ -6,6 +6,7 @@ import { RegistrarPage } from '../registrar/registrar';
 import { login } from '../../interfaces/login.interface';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { TipoUsuarioPage } from '../tipo-usuario/tipo-usuario';
+import { SliderPrincipalPage } from '../slider-principal/slider-principal';
 
 /**
  * Generated class for the LoginPage page.
@@ -49,7 +50,10 @@ export class LoginPage {
   {
     this.navCtrl.push(RegistrarPage);
   }
-
+  slidePrincipal3()
+  {
+    this.navCtrl.push(SliderPrincipalPage);
+  }
   ingresar(user)
   {
     let info={};
