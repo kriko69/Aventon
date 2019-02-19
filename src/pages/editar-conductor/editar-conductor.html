@@ -7,7 +7,7 @@
 <ion-header>
     <ion-navbar color="yellow">
 
-        <ion-title>Menu</ion-title>
+        <ion-title>Editar</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -15,25 +15,35 @@
 
 <ion-content padding class="imagen">
 
-    <ion-list>
-
+    <ion-list #pc>
         <ion-item>
-            <ion-label stacked color="dark">Nombre</ion-label>
-            <ion-input type="text" [(ngModel)]="user[9]"></ion-input>
+            <ion-label stacked>Nombre</ion-label>
+            <ion-input disabled="false" type="text" [(ngModel)]="usuario.nombre"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked>Apellido</ion-label>
+            <ion-input disabled="false" type="text" [(ngModel)]="usuario.apellido"></ion-input>
         </ion-item>
 
         <ion-item>
-            <ion-label stacked color="dark">Apellido</ion-label>
-            <ion-input type="text" [(ngModel)]="user[0]"></ion-input>
+            <ion-label stacked>Carnet</ion-label>
+            <ion-input disabled="true" type="text" [(ngModel)]="usuario.ci"></ion-input>
         </ion-item>
 
         <ion-item>
-            <ion-label stacked color="dark">Carnet</ion-label>
-            <ion-input type="number" [(ngModel)]="user[3]"></ion-input>
+            <ion-label stacked color="dark">Telefono</ion-label>
+            <ion-input disabled="false" type="number" [(ngModel)]="usuario.telf"></ion-input>
         </ion-item>
-
         <ion-item>
-            <button ion-button round block color=primary (click)="actualizarPerfil(user)">Guardar</button>
+            <ion-label stacked color="dark">Fecha de nacimiento</ion-label>
+            <ion-datetime disabled="false" displayFormat="DD/MM/YYYY" [(ngModel)]="usuario.fecha_nac"></ion-datetime>
+          </ion-item>
+        <ion-item>
+            <ion-label stacked color="dark">Calificacion Conductor</ion-label>
+            <ion-input disabled="true" type="text" [(ngModel)]="usuario.calif_cond"></ion-input>
+        </ion-item>
+        <ion-item>
+            <button ion-button block round color=primary (click)="actualizarPerfil()">Guardar</button>
         </ion-item>
     </ion-list>
 

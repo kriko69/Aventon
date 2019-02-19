@@ -22,19 +22,6 @@ import { ToastService } from '../../services/toast.service';
   templateUrl: 'editar-pasajero.html',
 })
 export class EditarPasajeroPage {
-  data:Usuario={
-    carnet:0,
-    nombre:'',
-    apellido:''
-  };
-  email='';
-  nombre='';
-  x;
-  lista;
-  user=[];
-  info:any;
-
-
   usuario;
   control:ISubscription;
    constructor(public navCtrl: NavController, public navParams: NavParams, public servicio:firebaseService
