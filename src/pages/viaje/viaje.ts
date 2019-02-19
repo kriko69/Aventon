@@ -151,6 +151,8 @@ dameFecha()
   let date=yyyy+'-'+mm+'-'+dd;
   return date;
 }
+
+
 filtrarporfecha()
 {
 
@@ -174,6 +176,16 @@ verificarFecha(fecha_hora)
   let dd = hoy.getDate();
   let mm = hoy.getMonth()+1;
   let yyyy = hoy.getFullYear();
+  let date: Date = new Date();
+  let hh = date.getHours();//obtiene horas del sistema
+  let min = date.getMinutes();//obtiene minutos del sistema
+  if(Number(min)<=10){
+    hh = hh-1;
+    min = min-10+60;
+  }
+  else{
+    min = min-10;
+  }
   if((Number(fecha[0])==yyyy) && (Number(fecha[1])==mm) && ((Number(fecha[2]))==dd+1))
   {
     //console.log('falta un dia');
@@ -184,7 +196,9 @@ verificarFecha(fecha_hora)
     if(((Number(fecha[0])<yyyy) && (Number(fecha[1])<mm) && (Number(fecha[2])<dd))
     || ((Number(fecha[0])==yyyy) && (Number(fecha[1])==mm) && (Number(fecha[2])<dd))
     || ((Number(fecha[0])==yyyy) && (Number(fecha[1])<mm))
-    || ((Number(fecha[0])<yyyy)))
+    || ((Number(fecha[0])<yyyy))
+    || ((Number(hora[0])<=hh) && Number(hora[1]<=min))
+    || ((Number(hora[0])==hh) && Number(hora[1]<=min)))
     {
       //console.log('pasado');
       return 'pasado';
