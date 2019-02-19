@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { firebaseService } from '../../services/firebase.service';
 import { ReservaPasajeroPage } from '../reserva-pasajero/reserva-pasajero';
+import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the OpcionReservaPage page.
@@ -17,43 +18,20 @@ import { ReservaPasajeroPage } from '../reserva-pasajero/reserva-pasajero';
 })
 export class OpcionReservaPage {
 
-  email;
+  id_usuario;
   reserva;
   ruta={
     capacidad:0
   }
-  rama;
-  nombrerama;
-  nombrerama2;
-  fecha;
-  hora;
-  nombrerama3;
   info=[];
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService,private platform:Platform) {
+  public servicio:firebaseService,private platform:Platform,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email=this.navParams.get('email');
-    this.reserva=this.navParams.get('reserva');
-    console.log(this.email);
-    console.log(this.reserva);
-    this.rama=this.email.split('.');
-    this.nombrerama=this.reserva.a+this.reserva.fechaViaje+this.reserva.horaViaje;
-    this.nombrerama2=this.rama[0]+this.reserva.fechaViaje+this.reserva.horaViaje;
-    this.fecha=this.reserva.fechaViaje.split('-');
-    this.hora=this.reserva.horaViaje.split(':');
-    this.nombrerama3=this.reserva.a+this.fecha[0]+this.fecha[1]+this.fecha[2]+this.hora[0]+this.hora[1];
-    console.log(this.nombrerama);
-    console.log(this.nombrerama2);
-    console.log(this.nombrerama3);
 
-    this.servicio.dameCapacidadRuta(this.nombrerama3).valueChanges().subscribe(
-      (datas)=>{
-        console.log(datas);
-        this.info=datas;
-      }
-    );
+    this.id_usuario=this.navParams.get('id_usuario');
+    this.reserva=this.navParams.get('reserva');
   }
 
   ionViewDidLoad() {
@@ -62,18 +40,48 @@ export class OpcionReservaPage {
 
   eliminarReserva()
   {
+    let info;
+    let capacidad;
+    this.mysql.eliminarSolicitud(this.reserva.id_solicitud).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
 
-    console.log(this.rama[0]);
-    console.log(this.nombrerama);
-    this.ruta.capacidad=this.info[2]+1;
-    this.servicio.editarCapacidadAlCancelar(this.nombrerama3,this.ruta);
-    this.servicio.eliminarSolicitud(this.nombrerama2,this.reserva.a);
-    this.servicio.eliminarMiSolicitud(this.nombrerama,this.rama[0]).then(
-      ()=>{
-        console.log('se elimino reserva');
-        this.navCtrl.setRoot(ReservaPasajeroPage,{email:this.email});
-      }
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
     );
+    setTimeout(()=>{
+      this.mysql.obtenerCapacidadViaje(this.reserva.id_viaje).subscribe(
+        data=>{
+          console.log(data);
+          capacidad=data;
+        },(error)=>{
+          console.log(error);
+  
+        }
+      );
+      setTimeout(()=>{
+        capacidad=Number(capacidad)+1;
+        this.mysql.actualizarCapacidad(capacidad,this.reserva.id_viaje).subscribe(
+          data=>{
+            console.log(data);
+          },(error)=>{
+            console.log(error);
+  
+          }
+        );
+        setTimeout(()=>{
+          this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
+
+        });
+  
+      },1000);
+
+    },3000);
   }
 
 }

@@ -381,24 +381,24 @@ export class mysqlService{
     }
 
     //Solicitudes
-    listarSolicitudesPasajero(ci,estado){
+    listarSolicitudesPasajero(ci){
       let info=new Array();
       let data={
         "key":"listarSolicitudesPasajero",
-        "ci":ci,
-        "estado":estado
+        "ci":ci
       };
 
       let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+       return this.http.post('http://181.114.114.160/aventon/Procesos/consulta.php', opsi, header);
       }
+
       listarRuta_viaje_programada(){
         let info=new Array();
       let data={
-        "key":"listarSolicitudesPasajero"
+        "key":"listarRuta_viaje_programada"
       };
 
       let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
@@ -444,4 +444,58 @@ export class mysqlService{
     
          return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
       }
+      listarMisSolicitudesAceptadas(ci){
+        let info=new Array();
+      let data={
+        "key":"listarMisSolicitudesAceptadas",
+        "ci":ci
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+       return this.http.post('http://181.114.114.160/aventon/Procesos/consulta.php', opsi, header);
+      }
+      eliminarSolicitud(id){
+        let info=new Array();
+      let data={
+        "key":"eliminarSolicitud",
+        "id":id
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+       return this.http.post('http://181.114.114.160/aventon/Procesos/eliminar.php', opsi, header);
+      }
+      actualizarCapacidad(capacidad,id_viaje){
+        let info=new Array();
+      let data={
+        "key":"actualizarCapacidad",
+        "capacidad":capacidad,
+        "id_viaje":id_viaje
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+       return this.http.post('http://181.114.114.160/aventon/Procesos/actualizar.php', opsi, header);
+      }
+      obtenerCapacidadViaje(id_viaje)
+      {
+        let data={
+          "key":"obtenerCapacidadViaje",
+          "id_viaje":Number(id_viaje)
+        };
+    
+        let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+        opsi   : any = JSON.stringify(data);
+        console.log('opsi',opsi);
+    
+         return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+      }
+      
 }

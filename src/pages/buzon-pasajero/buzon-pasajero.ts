@@ -30,7 +30,7 @@ export class BuzonPasajeroPage {
     },10000);
     this.id_usuario=this.navParams.get('id_usuario');
 
-     this.mysql.listarSolicitudesPasajero(this.id_usuario,'todo').subscribe(
+     this.mysql.listarSolicitudesPasajero(this.id_usuario).subscribe(
       data => {
         console.log('data',data);
         console.log('exito');
