@@ -32,7 +32,7 @@ export class ReservaPasajeroPage {
     this.id_usuario=this.navParams.get('id_usuario');
 
 
-    this.mysql.listarSolicitudesPasajero(this.id_usuario,'aceptada').subscribe(
+    this.mysql.listarMisSolicitudesAceptadas(this.id_usuario).subscribe(
       data => {
         console.log('data',data);
         console.log('exito');

@@ -30,7 +30,7 @@ export class BuzonPasajeroPage {
     },10000);
     this.id_usuario=this.navParams.get('id_usuario');
 
-     this.mysql.listarSolicitudesPasajero(this.id_usuario,'todo').subscribe(
+     this.mysql.listarSolicitudesPasajero(this.id_usuario).subscribe(
       data => {
         console.log('data',data);
         console.log('exito');
@@ -43,13 +43,6 @@ export class BuzonPasajeroPage {
     );
     setTimeout(()=>{
       console.log(this.solicitudes);
-     /* if(this.solicitudes['message']!=this.value){
-        this.value='Si se encontro';
-      }
-      else{
-        this.solicitudes=[];
-      }
-      console.log(this.value);*/
     },3000);
 
 

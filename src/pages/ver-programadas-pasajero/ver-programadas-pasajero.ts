@@ -12,6 +12,7 @@ import { firebaseService } from '../../services/firebase.service';
  * Ionic pages and navigation.
  */
 import { ISubscription } from "rxjs/Subscription";
+import { mysqlService } from '../../services/mysql.service';
 @IonicPage()
 @Component({
   selector: 'page-ver-programadas-pasajero',
@@ -20,24 +21,25 @@ import { ISubscription } from "rxjs/Subscription";
 export class VerProgramadasPasajeroPage {
   suscrito1:ISubscription;
 
-  email;
+  id_usuario;
   latitud;
   longitud;
   diferentes=[];
   correos=[];
-  aux; //lista las datas
-  rama;
   viajes=[];
 
   //busqueda
   nombre:string='';
   precio:number;
   filtro;
-  fecha;
+  fecha=this.dameFecha();
   copia=[];
   resultados=[];
+  vestimenta;
+  puntos=[];
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService, public view:ViewController,private platform:Platform) {
+  public servicio:firebaseService, public view:ViewController,private platform:Platform,
+  public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
@@ -45,32 +47,40 @@ export class VerProgramadasPasajeroPage {
     this.longitud=this.navParams.get('longitud');
     console.log(this.latitud+'////'+this.longitud);
 
-    this.email=this.navParams.get('email');
-    this.rama=this.email.split('.');
-    this.suscrito1=this.servicio.getProgramadasRefTotal().valueChanges().subscribe(
-      data =>{
-        for(this.aux of data)
-        {
-          if(this.aux.correo!=this.email && this.aux.capacidad!=0)
-          {
-            this.diferentes.push(this.aux);
-          }
-        }
-        console.log(this.diferentes);
+    this.id_usuario=this.navParams.get('id_usuario');
+    this.vestimenta=this.navParams.get('vestimenta');
 
-      }
+    this.mysql.listarRuta_viaje_programada().subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+        this.copia=Object.assign(data);
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
     );
     setTimeout(()=>{
-      this.suscrito1.unsubscribe();
-      this.viajes=[];
-      for(let i=0;i<this.diferentes.length;i++){
-        this.distancia(this.diferentes[i]);
-        console.log(i+': '+this.viajes);
-        console.log(this.viajes);
-        this.copia=this.viajes;
+      console.log(this.copia);
+      let puntos=[];
+      for(let i=0;i<this.copia.length;i++){
+
+        this.mysql.Get_Puntos(this.copia[i].id_ruta).subscribe(
+          data => {
+            puntos=Object.assign(data);
+            }, (error: any)=> {
+              console.log('error', error);
+            }
+        );
+        setTimeout(()=>{
+          console.log(this.copia);
+          for(let i=0;i<this.copia.length;i++){
+            this.distancia(puntos,this.copia[i]);
+          }
+        },3000);
       }
-    },2000);
-    this.fecha=this.dameFecha();
+    },3000);
   }
 
   ionViewDidLoad() {
@@ -79,28 +89,26 @@ export class VerProgramadasPasajeroPage {
 
   irReservaPasajero()
   {
-    this.navCtrl.setRoot(ReservaPasajeroPage,{email:this.email});
+    this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario:this.id_usuario});
   }
 
 
   irReservarProgramada(data)
   {
-    this.navCtrl.setRoot(ReservarProgramadasPasajeroPage,{data:data,email:this.email,latitud:this.latitud,longitud:this.longitud});
+    this.navCtrl.setRoot(ReservarProgramadasPasajeroPage,{data:data,id_usuario:this.id_usuario,latitud:this.latitud,longitud:this.longitud,vestimenta:this.vestimenta});
   }
 
   dismiss(data)
   {
-    this.navCtrl.setRoot(ReservaPasajeroPage,{email: this.email});
+    this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario: this.id_usuario});
   }
-  distancia(data){
+  distancia(puntos,data){
     let latlong;
     let lat;let long;
     let distancia;
-    let puntos=data.ruta.split(';');
     for(let i=0;i<puntos.length;i++){
-        latlong=puntos[i].split('/');
-        lat=Number(latlong[0]);
-        long=Number(latlong[1]);
+        lat=puntos.latitud;
+        long=puntos.longitud;
         distancia=this.getKilometros(this.latitud,this.longitud,lat,long);
         console.log('DISTANCIA: '+distancia);
         if(distancia<=0.5){
@@ -153,19 +161,6 @@ export class VerProgramadasPasajeroPage {
     console.log(this.resultados);
     this.viajes=this.resultados;
   }
-  filtrarporprecio()
-  {
-    console.log(this.filtro);
-    console.log(this.precio);
-    console.log(this.copia);
-    this.resultados=[]; //limpio
-    for (let i = 0; i < this.copia.length; i++) {
-      if(this.copia[i].precio==this.precio)
-        this.resultados.push(this.copia[i]);
-    }
-    console.log(this.resultados);
-    this.viajes=this.resultados;
-  }
 
   dameFecha()
   {
@@ -182,8 +177,6 @@ export class VerProgramadasPasajeroPage {
     console.log(this.filtro);
     if(this.filtro=='Fecha')
       this.filtrarporfecha();
-    if(this.filtro=='Precio')
-      this.filtrarporprecio();
     if(this.filtro=='Nombre')
       this.filtrarpornombre();
   }

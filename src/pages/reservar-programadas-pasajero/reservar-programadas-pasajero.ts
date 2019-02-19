@@ -10,6 +10,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
  */
 import { firebaseService } from '../../services/firebase.service';
 import { PasajeroPage } from '../pasajero/pasajero';
+import { mysqlService } from '../../services/mysql.service';
 declare var google: any;
 @IonicPage()
 @Component({
@@ -22,63 +23,52 @@ export class ReservarProgramadasPasajeroPage {
   latOri  = -16.503720;
   longOri = -68.131247;
   map: any;
-  email;
+  id_usuario;
   data:any=[];
-  rama;
   parser;
   latitud;
   longitud;
   solicitud={
-    de: '',
-    nombre:'',
-    calificacion:0,
+    id_de:0,
+    id_para:0,
+    id_viaje:0,
     mensaje: "Me puedes recoger?",
-    estado:'pendiente',
-    fechaViaje:'',
-    horaViaje:'',
+    estado:'Pendiente',
+    fecha:this.dameFecha(),
     latitud:'',
-    longitud:''
+    longitud:'',
+    sombrero:'',
+    superior:'',
+    inferior:'',
+    accesorio:''
   }; //la solicitud que le llega a el
-  misolicitud={
-    a: '',
-    estado:'pendiente',
-    fechaViaje:'',
-    horaViaje:''
-  }; //la solicitud que yo mande
+   //la solicitud que yo mande
   start;
   end;
   tiemposEntrePuntos=[];
   informacionTiempos='';
   miHora;
+  vestimenta;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService, public alerta:AlertController) {
+  public servicio:firebaseService, public alerta:AlertController,public mysql:mysqlService) {
     this.latitud=this.navParams.get('latitud');
     this.longitud=this.navParams.get('longitud');
-    this.email=this.navParams.get('email');
+    this.id_usuario=this.navParams.get('id_usuario');
     this.data=this.navParams.get('data');
-    console.log(this.data);
+    this.vestimenta=this.navParams.get('vestimenta');
 
-    this.rama=this.data.correo.split('.');
-    this.parser=this.email.split('.');
-    this.solicitud.de=this.parser[0];
-    this.misolicitud.a=this.rama[0];
-
-    this.solicitud.fechaViaje=this.data.fecha;
-    this.solicitud.horaViaje=this.data.hora;
-    this.misolicitud.fechaViaje=this.data.fecha;
-    this.misolicitud.horaViaje=this.data.hora;
-
+    this.solicitud.id_de=this.id_usuario;
+    this.solicitud.id_para=this.data.id_conductor;
+    this.solicitud.id_viaje=this.data.id_viaje;
+    this.solicitud.fecha=this.dameFecha();
     this.solicitud.latitud=this.latitud;
     this.solicitud.longitud=this.longitud;
+    this.solicitud.sombrero=this.vestimenta.zsombrero;
+    this.solicitud.superior=this.vestimenta.zsuperior;
+    this.solicitud.inferior=this.vestimenta.zinferior;    
+    this.solicitud.accesorio=this.vestimenta.zaccesorio;
 
-    this.servicio.obtenerNombreParaSolicitud(this.parser[0]).valueChanges().subscribe(
-      datas=>{
-        console.log(datas);
-        this.solicitud.nombre=''+datas[9];
-        this.solicitud.calificacion=Number(datas[2]);
-      }
-    );
-
+    
   }
 
   ionViewDidLoad() {
@@ -89,30 +79,20 @@ export class ReservarProgramadasPasajeroPage {
 
   enviar()
   {
-    console.log(this.rama[0]);
-    console.log(this.parser[0]);
-    console.log(this.data.fecha);
-    console.log(this.data.hora);
-    this.servicio.definirSolicitarRef(this.rama[0],this.parser[0],this.data.fecha,this.data.hora);
-    console.log(this.solicitud);
-
-    this.servicio.addSolicitud(this.solicitud).then(
-      ref=>{
-        this.enviarAlMio();
-        this.mostrarAlerta();
-        this.navCtrl.setRoot(ReservaPasajeroPage,{email:this.email});
-
-      }
+    let info;
+    this.mysql.insertarSolicitud(this.solicitud).subscribe(
+      data => {
+        info=Object.assign(data);
+        }, (error: any)=> {
+          console.log('error', error);
+        }
     );
-      this.distancia(this.data);
+    setTimeout(()=>{
+      console.log(info);
+    },3000);
 
   }
 
-  enviarAlMio()
-  {
-    this.servicio.definirMiSolicitudRef(this.rama[0],this.parser[0],this.data.fecha,this.data.hora);
-    this.servicio.addMiSolicitud(this.misolicitud);
-  }
 
   mostrarAlerta() {
     const alert = this.alerta.create({
@@ -261,7 +241,7 @@ export class ReservarProgramadasPasajeroPage {
   }
   dismiss()
   {
-    this.navCtrl.setRoot(ReservaPasajeroPage,{email: this.email});
+    this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario: this.id_usuario});
   }
   distancia(data){
     let latlong;
@@ -586,6 +566,26 @@ export class ReservarProgramadasPasajeroPage {
     }else{
       return ''+min+':'+seg;
     }
+  }
+  dameFecha()
+  {
+    let hoy = new Date();
+    let dd = hoy.getDate();
+    let mm = hoy.getMonth()+1;
+    let yyyy = hoy.getFullYear();
+    let hora=''+hoy.getHours();
+    let minutos=''+hoy.getMinutes();
+    let segundos=''+hoy.getSeconds();
+    if(hoy.getHours()<10)
+      hora='0'+hora;
+    if(hoy.getMinutes()<10)
+      minutos='0'+minutos;
+    if(hoy.getSeconds()<10)
+      segundos='0'+segundos;
+    //let date=dd+'-'+mm+'-'+yyyy+'T'+hora+':'+minutos+':'+segundos+'Z';
+    let date=yyyy+'-'+mm+'-'+dd+' '+hora+':'+minutos+':'+segundos;
+
+    return date;
   }
 
 }
