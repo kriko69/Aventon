@@ -1,3 +1,4 @@
+import { mysqlService } from './../../services/mysql.service';
 import { AceptarSolicitudPage } from './../aceptar-solicitud/aceptar-solicitud';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
@@ -19,15 +20,35 @@ import { CalificacionPage } from '../calificacion/calificacion';
 export class BuzonPage {
   email;
   rama;
-  solicitudes=[];
+  solicitudes;
+  id_usuario;
+  id_auto;
+  value=false;
+  info;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService ,private platform:Platform) {
+  public myysql:mysqlService ,private platform:Platform) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email=this.navParams.get('email');
-    this.rama=this.email.split('.');
-    this.servicio.getSolicitudesRef(this.rama[0]).valueChanges().subscribe(
+    this.id_usuario=this.navParams.get('id_usuario');
+    this.id_auto=this.navParams.get('id_auto');
+
+    this.myysql.listarSolicitudesConductor(this.id_usuario).subscribe(
+      data=>{
+        if(data['message']=='No se encontró'){
+          this.value=true;
+        }
+        else{
+          this.solicitudes=data;
+          console.log(this.solicitudes);
+        }
+      },(error)=>{
+        console.log(error);
+
+      }
+    );
+
+    /*this.servicio.getSolicitudesRef(this.rama[0]).valueChanges().subscribe(
       data=>{
         this.solicitudes=data;
         console.log(this.solicitudes);
@@ -40,7 +61,7 @@ export class BuzonPage {
       {
         this.solicitudes.splice(i, 1);
       }
-    }
+    }*/
   }
 
   ionViewDidLoad() {

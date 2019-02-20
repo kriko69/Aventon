@@ -53,26 +53,28 @@ laRutaActiva=[];
 rutavieja='';
 inicio=true;
 validar=[];
+
+id_usuario;
+id_auto;
+ruta_activada;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toast:ToastService,private _ubicacion:UbicacionService,public servicio:firebaseService,public app:App,
     public bs:BarcodeScanner,private alert:AlertController,private platform:Platform,public alerta:AlertController,public alerta1:AlertController) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
-    this.email = this.navParams.get('email');
-    console.log('CORRREEEEEEROOOOO: '+this.email);
-
-    this.capacidad = this.navParams.get('capacidad');
-  this.ruta = this.navParams.get('ruta');
+    this.id_usuario = this.navParams.get('id_usuario')
+    this.id_auto = this.navParams.get('id_auto');
+    this.ruta_activada = this.navParams.get('ruta_activada');
   let flag=false;
   this._ubicacion.iniciar_localizacion(this.email);
-  let conductor = this.email.split(".");
+  /*let conductor = this.email.split(".");
 
   this.servicio.getRutaActiva(conductor[0]).valueChanges().subscribe(
     data => {
       this.laRutaActiva = data;
       console.log(this.laRutaActiva);
-    });
+    });*/
   }
 
   ionViewDidLoad() {

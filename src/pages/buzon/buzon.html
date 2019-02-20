@@ -19,11 +19,13 @@
             Viaje del dia: {{item.fecha}}
             <br> Estado: {{item.estado}}
             <br> Mensaje: {{item.mensaje}}
+            <br> Fecha: {{item.fecha}}
         </ion-item>
         <ion-item class="border" *ngIf="item.estado=='Calificado'" style="background-color:#5FB404;color:white;">
             Viaje del dia: {{item.fecha}}
             <br> Estado: {{item.estado}}
             <br> Mensaje: {{item.mensaje}}
+            <br> Fecha: {{item.fecha}}
         </ion-item>
 
 
@@ -36,25 +38,28 @@
             <ion-icon name="star"></ion-icon>
             <br> Estado: {{item.estado}}
             <br> Mensaje: {{item.mensaje}}
+            <br> Fecha: {{item.fecha}}
         </ion-item>
         <!--<ion-item class="border" *ngIf="item.estado=='aceptado'" style="background-color:green;color:white;" (click)="aceptar(item)">-->
-        <ion-item class="border" *ngIf="item.estado=='aceptado'" style="background-color:green;color:white;">
+        <ion-item class="border" *ngIf="item.estado=='Aceptado'" style="background-color:green;color:white;">
             De: {{item.de}} ({{item.nombre}})
             <br> Calificacion: {{item.calificacion}}
             <ion-icon name="star"></ion-icon>
             <br> Estado: {{item.estado}}
             <br> Mensaje: {{item.mensaje}}
+            <br> Fecha: {{item.fecha}}
         </ion-item>
-        <ion-item class="border" *ngIf="item.estado=='pendiente'" style="background-color:#7cb9e3;color:white;" (click)="aceptar(item)">
+        <ion-item class="border" *ngIf="item.estado=='Pendiente'" style="background-color:#7cb9e3;color:white;" (click)="aceptar(item)">
             De: {{item.de}} ({{item.nombre}})
             <br> Calificacion: {{item.calificacion}}
             <ion-icon name="star"></ion-icon>
             <br> Estado: {{item.estado}}
             <br> Mensaje: {{item.mensaje}}
+            <br> Fecha: {{item.fecha}}
         </ion-item>
 
 
-        <ion-item class="border" style="background-color:#7cb9e3;color:white;" *ngIf="solicitudes.length===0">
+        <ion-item class="border" style="background-color:#7cb9e3;color:white;" *ngIf="value">
             Usted no tiene solicitudes.
         </ion-item>
     </ion-list>
