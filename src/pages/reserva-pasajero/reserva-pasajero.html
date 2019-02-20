@@ -23,13 +23,11 @@
 
     <ion-list>
         <button ion-item *ngFor="let item of solicitudes" (click)="irOpcionreserva(item)">
-      A: {{item.a}}
+      Conductor: {{item.nombre+" "+item.apellido}}
       <br>
       Estado: {{item.estado}}
       <br>
-      Fecha: {{item.fechaViaje}}
-      <br>
-      Hora: {{item.horaViaje}}
+      Fecha - Hora: {{item.fecha}}
     </button>
     </ion-list>
 </ion-content>

@@ -8,6 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { TipoUsuarioPage } from '../pages/tipo-usuario/tipo-usuario';
 import { AgregarVehiculosPage } from '../pages/agregar-vehiculos/agregar-vehiculos';
 import { VehiculoPage } from '../pages/vehiculo/vehiculo';
+import { RegistrarPage } from '../pages/registrar/registrar';
 @Component({
   templateUrl: 'app.html'
 })

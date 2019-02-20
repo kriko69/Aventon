@@ -46,6 +46,7 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -65,8 +66,11 @@ import { EsPasajeroPage } from '../pages/es-pasajero/es-pasajero';
 import { VestimentaPage } from '../pages/vestimenta/vestimenta';
 import { Vestimenta1Page } from '../pages/vestimenta1/vestimenta1';
 
+import { SliderPrincipalPage } from './../pages/slider-principal/slider-principal';
+
 
 import { HttpClientModule } from '@angular/common/http';
+import { Camera} from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -111,7 +115,8 @@ import { HttpClientModule } from '@angular/common/http';
     VerMiQrPage,
     EsPasajeroPage,
     VestimentaPage,
-    Vestimenta1Page
+    Vestimenta1Page,
+    SliderPrincipalPage
   ],
   imports: [
     BrowserModule,
@@ -166,7 +171,8 @@ import { HttpClientModule } from '@angular/common/http';
     VerMiQrPage,
     EsPasajeroPage,
     VestimentaPage,
-    Vestimenta1Page
+    Vestimenta1Page,
+    SliderPrincipalPage
   ],
   providers: [
     StatusBar,
@@ -178,6 +184,7 @@ import { HttpClientModule } from '@angular/common/http';
     ToastService,
     UbicacionService,
     BarcodeScanner,
+    Camera
 
   ]
 })

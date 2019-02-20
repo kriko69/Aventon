@@ -7,6 +7,7 @@ import { LoginPage } from '../login/login';
 import { AlertController } from 'ionic-angular';
 
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'; // Para la validacion del formulario
+import { Camera, CameraOptions } from '@ionic-native/camera'; //Para la camara
 /**
  * Generated class for the RegistrarPage page.
  *
@@ -17,6 +18,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { mysqlService } from '../../services/mysql.service';
 import { pD } from '@angular/core/src/render3';
+import { Subscription, Observable } from 'rxjs';
 
 @IonicPage()
 @Component({
@@ -43,7 +45,7 @@ export class RegistrarPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public servicio:firebaseService
   ,public alerta:AlertController,private afAauth:AngularFireAuth,private platform:Platform, private http: HttpClient
-   , public mysql:mysqlService, public formBuilder: FormBuilder) {
+   , public mysql:mysqlService, public formBuilder: FormBuilder, public camera:Camera) {
 
       this.platform.registerBackButtonAction(() => {
         console.log('');
@@ -127,16 +129,45 @@ export class RegistrarPage {
     });
     alert.present();
   }
-  selectedFile:File = null;
+  public base64Image;
+  openCamera(){
+    const options: CameraOptions = {
+      quality:100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
 
-  onFileSelected(event){
-    this.selectedFile = <File>event.target.files[0];
+    this.camera.getPicture(options).then((imageData)=> {
+     let base64Image = 'data:image/jpeg;base64,'+ imageData;
+  },(err)=>{
+    console.log('Error en la foto tomada')
+  });
+  
+  }
+
+  openGallery(){
+    const options: CameraOptions = {
+      quality:100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+
+    this.camera.getPicture(options).then((imageData)=> {
+    let base64Image = 'data:image/jpeg;base64,'+ imageData;
+  },(err)=>{
+    console.log('Error en la foto tomada')
+  });
   }
 
   uploadingFoto(){
-    const fd =new FormData();
-    fd.append('image', this.selectedFile,this.selectedFile.name)
-    this.http.post('http://181.114.114.160/aventon/img/Perfil',fd).subscribe(res=>{
+    let url = 'http://181.114.114.160/aventon/Procesos/subirfotosperfil.php';
+    let postData = new FormData();
+    postData.append('file',this.base64Image);
+    let data: Observable<any> = this.http.post(url,postData);
+    data.subscribe((res)=>{
       console.log(res);
     });
   }

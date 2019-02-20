@@ -23,14 +23,14 @@ export class PuntoRecogidaReservaPage {
   markeraux:any;
   latOri  = -16.503720;
   longOri = -68.131247;
-  email='';
+  id_usuario;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public geolocation: Geolocation,private platform:Platform,
     public alerta:AlertController) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email = this.navParams.get('email');
+    this.id_usuario = this.navParams.get('id_usuario');
   }
 
   ionViewDidLoad() {
@@ -80,7 +80,7 @@ export class PuntoRecogidaReservaPage {
         let prohibido;
         let alert1=this.alerta;
         let control=this.navCtrl;
-        let correo=this.email;
+        let id_usuario=this.id_usuario;
         directionsService.route(request, function(result, status) {
           if (status == 'OK') {
             directionsDisplay.setDirections(result);
@@ -104,13 +104,13 @@ export class PuntoRecogidaReservaPage {
               buttons: ['OK']
             });
             alert.present();
-            control.setRoot(PuntoRecogidaReservaPage,{email:correo});
+            control.setRoot(PuntoRecogidaReservaPage,{id_usuario:id_usuario});
           }
         });
-        this.navCtrl.setRoot(VestimentaPage,{email: this.email,latitud:latitud,longitud:longitud});
+        this.navCtrl.setRoot(VestimentaPage,{id_usuario: this.id_usuario,latitud:latitud,longitud:longitud});
       }
       dismiss(){
 
-        this.navCtrl.setRoot(ReservaPasajeroPage,{email: this.email});
+        this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario: this.id_usuario});
       }
 }
