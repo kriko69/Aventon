@@ -268,6 +268,20 @@ export class mysqlService{
      return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
     }
 
+    listarRutasParaEliminar(id_usuario){
+      let info=new Array();
+      let data={
+        "key":"listarRutasParaEliminar",
+        "id_usuario":Number(id_usuario)
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+       return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
+      }
+
     listarRutasParaProgramar(id_usuario){
       let info=new Array();
       let data={
@@ -364,6 +378,20 @@ export class mysqlService{
        return this.http.post('http://181.114.114.160/aventon/procesos/eliminar.php', opsi, header);
   }
 
+  EliminarRuta(id_ruta){
+    let info=new Array();
+      let data={
+        "key":"EliminarRuta",
+        "id_ruta":id_ruta
+      };
+
+      let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+      opsi   : any = JSON.stringify(data);
+      console.log('opsi',opsi);
+
+       return this.http.post('http://181.114.114.160/aventon/procesos/eliminar.php', opsi, header);
+  }
+
 
   //Ruta_Viaje
   listarRuta_viaje(estado){
@@ -437,11 +465,11 @@ export class mysqlService{
     "inferior":solicitud.inferior,
     "accesorio":solicitud.accesorio
         };
-    
+
         let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
         opsi   : any = JSON.stringify(data);
         console.log('opsi',opsi);
-    
+
          return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
       }
       listarMisSolicitudesAceptadas(ci){
@@ -490,12 +518,12 @@ export class mysqlService{
           "key":"obtenerCapacidadViaje",
           "id_viaje":Number(id_viaje)
         };
-    
+
         let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
         opsi   : any = JSON.stringify(data);
         console.log('opsi',opsi);
-    
+
          return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
       }
-      
+
 }

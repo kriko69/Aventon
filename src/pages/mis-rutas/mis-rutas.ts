@@ -6,6 +6,7 @@ import { RutaModel } from '../../shared/ruta-model';
 import { firebaseService } from '../../services/firebase.service';
 import { ToastService } from '../../services/toast.service';
 import { OpcionesConductorPage } from '../opciones-conductor/opciones-conductor';
+import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the MisRutasPage page.
@@ -21,46 +22,42 @@ import { OpcionesConductorPage } from '../opciones-conductor/opciones-conductor'
 })
 export class MisRutasPage {
 
-  email='';
+  id_usuario;
   vec:any=[];
-  cacpacidad=0;
+  id_auto;
   control1:ISubscription;
   public viajes:RutaModel[];
-  constructor(public navCtrl: NavController, public navParams: NavParams,public modalCtrl:ModalController,public servicio:firebaseService,
+  constructor(public navCtrl: NavController, public navParams: NavParams,public modalCtrl:ModalController,public mysql:mysqlService,
     public viewCtrl:ViewController,public alertCtrl : AlertController, public toast: ToastService,private platform:Platform) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
-    this.email = this.navParams.get('email');
-    this.cacpacidad = this.navParams.get('capacidad');
-    console.log(this.email);
+    this.id_usuario = this.navParams.get('id_usuario');
+    this.id_auto = this.navParams.get('id_auto');
+
     this.func();
-    setTimeout(()=>{
-      this.control1.unsubscribe();
-    },3000);
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajePage');
   }
   func(){
-    let aux;
-    this.control1=this.servicio.getRuta(this.email).subscribe(
-      (data)=>{
-        console.log(data);
-        for(aux of data)
-        {
-          console.log(aux);
-            this.vec.push(aux);
-          
-        }
+    this.mysql.listarRutasParaEliminar(this.id_usuario).subscribe(
+      data=>{
+        console.log('nombre rutas: ',data);
+        this.vec=data;
+        console.log('vec',this.vec);
+
+      },(error)=>{
+        console.log(error);
+
       }
     );
-    console.log(this.vec);
   }
   rama;
-  borrarRuta(ruta:any){
-            this.navCtrl.setRoot(ConfirmarEliminacionPage,{email: this.email,ruta: ruta});
+  borrarRuta(nombre_ruta:any,id_ruta){
+            this.navCtrl.setRoot(ConfirmarEliminacionPage,{id_usuario:this.id_usuario,id_auto:this.id_auto,nombre_ruta:nombre_ruta,id_ruta:id_ruta});
 
  }
 
