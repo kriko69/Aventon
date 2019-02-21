@@ -21,7 +21,7 @@ export class BuzonPage {
   id_usuario;
   id_auto;
   solicitudes=[];
-  value='No se encontró';
+  value=false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService ,private platform:Platform,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
@@ -30,32 +30,33 @@ export class BuzonPage {
     this.id_usuario=this.navParams.get('id_usuario');
     this.id_auto=this.navParams.get('id_auto');
 
-    this.mysql.listarSolicitudesConductor(this.id_usuario).subscribe(
-      data => {
-        console.log('data',data);
-        console.log('exito');
-        if(data['message']==this.value){
-          this.solicitudes=[];
-          console.log('exito');
-        }
-        else
-          {this.solicitudes=Object.assign(data);}
-          }, (error: any)=> {
-          console.log('error', error);
+    this.listarMensajes();
 
-        }
-    );
-    setTimeout(()=>{
-      console.log(this.solicitudes);
-      if(this.solicitudes['message']==this.value){
-        this.solicitudes=[];
-      }
-    },3000);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuzonPage');
   }
+
+  listarMensajes()
+  {
+    this.mysql.listarSolicitudesConductor(this.id_usuario).subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+        if(data['message']=='No se encontró'){
+          this.value=true;
+        }
+        else
+        {
+           this.solicitudes=Object.assign(data);
+        }
+      }, (error: any)=> {
+        console.log('error', error);
+      }
+    );
+  }
+
 
   aceptar(solicitud)
   {
