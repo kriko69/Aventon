@@ -65,21 +65,8 @@ export class VerProgramadasPasajeroPage {
       console.log(this.copia);
       let puntos=[];
       for(let i=0;i<this.copia.length;i++){
-
-        this.mysql.Get_Puntos(this.copia[i].id_ruta).subscribe(
-          data => {
-            puntos=Object.assign(data);
-            }, (error: any)=> {
-              console.log('error', error);
-            }
-        );
-        setTimeout(()=>{
-          console.log(this.copia);
-          for(let i=0;i<this.copia.length;i++){
-            this.distancia(puntos,this.copia[i]);
-          }
-        },3000);
-      }
+       this.sacar_punt(this.copia[i]);
+        }
     },3000);
   }
 
@@ -102,13 +89,31 @@ export class VerProgramadasPasajeroPage {
   {
     this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario: this.id_usuario});
   }
+  sacar_punt(obj){
+    let puntos;
+    this.mysql.Get_Puntos(obj.id_ruta).subscribe(
+      data => {
+        puntos=Object.assign(data);
+        console.log('puntos',puntos);
+        }, (error: any)=> {
+          console.log('error', error);
+        }
+    );
+    setTimeout(()=>{
+      console.log('obj',obj);
+      console.log('puntos',puntos);
+        if(puntos['message']!='No se encontro rutas_viaje')
+        {
+          this.distancia(puntos,obj);
+        }
+    },3000);
+  }
   distancia(puntos,data){
-    let latlong;
     let lat;let long;
     let distancia;
     for(let i=0;i<puntos.length;i++){
-        lat=puntos.latitud;
-        long=puntos.longitud;
+        lat=puntos[i].latitud;
+        long=puntos[i].longitud;
         distancia=this.getKilometros(this.latitud,this.longitud,lat,long);
         console.log('DISTANCIA: '+distancia);
         if(distancia<=0.5){

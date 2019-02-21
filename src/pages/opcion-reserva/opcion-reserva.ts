@@ -75,7 +75,8 @@ export class OpcionReservaPage {
           }
         );
         setTimeout(()=>{
-          //this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario:this.id_usuario,id_auto:this.id_auto});   // No corre esta funcion
+
+          this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario:this.id_usuario/*,id_auto:this.id_auto*/});
 
         });
   
