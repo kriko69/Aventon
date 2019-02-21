@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { firebaseService } from '../../services/firebase.service';
 import { CalificacionPage } from '../calificacion/calificacion';
+import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the BuzonPage page.
@@ -17,30 +18,39 @@ import { CalificacionPage } from '../calificacion/calificacion';
   templateUrl: 'buzon.html',
 })
 export class BuzonPage {
-  email;
-  rama;
+  id_usuario;
+  id_auto;
   solicitudes=[];
+  value='No se encontró';
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService ,private platform:Platform) {
+  public servicio:firebaseService ,private platform:Platform,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email=this.navParams.get('email');
-    this.rama=this.email.split('.');
-    this.servicio.getSolicitudesRef(this.rama[0]).valueChanges().subscribe(
-      data=>{
-        this.solicitudes=data;
-        console.log(this.solicitudes);
+    this.id_usuario=this.navParams.get('id_usuario');
+    this.id_auto=this.navParams.get('id_auto');
 
-      }
+    this.mysql.listarSolicitudesConductor(this.id_usuario).subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+        if(data['message']==this.value){
+          this.solicitudes=[];
+          console.log('exito');
+        }
+        else
+          {this.solicitudes=Object.assign(data);}
+          }, (error: any)=> {
+          console.log('error', error);
+
+        }
     );
-    for(let i=0;i<this.solicitudes.length;i++)
-    {
-      if(this.solicitudes[i].emails=='')
-      {
-        this.solicitudes.splice(i, 1);
+    setTimeout(()=>{
+      console.log(this.solicitudes);
+      if(this.solicitudes['message']==this.value){
+        this.solicitudes=[];
       }
-    }
+    },3000);
   }
 
   ionViewDidLoad() {
@@ -49,10 +59,10 @@ export class BuzonPage {
 
   aceptar(solicitud)
   {
-    this.navCtrl.push(AceptarSolicitudPage,{email:this.email,solicitud:solicitud});
+    this.navCtrl.push(AceptarSolicitudPage,{id_usuario:this.id_usuario,solicitud:solicitud,id_auto:this.id_auto});
   }
   calif(obj)
   {
-    this.navCtrl.push(CalificacionPage,{email:this.email,obj:obj,rama:this.rama});
+    this.navCtrl.push(CalificacionPage,{id_usuario:this.id_usuario,obj:obj,id_auto:this.id_auto});
   }
 }
