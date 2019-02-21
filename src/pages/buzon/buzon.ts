@@ -1,3 +1,4 @@
+import { mysqlService } from './../../services/mysql.service';
 import { AceptarSolicitudPage } from './../aceptar-solicitud/aceptar-solicitud';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
