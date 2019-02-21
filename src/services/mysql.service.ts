@@ -603,7 +603,7 @@ export class mysqlService{
           insertarcalificacion(calif)
       {
         let data={
-          "key":"insertarSolicitud",
+          "key":"insertarcalificacion",
           "id_de": calif.id_de,
           "id_para":calif.id_para,
           "rol":calif.rol,

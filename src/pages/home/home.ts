@@ -73,12 +73,5 @@ export class HomePage {
       },3000);
     },3000);
     this.navCtrl.setRoot(BuzonPasajeroPage,{id_usuario:this.id_usuario});
-
-    /*this.obj.estado='Calificado';
-    this.servicio.upca(this.email,this.obj);
-    let aux=this.obj.de.split('.');
-    let aux1=this.email.split('.');
-    this.servicio.calif(aux1[0],aux[0],this.rate,this.obj.fecha);
-    */
   }
 }
