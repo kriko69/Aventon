@@ -227,6 +227,6 @@ verificarFecha(fecha_hora)
 
   activarRuta(ruta)
   {
-    this.navCtrl.setRoot(ActivarRutaPage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
+    this.navCtrl.setRoot(ActivarRutaPage,{id_usuario:this.id_usuario,id_auto:this.id_auto, ruta:ruta});
   }
 }

@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { firebaseService } from '../../services/firebase.service';
 import { CalificacionPage } from '../calificacion/calificacion';
-import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the BuzonPage page.
