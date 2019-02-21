@@ -67,6 +67,7 @@ ruta_activada;
     this.id_auto = this.navParams.get('id_auto');
     this.ruta_activada = this.navParams.get('ruta_activada');
   let flag=false;
+    //obtengo mi poscion actual+
   this._ubicacion.iniciar_localizacion(this.email);
   /*let conductor = this.email.split(".");
 
@@ -95,6 +96,7 @@ ruta_activada;
             this.diferentes.push(caux);
           }
         }
+        //saco los pasajeros por la ruta
         console.log(this.diferentes);
         this.ii=this.diferentes.length-1;
           this.btnpasa=[];
@@ -109,12 +111,15 @@ ruta_activada;
          }
         }
     console.log(this.ii);
+    //no entiendo que valida el if
     if(this.rutavieja!=this.diferentes[this.ii].ruta){
       this.rutavieja=this.diferentes[this.ii].ruta;
+      //funcion sesa() dibuja la ruta con puntos de la ruta, recogidos, punto actual ademas de calcular los tiempos
+
     this.sesa();
     }
     else{
-
+      //dibujo con el sedan mi posicion actual
       let latemail=this.email.split('.');
       this.marka.setMap(null);
       this.suscrito2=this.servicio.latlong(latemail[0]).valueChanges().subscribe(
@@ -133,6 +138,7 @@ ruta_activada;
 
 
     }
+    //muestra mensaje de a quien recoger con su vestimenta
     if(this.inicio && this.diferentes[this.ii].pasajeros!=''){
       this.mostrarAlerta2();
     }
@@ -481,7 +487,7 @@ ruta_activada;
     console.log('DIFERENTES',this.diferentes);
     console.log('MARKERSARRAY: ',this.markersArray);
 
-
+    //saco la hora de la ruta activa
     let fecha=this.diferentes[this.ii].zfecha.split('|');
     let horaViaje=fecha[1];
     console.log('horaViaje',horaViaje);
@@ -515,6 +521,7 @@ ruta_activada;
       point=new google.maps.LatLng(split[0],split[1]);
       puntos.push(point);
     }
+    //tengo los puntos en formato google.maps.LatLng
     console.log(puntos);
 
     //obtener los intermedios
@@ -533,7 +540,9 @@ ruta_activada;
     let tiempos=[];
     let tiemposLiteral=[];
 
+    //este es el tiempo de partida
     tiemposLiteral.push(this.determinarPartida(horaViaje)); //hora de partida
+
     var directionsService=new google.maps.DirectionsService;
     var directionsDisplay= new google.maps.DirectionsRenderer({
       draggable:true,
@@ -615,7 +624,7 @@ ruta_activada;
     let mapita=this.map;
     console.log(mapita);
     console.log(markers);
-
+      //ordeno por posicion los puntos
     markers=this.ordenar(markers);
 
     for (let i = 0; i < markers.length; i++) {
