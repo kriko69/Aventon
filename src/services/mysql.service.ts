@@ -238,13 +238,14 @@ export class mysqlService{
      return this.http.post('http://181.114.114.160/aventon/procesos/consulta.php', opsi, header);
   }
 
-  agregarPunto(id_ruta,latitud,longitud)
+  agregarPunto(id_ruta,latitud,longitud,posicion)
   {
     let data={
       "key":"agregarPunto",
       "id_ruta":id_ruta,
       "latitud":latitud,
-      "longitud":longitud
+      "longitud":longitud,
+      "posicion":posicion
     };
 
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
@@ -593,11 +594,11 @@ export class mysqlService{
             "id_solicitud":id_solicitud,
             "estado":estado
           };
-    
+
           let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
           opsi   : any = JSON.stringify(data);
           console.log('opsi',opsi);
-    
+
            return this.http.post('http://181.114.114.160/aventon/Procesos/consulta.php', opsi, header);
           }
           insertarcalificacion(calif)
@@ -611,11 +612,11 @@ export class mysqlService{
         "problemas":calif.problemas,
         "id_viaje":calif.id_viaje
         };
-    
+
         let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
         opsi   : any = JSON.stringify(data);
         console.log('opsi',opsi);
-    
+
          return this.http.post('http://181.114.114.160/aventon/procesos/insertar.php', opsi, header);
       }
 }

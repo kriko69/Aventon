@@ -212,7 +212,8 @@ longUCB = -68.112290;
             let latitud=Number(this.markersArray[i].getPosition().lat());
             let longitud=Number(this.markersArray[i].getPosition().lng());
            console.log('punto: '+this.markersArray[i].getPosition().lat()+"/"+this.markersArray[i].getPosition().lng());
-            this.mysql.agregarPunto(this.id_ruta,latitud,longitud).subscribe(
+           let posicion=i+1;
+            this.mysql.agregarPunto(this.id_ruta,latitud,longitud,posicion).subscribe(
               data=>{
                 console.log('puntos:',data);
                 this.id_ruta=data
