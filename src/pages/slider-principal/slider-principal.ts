@@ -1,18 +1,11 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { LoginPage } from '../login/login';
+import { Component, ViewChild} from '@angular/core';
+
+import { IonicPage, NavController, NavParams,Nav,App, ToastController, Platform } from 'ionic-angular';
 import { TipoUsuarioPage } from '../tipo-usuario/tipo-usuario';
-/**
- * Generated class for the SliderPrincipalPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-import { AngularFireAuth } from 'angularfire2/auth';
+import { LoginPage } from '../login/login';
 import { firebaseService } from '../../services/firebase.service';
 import { Usuario } from '../../interfaces/usuario.interface';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { PasajeroPage } from '../pasajero/pasajero';
+import { PerfilPasajeroPage } from '../perfil-pasajero/perfil-pasajero';
 import { mysqlService } from '../../services/mysql.service';
 @IonicPage()
 @Component({
@@ -20,18 +13,7 @@ import { mysqlService } from '../../services/mysql.service';
   templateUrl: 'slider-principal.html',
 })
 export class SliderPrincipalPage {
-  id_usuario=0;
-  nombre_usuario='';
-  info;
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-  private afAuth:AngularFireAuth,
-  private servicio: firebaseService,public mysql:mysqlService) {
- 
-    this.id_usuario = navParams.get('id_usuario');
-    this.nombre_usuario = navParams.get('nombre_usuario');
-    console.log('id:',this.id_usuario);
 
-  }
   slides = [
     {
       title: "Bienvenido a Auto Compartido!",
@@ -49,10 +31,44 @@ export class SliderPrincipalPage {
       image: "assets/logo.png",
     }
   ];
+  id_usuario;
+  usuario;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private toast:ToastController,
+    public servicio: firebaseService, public app:App,private platform:Platform
+    ,public mysql:mysqlService) {
+      this.platform.registerBackButtonAction(() => {
+        console.log('');
+      },10000);
+    this.id_usuario = navParams.get('id_usuario');
+      let info;
+    this.mysql.GetUsuario(this.id_usuario).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+  }
+  ionViewDidLoad() {
+    this.toast.create({
+      message:`ayuda, ${this.usuario}`,
+      duration:3000
+    }).present();
+  }
   
-  skip(tipo){
+
+  
+
+  cambiarUsuario()
+  {
     let info;
-    this.mysql.Tipo(this.id_usuario,tipo).subscribe(
+    this.mysql.Tipo(this.id_usuario,'').subscribe(
       data => {
         console.log('data', data);
         info= Object.assign(data);
@@ -67,10 +83,14 @@ export class SliderPrincipalPage {
 
     setTimeout(()=>{
       console.log('info',info);
+      var nav = this.app.getRootNav();
+      let nom=this.usuario[0].nombre+' '+this.usuario[0].apellido;
+      nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario,nombre_usuario:nom});
     },3000);
   }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SliderPrincipalPage');
-  }
+ 
+
+    
+  
 
 }
