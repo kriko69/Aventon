@@ -50,25 +50,30 @@ export class AgregarVehiculosPage {
     this.myForm = this.formBuilder.group({
       capacidad: [ 0, Validators.compose([Validators.maxLength(1), Validators.required])],
       color:['',Validators.compose([Validators.required])],
-      maletera:false,
       marca:['',Validators.compose([Validators.required])],
       modelo:[ 0, Validators.compose([Validators.maxLength(4), Validators.required,Validators.minLength(4)])],
-      placa:['',Validators.compose([Validators.required])],
-      estado:false,
-      id_usuario:0
+      placa: '',
+      maletera: false,
+      placanum: ['',Validators.compose([Validators.required])],
+      placalet: ['',Validators.compose([Validators.required])],
       });   
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AgregarVehiculosPage');
+    //console.log('ionViewDidLoad AgregarVehiculosPage');
   }
-
   agregar()
   {
+    this.auto.capacidad = this.myForm.value.capacidad;
+    this.auto.color = this.myForm.value.color;
+    this.auto.maletera = this.myForm.value.maletera;
+    this.auto.marca = this.myForm.value.marca;
+    this.auto.modelo = this.myForm.value.modelo;
+    this.auto.placa = this.myForm.value.placanum + this.myForm.value.placalet.toUpperCase(); 
     let info={};
     let id_auto;
-    this.mysql.AgregarAuto(this.myForm.value).subscribe( // cambie this.auto por this.myForm.valueS
+    this.mysql.AgregarAuto(this.auto).subscribe( // cambie this.auto por this.myForm.valueS
       data => {
         console.log('data auto', data);
         info= Object.assign(data);

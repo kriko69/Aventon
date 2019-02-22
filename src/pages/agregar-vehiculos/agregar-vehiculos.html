@@ -38,26 +38,46 @@
         <ion-item *ngIf="myForm.get('marca').errors && myForm.get('marca').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('marca').hasError('required')">*Campo requerido</p>
         </ion-item>
+        
         <ion-item class="inputcolor" style="margin-top: 0.5em">
-                <ion-label stacked color="dark">Modelo</ion-label>
+                <ion-label stacked color="dark">Modelo(año)</ion-label>
                 <ion-input type="number" formControlName="modelo"  name="modelo" ></ion-input>
             </ion-item>
             <ion-item *ngIf="myForm.get('modelo').errors && myForm.get('modelo').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('modelo').hasError('required')">*Campo requerido</p>
-                <p color="danger" ion-text *ngIf="myForm.controls['modelo'].hasError('maxlength')">*Un modelo de un vehiculo debe poseer 4 digitos(AAAA)</p>
+                <p color="danger" ion-text *ngIf="myForm.controls['modelo'].hasError('maxlength') || myForm.controls['modelo'].hasError('minlenght')">*Un modelo de un vehiculo debe poseer 4 digitos(AAAA)</p>
             </ion-item>
-        <ion-item class="inputcolor" style="margin-top: 0.5em">
-                <ion-label stacked color="dark">Placa </ion-label>
-                <ion-input type="text" formControlName="placa"  name="placa" placeholder="1234-ABC"></ion-input>
-        </ion-item >
-        <ion-item *ngIf="myForm.get('placa').errors && myForm.get('placa').dirty">
-                <p color="danger" ion-text *ngIf="myForm.get('placa').hasError('required')">*Campo requerido</p>
-        </ion-item>
-
+            <ion-row radio-group formControlName= "placa">
+                <ion-col col-6>
+                        
+                        <ion-item class="inputcolor" style="margin-top: 0.5em">
+                                <ion-label stacked color="dark">Placa Numero </ion-label>
+                                <ion-input type="number" formControlName="placanum"  name="placanum" placeholder="1234"></ion-input>
+                        </ion-item >
+                
+                </ion-col>
+                <ion-col col-6>
+                        <ion-item class="inputcolor" style="margin-top: 0.5em">
+                                <ion-label stacked color="dark">Placa Letras </ion-label>
+                                <ion-input type="text" formControlName="placalet"  name="placalet" placeholder="ABC"></ion-input>
+                        </ion-item >
+                
+                </ion-col>
+              </ion-row>
+              <ion-item *ngIf="myForm.get('placalet').errors && myForm.get('placalet').dirty">
+                      <p color="danger" ion-text *ngIf="myForm.get('placalet').hasError('required')">*Campo requerido placa letra</p>
+              </ion-item>
+              <ion-item *ngIf="myForm.get('placanum').errors && myForm.get('placanum').dirty">
+                      <p color="danger" ion-text *ngIf="myForm.get('placanum').hasError('required')">*Campo requerido placa numero</p>
+              </ion-item>
+              
         <ion-item class="inputcolor" style="margin-top: 0.5em">
             <ion-label>Maletera</ion-label>
             <ion-checkbox color="primary" formControlName="maletera"></ion-checkbox>
         </ion-item>
-        <button ion-button color="danger" [disabled]="myForm.invalid" block style="margin-top:25px;" (click)="agregar()">Agregar <ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
+        <div padding>
+            <button ion-button block (click)="agregar()"  [disabled]="!myForm.valid" round>Agregar<ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
+        </div>
+        
     </form>
 </ion-content>

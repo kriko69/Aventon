@@ -1,7 +1,7 @@
 import { VehiculoPage } from './../vehiculo/vehiculo';
 import { Vehiculo } from './../../interfaces/vehiculo.interface';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Nav,App, ToastController, Platform } from 'ionic-angular';
 import { SliderPrincipalPage } from '../slider-principal/slider-principal';
 
 /**
@@ -31,9 +31,10 @@ export class TipoUsuarioPage {
   id_usuario=0;
   nombre_usuario='';
   info;
+ 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private afAuth:AngularFireAuth, private toast:ToastController,
-  private servicio: firebaseService, private db:AngularFireDatabase,private platform:Platform
+  private servicio: firebaseService, private db:AngularFireDatabase,private platform:Platform, public app:App
   ,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
@@ -63,7 +64,9 @@ export class TipoUsuarioPage {
   }
   slidePrincipal3()
   {
-    this.navCtrl.setRoot(SliderPrincipalPage);
+    this.slide();
+    this.navCtrl.push(SliderPrincipalPage,{id_usuario: this.id_usuario,nombre_usuario:this.nombre_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
+    
   }
   cambiarTipo(tipo){
     let info;
@@ -84,6 +87,25 @@ export class TipoUsuarioPage {
       console.log('info',info);
     },3000);
   }
+  slide(){
+    let info;
+    this.mysql.Tipo(this.id_usuario,'').subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
 
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      console.log('info',info);
+    },3000);
+  }
+ 
 
 }
