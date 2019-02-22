@@ -41,8 +41,7 @@ export class ReservarProgramadasPasajeroPage {
     superior:'',
     inferior:'',
     accesorio:''
-  }; //la solicitud que le llega a el
-   //la solicitud que yo mande
+  }; 
   start;
   end;
   tiemposEntrePuntos=[];
@@ -67,16 +66,32 @@ export class ReservarProgramadasPasajeroPage {
     this.solicitud.superior=this.vestimenta.zsuperior;
     this.solicitud.inferior=this.vestimenta.zinferior;    
     this.solicitud.accesorio=this.vestimenta.zaccesorio;
-
+    this.obtnuntos();
     
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReservarProgramadasPasajeroPage');
-    this.recargar();
-    this.ver(this.start,this.end);
+    //this.recargar();
+    //this.ver(this.start,this.end);
   }
-
+  obtnuntos(){
+    let puntos;
+    console.log('ruta',this.data.id_ruta);
+    console.log('usuario',this.id_usuario);
+    this.mysql.Get_Puntos(this.data.id_ruta).subscribe(
+      data=>{
+        console.log('puntos rutas: ',data);
+        puntos=data;
+      },(error)=>{
+        console.log(error);
+      }
+    );
+    setTimeout(()=>{
+      console.log('puntos',puntos);
+      this.recargar(puntos);
+    },1000);
+  }
   enviar()
   {
     let info;
@@ -102,7 +117,7 @@ export class ReservarProgramadasPasajeroPage {
     });
     alert.present();
   }
-  recargar(){
+  /*recargar(){
     let points=this.data.ruta;
     this.markersArray=[];
     let latlon=points.split(';');
@@ -238,12 +253,68 @@ export class ReservarProgramadasPasajeroPage {
 
 
 
+  }*/
+  recargar(points){
+    this.markersArray=[];
+
+    let latitud,longitud;
+    for(let i=0;i<points.length;i++)
+    {
+      latitud=Number(points[i].latitud);
+      longitud=Number(points[i].longitud);
+      this.markeraux = new google.maps.Marker({position: {lat: latitud, lng: longitud},map: this.map,draggable: false});
+      console.log(latitud+'/'+longitud);
+      if(i!=0 && i!=points.length-1){
+        this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+      }
+      this.markersArray.push(this.markeraux);
+    }
+    let arrayaux=[];
+    for(let i=0;i<points.length;i++)
+    {
+      arrayaux[i]=this.markersArray[i];
+    }
+    var directionsService = new google.maps.DirectionsService;
+      var directionsDisplay = new google.maps.DirectionsRenderer;
+     directionsDisplay = new google.maps.DirectionsRenderer();
+     this.map = new google.maps.Map(document.getElementById('map1'), {
+      center: {lat: this.latOri, lng: this.longOri},
+      zoom:15
+    });
+    let waypts=[];
+    for(let i=0;i<points.length;i++){
+    waypts.push({
+      location: this.markersArray[i].getPosition(),
+      stopover: false
+    });}
+    console.log(waypts);
+    this.map = new google.maps.Map(document.getElementById('map1'));
+    directionsDisplay.setMap(this.map);
+     var start = this.markersArray[0].getPosition();
+     var end = this.markersArray[points.length-1].getPosition();
+     var request = {
+      origin: start,
+      destination: end,
+      travelMode: 'DRIVING',
+      waypoints: waypts
+    };
+    directionsService.route(request, function(result, status) {
+      if (status == 'OK') {
+        directionsDisplay.setDirections(result);
+      }else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+    for(let i=1;i<points.length-1;i++){
+      this.markersArray[i].setMap(this.map);
+    }
+
   }
   dismiss()
   {
     this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario: this.id_usuario});
   }
-  distancia(data){
+  /*distancia(data){
     let latlong;
     let lat;let long;
     let distancia;
@@ -292,7 +363,7 @@ export class ReservarProgramadasPasajeroPage {
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   var d = R * c;
  return d.toFixed(3); //Retorna tres decimales
-  }
+  }*/
 
 
 

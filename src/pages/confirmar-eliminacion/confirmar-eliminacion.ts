@@ -71,13 +71,13 @@ export class ConfirmarEliminacionPage {
         this.navCtrl.setRoot(OpcionesConductorPage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
   }
 
-  cambiar(valor:string)
+  /*cambiar(valor:string)
   {
     let aux1,aux2;
     aux1=valor.substring(0,3);
     aux2=valor.substr(3,valor.length);
     return aux1+'.'+aux2;
-  }
+  }*/
   /*recargar(){
     let points=this.ruta.puntos;
     this.markersArray=[];
@@ -154,8 +154,8 @@ export class ConfirmarEliminacionPage {
     let latitud,longitud;
     for(let i=0;i<points.length;i++)
     {
-      latitud=Number(this.cambiar(points[i].latitud));
-      longitud=Number(this.cambiar(points[i].longitud));
+      latitud=Number(points[i].latitud);
+      longitud=Number(points[i].longitud);
       this.markeraux = new google.maps.Marker({position: {lat: latitud, lng: longitud},map: this.map,draggable: false});
       console.log(latitud+'/'+longitud);
       if(i!=0 && i!=points.length-1){
