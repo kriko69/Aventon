@@ -129,7 +129,7 @@ export class RegistrarPage {
     });
     alert.present();
   }
-  public base64Image;
+  base64Image: any='';
   openCamera(){
     const options: CameraOptions = {
       quality:100,
@@ -139,7 +139,7 @@ export class RegistrarPage {
     }
 
     this.camera.getPicture(options).then((imageData)=> {
-     let base64Image = 'data:image/jpeg;base64,'+ imageData;
+    this.base64Image = 'data:image/jpeg;base64,'+ imageData;
   },(err)=>{
     console.log('Error en la foto tomada')
   });
@@ -156,7 +156,7 @@ export class RegistrarPage {
     }
 
     this.camera.getPicture(options).then((imageData)=> {
-    let base64Image = 'data:image/jpeg;base64,'+ imageData;
+    this.base64Image = 'data:image/jpeg;base64,'+ imageData;
   },(err)=>{
     console.log('Error en la foto tomada')
   });
