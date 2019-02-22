@@ -18,62 +18,52 @@ import { CalificacionPage } from '../calificacion/calificacion';
   templateUrl: 'buzon.html',
 })
 export class BuzonPage {
-  email;
-  rama;
-  solicitudes;
   id_usuario;
   id_auto;
+  solicitudes=[];
   value=false;
-  info;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public myysql:mysqlService ,private platform:Platform) {
+  public servicio:firebaseService ,private platform:Platform,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
     this.id_usuario=this.navParams.get('id_usuario');
     this.id_auto=this.navParams.get('id_auto');
 
-    this.myysql.listarSolicitudesConductor(this.id_usuario).subscribe(
-      data=>{
-        if(data['message']=='No se encontró'){
-          this.value=true;
-        }
-        else{
-          this.solicitudes=data;
-          console.log(this.solicitudes);
-        }
-      },(error)=>{
-        console.log(error);
+    this.listarMensajes();
 
-      }
-    );
-
-    /*this.servicio.getSolicitudesRef(this.rama[0]).valueChanges().subscribe(
-      data=>{
-        this.solicitudes=data;
-        console.log(this.solicitudes);
-
-      }
-    );
-    for(let i=0;i<this.solicitudes.length;i++)
-    {
-      if(this.solicitudes[i].emails=='')
-      {
-        this.solicitudes.splice(i, 1);
-      }
-    }*/
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuzonPage');
   }
 
+  listarMensajes()
+  {
+    this.mysql.listarSolicitudesConductor(this.id_usuario).subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+        if(data['message']=='No se encontró'){
+          this.value=true;
+        }
+        else
+        {
+           this.solicitudes=Object.assign(data);
+        }
+      }, (error: any)=> {
+        console.log('error', error);
+      }
+    );
+  }
+
+
   aceptar(solicitud)
   {
-    this.navCtrl.push(AceptarSolicitudPage,{email:this.email,solicitud:solicitud});
+    this.navCtrl.push(AceptarSolicitudPage,{id_usuario:this.id_usuario,solicitud:solicitud,id_auto:this.id_auto});
   }
   calif(obj)
   {
-    this.navCtrl.push(CalificacionPage,{email:this.email,obj:obj,rama:this.rama});
+    this.navCtrl.push(CalificacionPage,{id_usuario:this.id_usuario,obj:obj,id_auto:this.id_auto});
   }
 }

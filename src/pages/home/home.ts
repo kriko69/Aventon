@@ -3,6 +3,7 @@ import { NavController,NavParams, Platform } from 'ionic-angular';
 import { Ionic2RatingModule } from "ionic2-rating";
 import { firebaseService } from './../../services/firebase.service';
 import { BuzonPasajeroPage } from '../buzon-pasajero/buzon-pasajero';
+import { mysqlService } from '../../services/mysql.service';
 
 @Component({
   selector: 'page-home',
@@ -11,12 +12,22 @@ import { BuzonPasajeroPage } from '../buzon-pasajero/buzon-pasajero';
 export class HomePage {
   rate : any = 0;
   obj:any;
-  email;
-  constructor(public navCtrl: NavController,public navParams: NavParams,public servicio:firebaseService,private platform:Platform) {
+  id_usuario;
+  problemas='';
+  califi={
+    id_de: 0,
+    id_para:0,
+    rol:'Conductor',
+    calificacion:0,
+    problemas:'',
+    id_viaje:0
+  };
+  constructor(public navCtrl: NavController,public navParams: NavParams,public servicio:firebaseService,private platform:Platform,
+    public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email = this.navParams.get('email');
+    this.id_usuario = this.navParams.get('id_usuario');
     this.obj=this.navParams.get('obj');
   }
 
@@ -25,11 +36,42 @@ export class HomePage {
   	console.log(event);
   }
   calif(){
-    this.obj.estado='Calificado';
-    this.servicio.upca(this.email,this.obj);
-    let aux=this.obj.de.split('.');
-    let aux1=this.email.split('.');
-    this.servicio.calif(aux1[0],aux[0],this.rate,this.obj.fecha);
-    this.navCtrl.setRoot(BuzonPasajeroPage,{email:this.email});
+    let estado='Calificado';
+    let info;
+    this.mysql.actualizarEstadoSolicitud(estado,this.obj.id_solicitud).subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+        info=Object.assign(data);
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+    setTimeout(()=>{
+      console.log(info);
+      this.califi.id_de=this.obj.id_de;
+      this.califi.id_para=this.obj.id_para;
+      this.califi.rol='Conductor';
+      this.califi.calificacion=this.rate;
+      this.califi.problemas=this.problemas;
+      this.califi.id_viaje=this.obj.id_viaje;
+      this.mysql.insertarcalificacion(this.califi).subscribe(
+        data => {
+          console.log('data',data);
+          console.log('exito');
+          info=Object.assign(data);
+  
+          }, (error: any)=> {
+            console.log('error', error);
+  
+          }
+      );
+      setTimeout(()=>{
+        console.log(info);
+      },3000);
+    },3000);
+    this.navCtrl.setRoot(BuzonPasajeroPage,{id_usuario:this.id_usuario});
   }
 }

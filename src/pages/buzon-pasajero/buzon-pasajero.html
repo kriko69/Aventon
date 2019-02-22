@@ -19,34 +19,40 @@
             De: {{item.id_de}}
             <br> Fecha: {{item.fecha}}
             <br> Mensaje: {{item.mensaje}}
+            <br> Enviado el: {{item.fechasort}}
         </ion-item>
-        <ion-item class="border" *ngIf="item.estado=='No calificado'" style="background-color:#7cb9e3;color:white;" (click)="calif(item)">
-            De: {{item.id_para}}
+        <ion-item class="border" *ngIf="item.estado=='No Calificado'" style="background-color:#7cb9e3;color:white;" (click)="calif(item)">
+            De: {{item.nombre+" "+item.apellido}}
             <br> Viaje del dia: {{item.fecha}}
             <br> Estado: {{item.estado}}
             <br> Mensaje: {{item.mensaje}}
+            <br> Enviado el: {{item.fechasort}}
         </ion-item>
         <ion-item class="border" *ngIf="item.estado=='Calificado'" style="background-color:#5FB404;color:white;">
-            De: {{item.id_para}}
+            De: {{item.nombre+" "+item.apellido}}
             <br> Viaje del dia: {{item.fecha}}
             <br> Estado: {{item.estado}}
             <br> Mensaje: {{item.mensaje}}
+            <br> Enviado el: {{item.fechasort}}
         </ion-item>
 
-        <ion-item class="border" *ngIf="item.estado=='No aceptado'" style="background-color:#ffff00;color:black;">
-            A: {{item.id_para}}
+        <ion-item class="border" *ngIf="item.estado=='No Aceptado'" style="background-color:#ffff00;color:black;">
+            A: {{item.nombre+" "+item.apellido}}
             <br> Estado: {{item.estado}}
             <br> Fecha: {{item.fecha}}
+            <br> Enviado el: {{item.fechasort}}
         </ion-item>
         <ion-item class="border" *ngIf="item.estado=='Aceptado'" style="background-color:green;color:white;">
-            A: {{item.id_para}}
+            A: {{item.nombre+" "+item.apellido}}
             <br> Estado: {{item.estado}}
             <br> Fecha: {{item.fecha}}
+            <br> Enviado el: {{item.fechasort}}
         </ion-item>
         <ion-item class="border" *ngIf="item.estado=='Pendiente'" style="background-color:#7cb9e3;color:white;">
-            A: {{item.id_para}}
+            A: {{item.nombre+" "+item.apellido}}
             <br>Estado: {{item.estado}}
             <br>Fecha de Viaje: {{item.fecha}}
+            <br> Enviado el: {{item.fechasort}}
         </ion-item>
         <ion-item class="border" style="background-color:#7cb9e3;color:white;" *ngIf="solicitudes.length===0">
             Usted no tiene solicitudes.

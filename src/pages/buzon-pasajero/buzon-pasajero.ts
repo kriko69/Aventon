@@ -33,8 +33,12 @@ export class BuzonPasajeroPage {
      this.mysql.listarSolicitudesPasajero(this.id_usuario).subscribe(
       data => {
         console.log('data',data);
+      if(data['message']==this.value){
+        this.solicitudes=[];
         console.log('exito');
-        this.solicitudes=Object.assign(data);
+      }
+      else
+        {this.solicitudes=Object.assign(data);}
 
         }, (error: any)=> {
           console.log('error', error);
