@@ -21,14 +21,16 @@
 <ion-content padding class="imagen">
     <ion-list>
         <ion-list-header *ngIf="value">
+            <b>
             <strong>VEHÍCULOS</strong>
+        </b>
         </ion-list-header>
 
-        <ion-item *ngFor="let auto of vehiculos$" round (click)="irEditar(auto)" >
-            Placa: {{auto.placa}}<br>
+        <ion-item *ngFor="let auto of vehiculos$" round (click)="irEditar(auto)">
+            <b>Placa: {{auto.placa}}<br>
             Marca: {{auto.marca}}<br>
             Color: {{auto.color}}<br>
-            Capacidad: {{auto.capacidad}}
+            Capacidad: {{auto.capacidad}}</b>
         </ion-item>
 
         <!--si hay veiculos-->

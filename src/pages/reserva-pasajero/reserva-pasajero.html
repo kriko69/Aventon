@@ -18,16 +18,18 @@
     <!--<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>-->
     <!--fab-->
     <ion-fab bottom right>
-        <button ion-fab (click)="irProgramadas()" color="secondary"><ion-icon name="add"></ion-icon></button>
+        <button ion-fab (click)="irProgramadas()" color="yellow"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
 
     <ion-list>
         <button ion-item *ngFor="let item of solicitudes" (click)="irOpcionreserva(item)">
-      Conductor: {{item.nombre+" "+item.apellido}}
+      <!--NEGRILLA-->
+            <b>
+            Conductor: {{item.nombre+" "+item.apellido}}
       <br>
       Estado: {{item.estado}}
       <br>
-      Fecha - Hora: {{item.fecha}}
+      Fecha - Hora: {{item.fecha}}</b>
     </button>
     </ion-list>
 </ion-content>

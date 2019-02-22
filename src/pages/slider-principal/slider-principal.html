@@ -5,7 +5,8 @@
   Ionic pages and navigation.
 -->
 
-<ion-content class="tutorial-page">
+<ion-content class="tutorial-page" >
+    
 
   <ion-slides pager>
     <ion-slide *ngFor="let slide of slides">
@@ -22,7 +23,7 @@
       <ion-toolbar>
       </ion-toolbar>
       <img src="assets/logo.png" class="slide-image"/>
-      <h2 class="slide-title">Estas Listo?</h2>
+      <h2 class="slide-title">¿Estás listo? </h2>
       <button ion-button large clear icon-end color ="primary" (click)="cambiarUsuario()" >
         Continuar
         <ion-icon name="arrow-forward"></ion-icon>

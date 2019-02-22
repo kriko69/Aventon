@@ -15,26 +15,27 @@
 
 <ion-content padding class="imagen">
     <ion-item>
-        <ion-label stacked color="dark">Capacidad</ion-label>
+        <b>
+        <ion-label stacked color="dark">Capacidad</ion-label></b>
         <ion-input type="number" [(ngModel)]="auto.capacidad">{{auto.capacidad}}</ion-input>
     </ion-item>
     <ion-item>
-        <ion-label stacked color="dark">Color</ion-label>
+        <b><ion-label stacked color="dark">Color</ion-label></b>
         <ion-input type="text" [(ngModel)]="auto.color">{{auto.color}}</ion-input>
     </ion-item>
     <ion-item>
-        <ion-label stacked color="dark">Marca</ion-label>
+        <b><ion-label stacked color="dark">Marca</ion-label></b>
         <ion-input type="text" [(ngModel)]="auto.marca">{{auto.marca}}</ion-input>
     </ion-item>
     <ion-item>
-        <ion-label stacked color="dark">Modelo</ion-label>
+        <b><ion-label stacked color="dark">Modelo</ion-label></b>
         <ion-input type="number" [(ngModel)]="auto.modelo">{{auto.modelo}}</ion-input>
     </ion-item>
     <ion-item>
-        <ion-label>Maletera</ion-label>
+        <b><ion-label>Maletera</ion-label></b>
         <ion-checkbox color="primary" checked="auto.maletera"></ion-checkbox>
     </ion-item>
-    <button ion-button block round color="secondary" style="margin-top:25px;" (click)="irConductor()">Seleccionar Auto <ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
+    <button ion-button block round color="yellow" style="margin-top:25px;" (click)="irConductor()">Seleccionar Auto <ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
     <button ion-button block round style="margin-top:25px;" (click)="actualizar()">Actualizar Datos<ion-icon name="create" style="margin-left:10px;"></ion-icon></button>
     <button ion-button block round color="danger" style="margin-top:25px;" (click)="eliminar()">Eliminar Vehiculo<ion-icon name="trash" style="margin-left:10px;"></ion-icon></button>
 

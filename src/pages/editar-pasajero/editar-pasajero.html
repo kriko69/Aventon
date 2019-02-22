@@ -37,13 +37,13 @@
         <ion-item>
             <ion-label stacked color="dark">Fecha de nacimiento</ion-label>
             <ion-datetime disabled="false" displayFormat="DD/MM/YYYY" [(ngModel)]="usuario.fecha_nac"></ion-datetime>
-          </ion-item>
+        </ion-item>
         <ion-item>
             <ion-label stacked color="dark">Calificacion Pasajero</ion-label>
             <ion-input disabled="true" type="text" [(ngModel)]="usuario.calif_pasa"></ion-input>
         </ion-item>
         <ion-item>
-            <button ion-button block round color=primary (click)="actualizarPerfil()">Guardar</button>
+            <button ion-button block round color="yellow" (click)="actualizarPerfil()">Guardar</button>
         </ion-item>
     </ion-list>
 

@@ -16,11 +16,11 @@
 <ion-content padding class="imagen">
     <ion-list>
         <ion-item>
-           Conductor del Viaje: {{reserva.nombre+" "+reserva.apellido}}
+            <b>Conductor del Viaje: {{reserva.nombre+" "+reserva.apellido}}</b>
         </ion-item>
         <ion-item>
-            Fecha del Viaje: {{reserva.fecha}}
+            <b>Fecha del Viaje: {{reserva.fecha}}</b>
         </ion-item>
-        <button ion-button color="danger" (click)="eliminarReserva()" block>Cancelar Viaje <ion-icon name="trash" style="margin-left:20px;"></ion-icon></button>
+        <button ion-button round color="danger" (click)="eliminarReserva()" block>Cancelar Viaje <ion-icon name="trash" style="margin-left:20px;"></ion-icon></button>
     </ion-list>
 </ion-content>

@@ -34,20 +34,20 @@
 
 
 
-        <ion-item class="border" *ngIf="item.estado=='No Aceptado'" style="background-color:#ffff00;color:black;">
+        <ion-item class="border" *ngIf="item.estado=='No Aceptado'" style="background-color:red;color:white;">
             De:{{item.nombre+" "+item.apellido}}
             <br> Estado: {{item.estado}}
             <br> Calificacion {{item.calif_pasa}}
             <br> Enviado el: {{item.fecha}}
         </ion-item>
         <!--<ion-item class="border" *ngIf="item.estado=='aceptado'" style="background-color:green;color:white;" (click)="aceptar(item)">-->
-        <ion-item class="border" *ngIf="item.estado=='Aceptado'" style="background-color:green;color:white;">
+        <ion-item class="border" *ngIf="item.estado=='Aceptado'" style="background-color:#f2e62d;color:black;">
             De:{{item.nombre+" "+item.apellido}}
             <br> Estado: {{item.estado}}
             <br> Calificacion {{item.calif_pasa}}
             <br> Enviado el: {{item.fecha}}
         </ion-item>
-        <ion-item class="border" *ngIf="item.estado=='Pendiente'" style="background-color:#7cb9e3;color:white;" (click)="aceptar(item)">
+        <ion-item class="border" *ngIf="item.estado=='Pendiente'" style="background-color:#b0cee2;color:black;" (click)="aceptar(item)">
             De:{{item.nombre+" "+item.apellido}}
             <br> Estado: {{item.estado}}
             <br> Calificacion {{item.calif_pasa}}
