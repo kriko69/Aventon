@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Vestimenta1Page } from '../vestimenta1/vestimenta1';
-
+import { SlidePasajeroPage } from '../slide-pasajero/slide-pasajero';
+import { mysqlService } from '../../services/mysql.service';
 declare var google: any;
 /**
  * Generated class for the PuntoRecogidaPage page.
@@ -24,13 +25,14 @@ export class PuntoRecogidaPage {
   latOri  = -16.503720;
   longOri = -68.131247;
   id_usuario='';
-
+  nombre_usuario='';
   constructor(public navCtrl: NavController, public navParams: NavParams,public geolocation: Geolocation,private platform:Platform,
-    public alerta:AlertController) {
+    public alerta:AlertController ,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
     this.id_usuario = navParams.get('id_usuario');
+    this.nombre_usuario = navParams.get('nombre_usuario');
   }
 
   ionViewDidLoad() {
@@ -108,4 +110,25 @@ export class PuntoRecogidaPage {
 
     this.loadMap(this.latOri,this.longOri);
        }
+       slidePrincipal3()
+       {
+         this.slide();
+         this.navCtrl.push(SlidePasajeroPage,{id_usuario: this.id_usuario,nombre_usuario:this.nombre_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
+         
+       }
+       slide(){
+        let info;
+        this.mysql.Tipo(this.id_usuario,'').subscribe(
+          data => {
+            console.log('data', data);
+            info= Object.assign(data);
+            console.log('exito');
+    
+    
+            }, (error: any)=> {
+              console.log('error', error);
+    
+            } );
+          }
+         
 }
