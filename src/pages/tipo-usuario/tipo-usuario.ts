@@ -2,6 +2,7 @@ import { VehiculoPage } from './../vehiculo/vehiculo';
 import { Vehiculo } from './../../interfaces/vehiculo.interface';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
+import { SliderPrincipalPage } from '../slider-principal/slider-principal';
 
 /**
  * Generated class for the TipoUsuarioPage page.
@@ -59,6 +60,10 @@ export class TipoUsuarioPage {
   {
     this.cambiarTipo('P');
     this.navCtrl.setRoot(PasajeroPage,{id_usuario: this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS
+  }
+  slidePrincipal3()
+  {
+    this.navCtrl.setRoot(SliderPrincipalPage);
   }
   cambiarTipo(tipo){
     let info;
