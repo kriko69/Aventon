@@ -16,19 +16,19 @@ export class SliderPrincipalPage {
 
   slides = [
     {
-      title: "Bienvenido a Auto Compartido!",
-      description: " <b>Comparte un viaje.",
+      title: "Bienvenido a Aventon!",
+      description: " <b>Comparte un viaje.</b> ",
       image: "assets/logo.png",
     },
     {
-      title: "Que es Auto Compartido?",
-      description: "<b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.",
-      image: "assets/logo.png",
+      title: "¿Qué es Aventon?",
+      description: "<b>Aventon</b> El componente Aventón ayuda a la comunidad a reservar un puesto en un vehículo particular de alguien que postea su recorrido hacia la universidad. Se tomó en cuenta 2 tipos de usuarios: Conductor y Pasajero.",
+      image: "assets/compartir.png",
     },
     {
-      title: "Como comenzar?",
-      description: "The <b>Ionic Cloud</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
-      image: "assets/logo.png",
+      title: "¿Cómo empezar?",
+      description: "<b>Seleccioné el tipo de usuario que es.</b> Para cada tipo de usuario se contara con un boton de ayuda para tener un mejor manejo de la aplicación.",
+      image: "assets/tipousuario.jpeg",
     }
   ];
   id_usuario;
@@ -94,3 +94,8 @@ export class SliderPrincipalPage {
   
 
 }
+
+    
+  
+
+
