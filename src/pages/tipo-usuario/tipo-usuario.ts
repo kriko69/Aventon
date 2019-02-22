@@ -65,7 +65,7 @@ export class TipoUsuarioPage {
   slidePrincipal3()
   {
     this.slide();
-    this.navCtrl.push(SliderPrincipalPage,{id_usuario: this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
+    this.navCtrl.push(SliderPrincipalPage,{id_usuario: this.id_usuario,nombre_usuario:this.nombre_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
     
   }
   cambiarTipo(tipo){

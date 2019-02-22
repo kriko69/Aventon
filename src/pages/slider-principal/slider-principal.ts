@@ -32,7 +32,7 @@ export class SliderPrincipalPage {
     }
   ];
   id_usuario;
-  usuario;
+  nombre_usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,private toast:ToastController,
     public servicio: firebaseService, public app:App,private platform:Platform
     ,public mysql:mysqlService) {
@@ -40,6 +40,7 @@ export class SliderPrincipalPage {
         console.log('');
       },10000);
     this.id_usuario = navParams.get('id_usuario');
+    this.nombre_usuario = navParams.get('nombre_usuario');
       let info;
     this.mysql.GetUsuario(this.id_usuario).subscribe(
       data => {
@@ -57,7 +58,7 @@ export class SliderPrincipalPage {
   }
   ionViewDidLoad() {
     this.toast.create({
-      message:`ayuda, ${this.usuario}`,
+      message:`ayuda, ${this.nombre_usuario}`,
       duration:3000
     }).present();
   }
@@ -84,8 +85,7 @@ export class SliderPrincipalPage {
     setTimeout(()=>{
       console.log('info',info);
       var nav = this.app.getRootNav();
-      let nom=this.usuario[0].nombre+' '+this.usuario[0].apellido;
-      nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario,nombre_usuario:nom});
+      nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario,nombre_usuario:this.nombre_usuario});
     },3000);
   }
  
