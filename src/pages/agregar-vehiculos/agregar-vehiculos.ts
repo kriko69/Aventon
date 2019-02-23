@@ -7,6 +7,9 @@ import { ToastService } from '../../services/toast.service';
 import { mysqlService } from '../../services/mysql.service';
 
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'; // Para la validacion del formulario
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { HttpClient } from '@angular/common/http';
+import { Subscription, Observable } from 'rxjs';
 /**
  * Generated class for the AgregarVehiculosPage page.
  *
@@ -38,7 +41,8 @@ export class AgregarVehiculosPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService,public toast:ToastService,private platform:Platform,
-  public mysql:mysqlService, public formBuilder: FormBuilder) {
+  public mysql:mysqlService, public formBuilder: FormBuilder, public camera:Camera,
+   private http: HttpClient) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
@@ -73,7 +77,7 @@ export class AgregarVehiculosPage {
     this.auto.placa = this.myForm.value.placanum + this.myForm.value.placalet.toUpperCase(); 
     let info={};
     let id_auto;
-    this.mysql.AgregarAuto(this.auto).subscribe( // cambie this.auto por this.myForm.valueS
+    this.mysql.AgregarAuto(this.auto).subscribe( 
       data => {
         console.log('data auto', data);
         info= Object.assign(data);
@@ -111,6 +115,49 @@ export class AgregarVehiculosPage {
 
     },2000);
 
+  }
+  base64Image: any='';
+  openCamera(){
+    const options: CameraOptions = {
+      quality:100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData)=> {
+    this.base64Image = 'data:image/jpeg;base64,'+ imageData;
+  },(err)=>{
+    console.log('Error en la foto tomada')
+  });
+  
+  }
+  openGallery(){
+    const options: CameraOptions = {
+      quality:100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+
+    this.camera.getPicture(options).then((imageData)=> {
+    this.base64Image = 'data:image/jpeg;base64,'+ imageData;
+  },(err)=>{
+    console.log('Error en la foto tomada')
+  });
+  }
+
+  uploadingFoto(){
+    let url = 'http://181.114.114.160/aventon/img/Autos/subirfotosautos.php';
+    let postData = new FormData();
+    let nombre = this.auto.placa;
+    postData.append('file',this.base64Image);
+    postData.append('nombre',nombre)
+    let data: Observable<any> = this.http.post(url,postData);
+    data.subscribe((res)=>{
+      console.log(res);
+    });
   }
 
 

@@ -16,6 +16,13 @@
 <ion-content padding class="imagen">
     <form [formGroup]="myForm">
 
+        <div padding>
+            <button color=yellow ion-button block (click)="openCamera()" round>Tomar Fotografia del vehiculo</button>
+            <button color=yellow ion-button block (click)="openGallery()" round>Seleccionar de la galeria</button>                    
+        </div>
+        <div>
+            <img [src]="base64Image" *ngIf="base64Image" class='marco' />
+        </div>
         <ion-item class="inputcolor">
             <ion-label stacked color="dark">Capacidad</ion-label>
             <ion-input type="number" formControlName="capacidad"  name="capacidad" ></ion-input>
@@ -76,7 +83,7 @@
             <ion-checkbox color="primary" formControlName="maletera"></ion-checkbox>
         </ion-item>
         <div padding>
-            <button ion-button block (click)="agregar()"  [disabled]="!myForm.valid" round>Agregar<ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
+            <button ion-button block (click)="agregar()" (click)="uploadingFoto()" [disabled]="!myForm.valid" round>Agregar<ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
         </div>
         
     </form>
