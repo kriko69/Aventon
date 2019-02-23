@@ -13,4 +13,9 @@
       -moz-background-size: cover;
       background-size: cover;
   }
-  
+  .roundImage {
+    width:300px;
+    height:300px;
+    border-radius:160px;
+    border:10px solid #666;
+}
