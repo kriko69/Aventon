@@ -163,7 +163,7 @@ export class RegistrarPage {
   }
 
   uploadingFoto(){
-    let url = 'http://181.114.114.160/aventon/img/Perfil/subirfotosperfil.php';
+    let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
     let postData = new FormData();
     let nombre = this.myForm.value.carnet;
     postData.append('file',this.base64Image);

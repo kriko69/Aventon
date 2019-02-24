@@ -31,7 +31,7 @@ export class EditarVehiculoPage {
   submitAttempt: boolean = false;
   myForm: FormGroup;
 
-  pic : string= "http://181.114.114.160/aventon/img/Autos/312AZN.jpg"
+  pic : string= "http://192.168.0.107/aventon/img/Autos/312AZN.jpg"
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService, public toast:ToastService,private platform:Platform,
