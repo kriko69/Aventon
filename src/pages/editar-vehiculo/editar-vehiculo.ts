@@ -7,6 +7,10 @@ import { firebaseService } from '../../services/firebase.service';
 import { ToastService } from '../../services/toast.service';
 import { mysqlService } from '../../services/mysql.service';
 
+import {FormGroup, FormBuilder, Validators} from '@angular/forms'; // Para la validacion del formulario
+import { Camera } from '@ionic-native/camera';
+import { HttpClient } from '@angular/common/http';
+
 /**
  * Generated class for the EditarVehiculoPage page.
  *
@@ -23,9 +27,16 @@ export class EditarVehiculoPage {
 
   auto:any;
   id_usuario;
+  
+  submitAttempt: boolean = false;
+  myForm: FormGroup;
+
+  pic : string= "http://181.114.114.160/aventon/img/Autos/312AZN.jpg"
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService, public toast:ToastService,private platform:Platform,
-  public mysql:mysqlService) {
+  public mysql:mysqlService,public formBuilder: FormBuilder, public camera:Camera,
+  private http: HttpClient) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
