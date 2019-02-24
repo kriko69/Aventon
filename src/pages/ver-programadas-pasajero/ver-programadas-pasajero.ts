@@ -67,7 +67,7 @@ export class VerProgramadasPasajeroPage {
       for(let i=0;i<this.copia.length;i++){
        this.sacar_punt(this.copia[i]);
         }
-    },3000);
+    },1000);
   }
 
   ionViewDidLoad() {
@@ -106,7 +106,7 @@ export class VerProgramadasPasajeroPage {
         {
           this.distancia(puntos,obj);
         }
-    },3000);
+    },1000);
   }
   distancia(puntos,data){
     let lat;let long;
@@ -115,8 +115,8 @@ export class VerProgramadasPasajeroPage {
         lat=puntos[i].latitud;
         long=puntos[i].longitud;
         distancia=this.getKilometros(this.latitud,this.longitud,lat,long);
-        console.log('DISTANCIA: '+distancia);
-        if(distancia<=0.5){
+        console.log('Data: '+data);
+        if(distancia<=0.5 && data.id_conductor!=this.id_usuario ){
             this.viajes.push(data);
             break;
         }

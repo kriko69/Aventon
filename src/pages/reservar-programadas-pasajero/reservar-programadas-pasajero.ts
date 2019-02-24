@@ -104,7 +104,7 @@ export class ReservarProgramadasPasajeroPage {
     );
     setTimeout(()=>{
       console.log(info);
-    },3000);
+    },1000);
 
   }
 

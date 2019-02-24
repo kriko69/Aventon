@@ -7,7 +7,7 @@ import { firebaseService } from '../../services/firebase.service';
 import { Usuario } from '../../interfaces/usuario.interface';
 import { PerfilPasajeroPage } from '../perfil-pasajero/perfil-pasajero';
 import { mysqlService } from '../../services/mysql.service';
-
+import { PasajeroPage } from '../pasajero/pasajero';
 /**
  * Generated class for the SlidePasajeroPage page.
  *
@@ -65,18 +65,21 @@ export class SlidePasajeroPage {
   }
   ionViewDidLoad() {
     this.toast.create({
-      message:`ayuda, ${this.nombre_usuario}`,
+      message:`ayuda pasajero, ${this.nombre_usuario}`,
       duration:3000
     }).present();
   }
   
 
-  
-
-  cambiarUsuario()
+  irPasajero()
   {
+    this.cambiarTipo('P');
+    this.navCtrl.setRoot(PasajeroPage,{id_usuario: this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS
+  }
+ 
+  cambiarTipo(tipo){
     let info;
-    this.mysql.Tipo(this.id_usuario,'').subscribe(
+    this.mysql.Tipo(this.id_usuario,tipo).subscribe(
       data => {
         console.log('data', data);
         info= Object.assign(data);
@@ -91,12 +94,8 @@ export class SlidePasajeroPage {
 
     setTimeout(()=>{
       console.log('info',info);
-      var nav = this.app.getRootNav();
-      nav.setRoot(LoginPage ,{id_usuario: this.id_usuario,nombre_usuario:this.nombre_usuario});
-    },3000);
+    },1000);
   }
- 
-
     
   
 

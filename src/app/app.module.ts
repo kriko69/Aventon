@@ -68,7 +68,7 @@ import { Vestimenta1Page } from '../pages/vestimenta1/vestimenta1';
 
 import { SliderPrincipalPage } from './../pages/slider-principal/slider-principal';
 import { SlidePasajeroPage } from './../pages/slide-pasajero/slide-pasajero';
-
+import { SlideConductorPage } from './../pages/slide-conductor/slide-conductor';
 import { HttpClientModule } from '@angular/common/http';
 import { Camera} from '@ionic-native/camera';
 
@@ -117,7 +117,8 @@ import { Camera} from '@ionic-native/camera';
     VestimentaPage,
     Vestimenta1Page,
     SliderPrincipalPage,
-    SlidePasajeroPage
+    SlidePasajeroPage,
+    SlideConductorPage
   ],
   imports: [
     BrowserModule,
@@ -174,7 +175,8 @@ import { Camera} from '@ionic-native/camera';
     VestimentaPage,
     Vestimenta1Page,
     SliderPrincipalPage,
-    SlidePasajeroPage
+    SlidePasajeroPage,
+    SlideConductorPage
   ],
   providers: [
     StatusBar,

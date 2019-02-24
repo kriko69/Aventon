@@ -3,7 +3,7 @@ import { ViajePage } from './../viaje/viaje';
 import { MarkadorPage } from './../markador/markador';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
-
+import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the ConductorPage page.
@@ -24,6 +24,8 @@ import { firebaseService } from '../../services/firebase.service';
   templateUrl: 'conductor.html',
 })
 export class ConductorPage {
+  id_usuario=0;
+  nombre_usuario='';
   tab1:any;
   tab2:any;
   tab3:any;
@@ -32,7 +34,7 @@ export class ConductorPage {
   subscription1:ISubscription;
   nuevas;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public servicio:firebaseService,public toast:ToastService,private platform:Platform) {
+    public servicio:firebaseService,public toast:ToastService,private platform:Platform,public mysql:mysqlService) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
@@ -61,12 +63,37 @@ export class ConductorPage {
     //si da un error con esto es porque en firebase no tenemos aun creada la rama solicitud
     setTimeout(()=>{
       this.subscription1.unsubscribe();
-    },3000);
+    },1000);
+    
   }
 
   ionViewDidLoad() {
     let id_usuario = this.navParams.get('id_usuario');
     console.log(id_usuario);
   }
+ 
+  irConductor()
+  {
+    this.cambiarTipo('C');
+    this.navCtrl.push(VehiculoPage,{id_usuario: this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
+  }
+  cambiarTipo(tipo){
+    let info;
+    this.mysql.Tipo(this.id_usuario,tipo).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
 
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      console.log('info',info);
+    },1000);
+  }
 }

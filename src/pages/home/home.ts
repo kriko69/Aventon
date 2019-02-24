@@ -70,8 +70,8 @@ export class HomePage {
       );
       setTimeout(()=>{
         console.log(info);
-      },3000);
-    },3000);
+      },1000);
+    },1000);
     this.navCtrl.setRoot(BuzonPasajeroPage,{id_usuario:this.id_usuario});
   }
 }

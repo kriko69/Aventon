@@ -116,7 +116,7 @@ export class RegistrarPage {
       console.log('info',info);
       this.mostrarAlerta();
       this.navCtrl.push(LoginPage);
-    },3000);
+    },1000);
 
 
   }

@@ -55,7 +55,7 @@ export class VehiculoPage {
         this.vehiculos$=info;
         console.log(this.vehiculos$);
       }
-    },3000);
+    },1000);
   }
 
   ionViewDidLoad() {

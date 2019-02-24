@@ -86,7 +86,7 @@ export class SliderPrincipalPage {
       console.log('info',info);
       var nav = this.app.getRootNav();
       nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario,nombre_usuario:this.nombre_usuario});
-    },3000);
+    },1000);
   }
  
 
