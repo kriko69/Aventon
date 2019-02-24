@@ -163,9 +163,11 @@ export class RegistrarPage {
   }
 
   uploadingFoto(){
-    let url = 'http://181.114.114.160/aventon/Procesos/subirfotosperfil.php';
+    let url = 'http://181.114.114.160/aventon/img/Perfil/subirfotosperfil.php';
     let postData = new FormData();
+    let nombre = this.myForm.value.carnet;
     postData.append('file',this.base64Image);
+    postData.append('nombre',nombre)
     let data: Observable<any> = this.http.post(url,postData);
     data.subscribe((res)=>{
       console.log(res);

@@ -14,8 +14,16 @@
 
 <ion-content padding class="imagen">
     <form [formGroup]="myForm">
+            <div padding>
+                <button color=yellow ion-button block (click)="openCamera()" round>Tomar Fotografia</button>
+                <button color=yellow ion-button block (click)="openGallery()" round>Seleccionar de la galeria</button>
+                
+            </div>
+            <div>
+                <img [src]="base64Image" *ngIf="base64Image" class='roundImage' />
+            </div>
         <ion-list>
-            <ion-item class="inputcolor">
+            <ion-item class="inputcolor" style = "margin-top: 0.5em">
                 <ion-label stacked color="dark">Nombre</ion-label>
                 <ion-input type="text" formControlName="nombre" name="nombre"></ion-input>
             </ion-item>
@@ -76,11 +84,6 @@
             </ion-item>
             <u style="color:white"><p style="color:white"><b> Ver Terminos y condiciones</b></p></u>
         </ion-list>
-        <div padding>
-            <button color=yellow ion-button block (click)="openCamera()" round>Tomar Fotografia</button>
-            <button color=yellow ion-button block (click)="openGallery()" round>Seleccionar de la galeria</button>
-            <img scr="base64Image"/>
-        </div>
 
 
         <div padding>
