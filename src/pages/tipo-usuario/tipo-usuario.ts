@@ -85,7 +85,7 @@ export class TipoUsuarioPage {
 
     setTimeout(()=>{
       console.log('info',info);
-    },3000);
+    },1000);
   }
   slide(){
     let info;
@@ -104,7 +104,7 @@ export class TipoUsuarioPage {
 
     setTimeout(()=>{
       console.log('info',info);
-    },3000);
+    },1000);
   }
  
 

@@ -60,7 +60,7 @@ export class HomePasajeroPage {
       }
       console.log(this.value);
       //aqui se acomoda los puntos de parada
-    },3000);
+    },1000);
   }
 
   ionViewDidLoad() {

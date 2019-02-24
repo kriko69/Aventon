@@ -73,7 +73,7 @@ export class LoginPage {
       else{
         this.mostrarAlerta();
       }
-    },3000);
+    },1000);
 
   }
 

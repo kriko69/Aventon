@@ -61,7 +61,7 @@ export class ConductorPage {
     //si da un error con esto es porque en firebase no tenemos aun creada la rama solicitud
     setTimeout(()=>{
       this.subscription1.unsubscribe();
-    },3000);
+    },1000);
   }
 
   ionViewDidLoad() {

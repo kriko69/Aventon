@@ -67,7 +67,7 @@ export class VerProgramadasPasajeroPage {
       for(let i=0;i<this.copia.length;i++){
        this.sacar_punt(this.copia[i]);
         }
-    },3000);
+    },1000);
   }
 
   ionViewDidLoad() {
@@ -106,7 +106,7 @@ export class VerProgramadasPasajeroPage {
         {
           this.distancia(puntos,obj);
         }
-    },3000);
+    },1000);
   }
   distancia(puntos,data){
     let lat;let long;

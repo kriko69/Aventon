@@ -55,7 +55,7 @@ export class OpcionesConductorPage {
       this.usuario=info;
       console.log(this.usuario[0]);
       
-    },3000);
+    },1000);
   }
 
 
@@ -90,7 +90,7 @@ export class OpcionesConductorPage {
       var nav = this.app.getRootNav();
       let nom=this.usuario[0].nombre+' '+this.usuario[0].apellido;
       nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario,nombre_usuario:nom});
-    },3000);
+    },1000);
   }
   CerrarSesion()
   {
@@ -112,7 +112,7 @@ export class OpcionesConductorPage {
       console.log('info',info);
       var nav = this.app.getRootNav();
     nav.setRoot(LoginPage);
-    },3000);
+    },1000);
     
   }
 

@@ -49,7 +49,7 @@ export class OpcionesPasajeroPage {
       this.usuario=info;
       console.log(this.usuario[0]);
       
-    },3000);
+    },1000);
   }
 
   ionViewDidLoad() {
@@ -80,7 +80,7 @@ export class OpcionesPasajeroPage {
       var nav = this.app.getRootNav();
       let nom=this.usuario[0].nombre+' '+this.usuario[0].apellido;
       nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario,nombre_usuario:nom});
-    },3000);
+    },1000);
   }
   CerrarSesion()
   {
@@ -102,7 +102,7 @@ export class OpcionesPasajeroPage {
       console.log('info',info);
       var nav = this.app.getRootNav();
     nav.setRoot(LoginPage);
-    },3000);
+    },1000);
     
   }
 

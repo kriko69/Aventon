@@ -51,7 +51,7 @@ export class ReservaPasajeroPage {
       else{
         this.solicitudes=[];
       }
-    },3000);
+    },1000);
 
 
   }

@@ -47,7 +47,7 @@ export class BuzonPasajeroPage {
     );
     setTimeout(()=>{
       console.log(this.solicitudes);
-    },3000);
+    },1000);
 
 
   }
