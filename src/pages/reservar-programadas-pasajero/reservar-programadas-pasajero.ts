@@ -19,6 +19,7 @@ declare var google: any;
 })
 export class ReservarProgramadasPasajeroPage {
   markersArray = [];
+  puntos;
   markeraux:any;
   latOri  = -16.503720;
   longOri = -68.131247;
@@ -30,6 +31,7 @@ export class ReservarProgramadasPasajeroPage {
   longitud;
   solicitud={
     id_de:0,
+    posicion:0,
     id_para:0,
     id_viaje:0,
     mensaje: "Me puedes recoger?",
@@ -76,20 +78,19 @@ export class ReservarProgramadasPasajeroPage {
     //this.ver(this.start,this.end);
   }
   obtnuntos(){
-    let puntos;
     console.log('ruta',this.data.id_ruta);
     console.log('usuario',this.id_usuario);
     this.mysql.Get_Puntos(this.data.id_ruta).subscribe(
       data=>{
         console.log('puntos rutas: ',data);
-        puntos=data;
+        this.puntos=data;
       },(error)=>{
         console.log(error);
       }
     );
     setTimeout(()=>{
-      console.log('puntos',puntos);
-      this.recargar(puntos);
+      console.log('puntos',this.puntos);
+      this.distancia(this.puntos);
     },1000);
   }
   enviar()
@@ -308,50 +309,80 @@ export class ReservarProgramadasPasajeroPage {
     for(let i=1;i<points.length-1;i++){
       this.markersArray[i].setMap(this.map);
     }
+    let markerpunto= new google.maps.Marker({position: {lat: this.latitud, lng: this.longitud},map: this.map,draggable: false});
+    markerpunto.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+
 
   }
   dismiss()
   {
     this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario: this.id_usuario});
   }
-  /*distancia(data){
-    let latlong;
-    let lat;let long;
-    let distancia;
-    let puntos=data.ruta.split(';');
-    let dismin=10000;let latlongmin=puntos[0].split('/');
-    for(let i=0;i<puntos.length;i++){
-        latlong=puntos[i].split('/');
-        lat=Number(latlong[0]);
-        long=Number(latlong[1]);
-        distancia=this.getKilometros(this.latitud,this.longitud,lat,long);
-        console.log('DISTANCIA: '+distancia);
-        if(distancia<dismin){
-            dismin=distancia;
-            latlongmin=puntos[i];
+  distancia(puntos){
+    let posicion1=2;
+    let posicion2=2;
+    let auxposicion=2;
+    let lat;
+    let long;
+    let aux1;
+    let aux2;
+    console.log('PUNTOS!!',puntos);
+    
+    let distancia=100000;
+    for(let i=0;i<puntos.length-1;i++){
+        lat=puntos[i].latitud;
+        long=puntos[i].longitud;
+        posicion1=Number(puntos[i].posicion);
+        posicion2=Number(puntos[i+1].posicion);
+        aux1=this.getKilometros(this.latitud,this.longitud,lat,long);
+        aux2=this.getKilometros(this.latitud,this.longitud,puntos[i+1].latitud,puntos[i+1].longitud);
+        if(aux1<=distancia && aux2>aux1){
+          distancia=aux1;
+          auxposicion=posicion1+1;
+          console.log("AQUII:",distancia,i,auxposicion);
+        }else{
+          if(aux2<=distancia && aux1>aux2){
+            distancia=aux2;
+            auxposicion=posicion2;
+            console.log("AQUII:",distancia,i,auxposicion);
+          }
         }
     }
-    let cadena='';
-    for(let i=0;i<puntos.length;i++){
-      cadena=cadena+puntos[i];
-      if(latlongmin==puntos[i])
+    
+    
+    let posicion_recogida=auxposicion;
+    console.log('posicion_recogida:',posicion_recogida);
+    let copiapuntos=[]; 
+    let copiapuntos2=puntos;
+    for(let i=0;i<puntos.length;i++)
+    {
+      if(Number(puntos[i].posicion)>=posicion_recogida)
       {
-        cadena=cadena+';'+this.latitud+'/'+this.longitud;
+        puntos[i].posicion=Number(puntos[i].posicion)+1;
+        copiapuntos.push(puntos[i]); //copia de puntos despuesde el de recogida
       }
-      if(i+1!=puntos.length){
-        cadena=cadena+';';
-      }
-      }
-      data.ruta=cadena;
-      if(data.recogidas==null){
-        data.recogidas=this.latitud+'/'+this.longitud;
-      }
-      else{
-        data.recogidas=data.recogidas+';'+this.latitud+'/'+this.longitud;
-      }
-      //this.servicio.updatePro(data);  //esto guarda la recogida en programadas
-      console.log(cadena);
-    console.log(data.ruta);
+    }
+    console.log("CopiaPuntos",copiapuntos);
+    let auxiliar={
+      id_punto:0,
+      id_ruta:0,
+      latitud:this.latitud,
+      longitud:this.longitud,
+      posicion:posicion_recogida
+    };
+    this.puntos.push(auxiliar);
+    copiapuntos2=this.puntos.sort(function (a, b) {
+      return (a.posicion - b.posicion)
+  });
+  console.log("puntos ultimos para graficar",copiapuntos2);
+  
+  this.recargar(copiapuntos2);
+    /*this.mysql.insertarrecogida(this.latitud,this.longitud,posicion_recogido);
+    for(let j=0;j<copiapuntos.length;j++){
+      posicion_recogido++;
+      this.mysql.Updatepunto(copiapuntos[j].id_punto,posicion_recogido);
+
+    }*/
   }
   getKilometros(lat1,lon1,lat2,lon2)
   {
@@ -362,11 +393,10 @@ export class ReservarProgramadasPasajeroPage {
  var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(dLong/2) * Math.sin(dLong/2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   var d = R * c;
+  d=d+0.2;
+  console.log("Distancia"+lat2+"/"+lon2,d.toFixed(3));
  return d.toFixed(3); //Retorna tres decimales
-  }*/
-
-
-
+  }
   ver(inicio,fin)
   {
     let points=this.data.ruta;

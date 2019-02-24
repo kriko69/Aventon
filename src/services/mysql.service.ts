@@ -619,4 +619,32 @@ export class mysqlService{
 
          return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);
       }
+      insertarrecogida(latitud,longitud,posicion){
+        let data={
+          "key":"insertarrecogida",
+          "latitud": latitud,
+          "longitud":longitud,
+          "posicion":posicion
+        };
+
+        let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+        opsi   : any = JSON.stringify(data);
+        console.log('opsi',opsi);
+
+         return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);
+      }
+      Updatepunto(id_punto,posicion){
+        let data={
+          "key":"Updatepunto",
+          "id_punto": id_punto,
+          "posicion":posicion
+        };
+
+        let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+        opsi   : any = JSON.stringify(data);
+        console.log('opsi',opsi);
+
+         return this.http.post('http://192.168.0.107/aventon/procesos/actualizar.php', opsi, header);
+      }
+
 }
