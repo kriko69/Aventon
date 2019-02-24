@@ -129,7 +129,7 @@ export class RegistrarPage {
     });
     alert.present();
   }
-  base64Image: any='';
+  base64Image: any='../assets/defaultUsuario.jpg';
   openCamera(){
     const options: CameraOptions = {
       quality:100,

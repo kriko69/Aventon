@@ -9,6 +9,10 @@ import { PasajeroPage } from '../pasajero/pasajero';
 import { mysqlService } from '../../services/mysql.service';
 import { ToastService } from '../../services/toast.service';
 
+import {FormGroup, FormBuilder, Validators} from '@angular/forms'; // Para la validacion del formulario
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { HttpClient } from '@angular/common/http';
+import { Subscription, Observable } from 'rxjs';
 /**
  * Generated class for the EditarPasajeroPage page.
  *
@@ -24,9 +28,11 @@ import { ToastService } from '../../services/toast.service';
 export class EditarPasajeroPage {
   usuario;
   control:ISubscription;
+  fotoUsuario: string;
    constructor(public navCtrl: NavController, public navParams: NavParams, public servicio:firebaseService
     ,public alerta:AlertController, public database: AngularFireDatabase,private platform:Platform,
-    public mysql:mysqlService,public toast:ToastService) {
+    public mysql:mysqlService,public toast:ToastService, public camera:Camera,
+    private http: HttpClient,public formBuilder: FormBuilder) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
@@ -34,6 +40,23 @@ export class EditarPasajeroPage {
     }
 
     ionViewDidLoad(){
+      this.fotoUsuario = this.usuario.ci;
+      this.mysql.validarFotoUsuario(this.fotoUsuario).subscribe(
+        data=>{
+          if(data['message']=="existe")
+          {
+            this.fotoUsuario = "http://192.168.0.107/aventon/img/Perfil/"+this.fotoUsuario + ".jpg";
+          }
+          if(data['message']=="no existe")
+          {
+            this.fotoUsuario = "http://192.168.0.107/aventon/img/defaultUsuario.jpg";
+          }
+        },error=>{
+          
+        }
+        
+      );
+
     }
 
     actualizarPerfil(user)//funcion para actializar el perfil
@@ -65,5 +88,51 @@ export class EditarPasajeroPage {
       });
       alert.present();
     }
+    
+  base64Image: any='';
+  openCamera(){
+    const options: CameraOptions = {
+      quality:100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData)=> {
+    this.base64Image = 'data:image/jpeg;base64,'+ imageData;
+    this.fotoUsuario = this.base64Image;
+  },(err)=>{
+    console.log('Error en la foto tomada')
+  });
+  
+  }
+  openGallery(){
+    const options: CameraOptions = {
+      quality:100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+
+    this.camera.getPicture(options).then((imageData)=> {
+    this.base64Image = 'data:image/jpeg;base64,'+ imageData;
+    this.fotoUsuario = this.base64Image;
+  },(err)=>{
+    console.log('Error en la foto tomada')
+  });
+  }
+
+  uploadingFoto(){
+    let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotoperfil.php';
+    let postData = new FormData();
+    let nombre = this.usuario.placa;
+    postData.append('file',this.base64Image);
+    postData.append('nombre',nombre);
+    let data: Observable<any> = this.http.post(url,postData);
+    data.subscribe((res)=>{
+      console.log(res);
+    });
+  }
 
 }

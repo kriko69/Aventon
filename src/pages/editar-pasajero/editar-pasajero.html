@@ -14,9 +14,15 @@
 
 
 <ion-content padding class="imagen">
-
+        <div>
+            <img [src]="fotoUsuario"  class='roundImage'  />
+        </div>
+        <div padding>
+            <button color=yellow ion-button block (click)="openCamera()" round>Tomar Fotografia</button>
+            <button color=yellow ion-button block (click)="openGallery()" round>Cambiar Fotografia</button>
+        </div>
     <ion-list #pc>
-        <ion-item>
+        <ion-item style="margin-top:1em">
             <ion-label stacked>Nombre</ion-label>
             <ion-input disabled="false" type="text" [(ngModel)]="usuario.nombre"></ion-input>
         </ion-item>
@@ -43,7 +49,7 @@
             <ion-input disabled="true" type="text" [(ngModel)]="usuario.calif_pasa"></ion-input>
         </ion-item>
         <ion-item>
-            <button ion-button block round color="yellow" (click)="actualizarPerfil()">Guardar</button>
+            <button ion-button block round color="yellow" (click)='uploadingFoto' (click)="actualizarPerfil()">Guardar</button>
         </ion-item>
     </ion-list>
 

@@ -116,7 +116,7 @@ export class AgregarVehiculosPage {
     },2000);
 
   }
-  base64Image: any='';
+  base64Image: any='../assets/defaultAuto.jpg';
   openCamera(){
     const options: CameraOptions = {
       quality:100,
@@ -153,7 +153,7 @@ export class AgregarVehiculosPage {
     let postData = new FormData();
     let nombre = this.auto.placa;
     postData.append('file',this.base64Image);
-    postData.append('nombre',nombre)
+    postData.append('nombre',nombre);
     let data: Observable<any> = this.http.post(url,postData);
     data.subscribe((res)=>{
       console.log(res);

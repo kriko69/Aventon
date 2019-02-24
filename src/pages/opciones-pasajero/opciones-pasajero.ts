@@ -49,7 +49,7 @@ export class OpcionesPasajeroPage {
       this.usuario=info;
       console.log(this.usuario[0]);
       
-    },3000);
+    },1000);
   }
 
   ionViewDidLoad() {

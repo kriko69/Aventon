@@ -14,13 +14,12 @@
 
 <ion-content padding class="imagen">
     <form [formGroup]="myForm">
+            <div>
+                    <img [src]="base64Image" *ngIf="base64Image" class='roundImage' />
+            </div>
             <div padding>
                 <button color=yellow ion-button block (click)="openCamera()" round>Tomar Fotografia</button>
                 <button color=yellow ion-button block (click)="openGallery()" round>Seleccionar de la galeria</button>
-                
-            </div>
-            <div>
-                <img [src]="base64Image" *ngIf="base64Image" class='roundImage' />
             </div>
         <ion-list>
             <ion-item class="inputcolor" style = "margin-top: 0.5em">

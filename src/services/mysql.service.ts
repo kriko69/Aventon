@@ -601,7 +601,7 @@ export class mysqlService{
 
            return this.http.post('http://192.168.0.107/aventon/Procesos/consulta.php', opsi, header);
           }
-          insertarcalificacion(calif)
+      insertarcalificacion(calif)
       {
         let data={
           "key":"insertarcalificacion",
@@ -618,5 +618,18 @@ export class mysqlService{
         console.log('opsi',opsi);
 
          return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);
+      }
+
+      validarFotoUsuario(usuarioFoto){
+        let data={
+          "key":"validarFotoUsuario",
+          "usuarioFoto":usuarioFoto
+        };
+
+        let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+        opsi   : any = JSON.stringify(data);
+        console.log('opsi',opsi);
+
+         return this.http.post('http://192.168.0.107/aventon/Procesos/consulta.php', opsi, header);
       }
 }
