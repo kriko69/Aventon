@@ -31,6 +31,10 @@ export class EditarPasajeroPage {
   fotoUsuario: string;
   val: boolean=false;
   base64Image: string='';
+  submitAttempt: boolean = false;
+  myForm: FormGroup;
+
+
    constructor(public navCtrl: NavController, public navParams: NavParams, public servicio:firebaseService
     ,public alerta:AlertController, public database: AngularFireDatabase,private platform:Platform,
     public mysql:mysqlService,public toast:ToastService, public camera:Camera,
@@ -39,6 +43,15 @@ export class EditarPasajeroPage {
         console.log('');
       },10000);
       this.usuario = navParams.get('usuario');
+      
+      this.myForm = this.formBuilder.group({
+        nombre: ['', Validators.compose([Validators.maxLength(20),Validators.required])],
+        apellido: ['', Validators.compose([Validators.maxLength(25),Validators.required])],
+        fecha_nac: ['', Validators.compose([ Validators.required])],
+        telf: [ 0, Validators.compose([Validators.maxLength(8), Validators.required])],
+        carnet:0,
+        calif_pasa:0
+      });
     }
 
     ionViewDidLoad(){
@@ -62,8 +75,12 @@ export class EditarPasajeroPage {
 
     }
 
-    actualizarPerfil(user)//funcion para actializar el perfil
+    actualizarPerfil()//funcion para actializar el perfil
       {
+        this.usuario.nombre = this.myForm.value.nombre;
+        this.usuario.apellido = this.myForm.value.apellido;
+        this.usuario.fecha_nac = this.myForm.value.fecha_nac;
+        this.usuario.telf = this.myForm.value.telf;
         let info={};
         this.mysql.EditarUser(this.usuario).subscribe(
         data => {

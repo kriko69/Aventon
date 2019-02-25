@@ -78,8 +78,8 @@
                 <ion-label>Maletera</ion-label>
                 <ion-checkbox color="primary" formControlName="maletera"></ion-checkbox>
             </ion-item>
-            <button ion-button block round color="yellow" style="margin-top:25px;" (click)="irConductor()">Seleccionar Auto <ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
-            <button ion-button block round style="margin-top:25px;" (click)="actualizar()">Actualizar Datos<ion-icon name="create" style="margin-left:10px;"></ion-icon></button>
+            <button ion-button block round color="yellow" style="margin-top:25px;" (click)="irConductor() ">Seleccionar Auto <ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
+            <button ion-button block round style="margin-top:25px;" (click)="actualizar()" (click)="uploadingFoto()" [disabled]="!myForm.valid">Actualizar Datos<ion-icon name="create" style="margin-left:10px;"></ion-icon></button>
             <button ion-button block round color="danger" style="margin-top:25px;" (click)="eliminar()">Eliminar Vehiculo<ion-icon name="trash" style="margin-left:10px;"></ion-icon></button>
         </form>
 </ion-content>
