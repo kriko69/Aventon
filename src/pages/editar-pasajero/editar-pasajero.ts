@@ -29,7 +29,8 @@ export class EditarPasajeroPage {
   usuario;
   control:ISubscription;
   fotoUsuario: string;
-  base64Image: any='';
+  val: boolean=false;
+  base64Image: string='';
    constructor(public navCtrl: NavController, public navParams: NavParams, public servicio:firebaseService
     ,public alerta:AlertController, public database: AngularFireDatabase,private platform:Platform,
     public mysql:mysqlService,public toast:ToastService, public camera:Camera,
@@ -64,11 +65,11 @@ export class EditarPasajeroPage {
     actualizarPerfil(user)//funcion para actializar el perfil
       {
         let info={};
-        this.mysql.EditarUser(this.usuario).subscribe(
-        data => {
-          console.log('data', data);
-          info= Object.assign(data);
-          console.log('exito');
+    this.mysql.EditarUser(this.usuario).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
         }, (error: any)=> {
           console.log('error', error);
         }
@@ -102,19 +103,10 @@ export class EditarPasajeroPage {
     this.camera.getPicture(options).then((imageData)=> {
     this.base64Image = 'data:image/jpeg;base64,'+ imageData;
     this.fotoUsuario = this.base64Image;
+    this.val=true;
   },(err)=>{
     console.log('Error en la foto tomada')
   });
-
-  let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
-    let postData = new FormData();
-    let nombre = this.usuario.ci;
-    postData.append('file',this.base64Image);
-    postData.append('nombre',nombre)
-    let data: Observable<any> = this.http.post(url,postData);
-    data.subscribe((res)=>{
-      console.log(res);
-    });
   
   }
 
@@ -130,11 +122,16 @@ export class EditarPasajeroPage {
     this.camera.getPicture(options).then((imageData)=> {
     this.base64Image = 'data:image/jpeg;base64,'+ imageData;
     this.fotoUsuario = this.base64Image;
+    this.val=true;
   },(err)=>{
     console.log('Error en la foto tomada')
   });
+  }
 
-  let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
+  uploadingFoto(){
+    if(this.val== true)
+    {
+    let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
     let postData = new FormData();
     let nombre = this.usuario.ci;
     postData.append('file',this.base64Image);
@@ -144,4 +141,7 @@ export class EditarPasajeroPage {
       console.log(res);
     });
   }
+  }
+    
+
 }
