@@ -62,7 +62,7 @@ export class SlideConductorPage {
 
   
 
-  cambiarUsuario()
+  skip()
   {
     let info;
     this.mysql.Tipo(this.id_usuario,'C').subscribe(
