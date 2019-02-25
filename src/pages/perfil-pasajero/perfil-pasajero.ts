@@ -47,11 +47,11 @@ export class PerfilPasajeroPage {
         data=>{
           if(data['message']=="existe")
           {
-            this.fotoUsuario = "http://192.168.0.107/aventon/img/Perfil/"+this.fotoUsuario + ".jpg";
+            this.fotoUsuario = "http://ionic-web.000webhostapp.com/img/Perfil/"+this.fotoUsuario + ".jpg";
           }
           if(data['message']=="no existe")
           {
-            this.fotoUsuario = "http://192.168.0.107/aventon/img/defaultUsuario.jpg";
+            this.fotoUsuario = "http://ionic-web.000webhostapp.com/img/defaultUsuario.jpg";
           }
           this.base64Image=this.fotoUsuario;
         },error=>{

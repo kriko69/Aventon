@@ -165,7 +165,7 @@ export class RegistrarPage {
   }
 
   uploadingFoto(){
-    let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
+    let url = 'http://ionic-web.000webhostapp.com/img/Perfil/subirfotosperfil.php';
     let postData = new FormData();
     let nombre = this.myForm.value.carnet;
     postData.append('file',this.base64Image);

@@ -67,11 +67,11 @@ export class EditarVehiculoPage {
         data=>{
           if(data['message']=="existe")
           {
-            this.fotoAuto = "http://192.168.0.107/aventon/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
+            this.fotoAuto = "http://ionic-web.000webhostapp.com/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
           }
           if(data['message']=="no existe")
           {
-            this.fotoAuto = "http://192.168.0.107/aventon/img/defaultAuto.jpg";
+            this.fotoAuto = "http://ionic-web.000webhostapp.com/img/defaultAuto.jpg";
           }
           this.base64Image=this.fotoAuto;
         },error=>{ 
@@ -168,7 +168,7 @@ export class EditarVehiculoPage {
   uploadingFoto(){
     if(this.val== true)
     {
-      let url = 'http://192.168.0.107/aventon/img/Autos/subirfotosautos.php';
+      let url = 'http://ionic-web.000webhostapp.com/img/Autos/subirfotosautos.php';
       let postData = new FormData();
       let nombre = this.auto.placa;
       postData.append('file',this.base64Image);

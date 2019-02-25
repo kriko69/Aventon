@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 @Injectable()
 export class mysqlService{
 160
-  ServidorUrl='http://192.168.0.107/aventon/procesos/';
+  ServidorUrl='http://ionic-web.000webhostapp.com/procesos/';
 
   constructor(public http:HttpClient){
 
@@ -51,7 +51,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-    return this.http.post('http://jauzled.com/Procesos/consulta.php', opsi, header);
+    return this.http.post('http://ionic-web.000webhostapp.com/Procesos/consulta.php', opsi, header);
   }
   GetUsuario(ci){
     let data={
@@ -63,7 +63,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-    return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+    return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
   }
   EditarUser(usuario){
     let info=new Array();
@@ -80,7 +80,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/actualizar.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/actualizar.php', opsi, header);
    }
   //Cambiar tipo
   Tipo(id,tipo){
@@ -95,7 +95,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/actualizar.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/actualizar.php', opsi, header);
    }
    //Autos
    AgregarAuto(Auto)
@@ -119,7 +119,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);/*.subscribe(
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/insertar.php', opsi, header);/*.subscribe(
       data => {
         console.log('data',data);
         info["mensaje"]=data['message'];
@@ -144,7 +144,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
     }
 
     ObtenerIdAuto(placa){
@@ -158,7 +158,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
       }
     Intermedia(id_usuario,id_auto){
       let info=new Array();
@@ -172,7 +172,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/procesos/insertar.php', opsi, header);
       }
   UpdateAutos(Auto){
     let info=new Array();
@@ -191,7 +191,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/actualizar.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/actualizar.php', opsi, header);
     }
   EliminarAuto(id_auto){
     let info=new Array();
@@ -204,7 +204,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/procesos/eliminar.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/procesos/eliminar.php', opsi, header);
   }
 
 
@@ -220,7 +220,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/insertar.php', opsi, header);
   }
 
 
@@ -235,7 +235,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
   }
 
   agregarPunto(id_ruta,latitud,longitud,posicion)
@@ -252,7 +252,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/insertar.php', opsi, header);
   }
 
   listarRutas(id_usuario){
@@ -266,7 +266,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
     }
 
     listarRutasParaEliminar(id_usuario){
@@ -280,7 +280,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
       }
 
     listarRutasParaProgramar(id_usuario){
@@ -294,7 +294,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
       }
 
     obtenerPuntosDeRuta(nombre_ruta,id_usuario)
@@ -310,7 +310,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-      return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+      return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
     }
 
     listarProgramadas(id_usuario)
@@ -325,7 +325,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-      return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+      return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
     }
 
 
@@ -340,7 +340,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
   }
 
 
@@ -362,7 +362,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/insertar.php', opsi, header);
   }
 
   EliminarRutaProgramada(id_viaje){
@@ -376,7 +376,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/procesos/eliminar.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/procesos/eliminar.php', opsi, header);
   }
 
   EliminarRuta(id_ruta){
@@ -390,7 +390,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/procesos/eliminar.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/procesos/eliminar.php', opsi, header);
   }
 
 
@@ -406,7 +406,7 @@ export class mysqlService{
   opsi   : any = JSON.stringify(data);
   console.log('opsi',opsi);
 
-   return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+   return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
   }
 
 
@@ -421,7 +421,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/actualizar.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/actualizar.php', opsi, header);
     }
 
     enviarSolicitudDeActivada(id_de,id_para,fecha)
@@ -437,7 +437,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-      return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);
+      return this.http.post('http://ionic-web.000webhostapp.com/procesos/insertar.php', opsi, header);
     }
 
     listarSolicitudesConductor(id_usuario){
@@ -451,7 +451,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
     }
 
   //Ruta_Viaje
@@ -466,7 +466,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-     return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+     return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
     }
 
 
@@ -482,7 +482,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/Procesos/consulta.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/Procesos/consulta.php', opsi, header);
       }
 
       listarRuta_viaje_programada(){
@@ -495,7 +495,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
       }
       Get_Puntos(id_ruta){
         let info=new Array();
@@ -508,7 +508,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
       }
       insertarSolicitud(solicitud)
       {
@@ -532,7 +532,7 @@ export class mysqlService{
         opsi   : any = JSON.stringify(data);
         console.log('opsi',opsi);
 
-         return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);
+         return this.http.post('http://ionic-web.000webhostapp.com/procesos/insertar.php', opsi, header);
       }
       listarMisSolicitudesAceptadas(ci){
         let info=new Array();
@@ -545,7 +545,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/Procesos/consulta.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/Procesos/consulta.php', opsi, header);
       }
       eliminarSolicitud(id){
         let info=new Array();
@@ -558,7 +558,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/Procesos/eliminar.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/Procesos/eliminar.php', opsi, header);
       }
       actualizarCapacidad(capacidad,id_viaje){
         let info=new Array();
@@ -572,7 +572,7 @@ export class mysqlService{
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-       return this.http.post('http://192.168.0.107/aventon/Procesos/actualizar.php', opsi, header);
+       return this.http.post('http://ionic-web.000webhostapp.com/Procesos/actualizar.php', opsi, header);
       }
       obtenerCapacidadViaje(id_viaje)
       {
@@ -585,7 +585,7 @@ export class mysqlService{
         opsi   : any = JSON.stringify(data);
         console.log('opsi',opsi);
 
-         return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+         return this.http.post('http://ionic-web.000webhostapp.com/procesos/consulta.php', opsi, header);
       }
         actualizarEstadoSolicitud(id_solicitud,estado){
           let info=new Array();
@@ -599,7 +599,7 @@ export class mysqlService{
           opsi   : any = JSON.stringify(data);
           console.log('opsi',opsi);
 
-           return this.http.post('http://192.168.0.107/aventon/Procesos/consulta.php', opsi, header);
+           return this.http.post('http://ionic-web.000webhostapp.com/Procesos/consulta.php', opsi, header);
           }
       insertarcalificacion(calif)
       {
@@ -617,7 +617,7 @@ export class mysqlService{
         opsi   : any = JSON.stringify(data);
         console.log('opsi',opsi);
 
-         return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);
+         return this.http.post('http://ionic-web.000webhostapp.com/procesos/insertar.php', opsi, header);
       }
 
       validarFotoUsuario(usuarioFoto){
@@ -629,7 +629,7 @@ export class mysqlService{
         let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
         opsi   : any = JSON.stringify(data);
         console.log('opsi',opsi);
-         return this.http.post('http://192.168.0.107/aventon/Procesos/consulta.php', opsi, header);
+         return this.http.post('http://ionic-web.000webhostapp.com/Procesos/consulta.php', opsi, header);
       }
 
       insertarrecogida(latitud,longitud,posicion){
@@ -644,7 +644,7 @@ export class mysqlService{
         opsi   : any = JSON.stringify(data);
         console.log('opsi',opsi);
 
-         return this.http.post('http://192.168.0.107/aventon/procesos/insertar.php', opsi, header);
+         return this.http.post('http://ionic-web.000webhostapp.com/procesos/insertar.php', opsi, header);
       }
       Updatepunto(id_punto,posicion){
         let data={
@@ -656,7 +656,7 @@ export class mysqlService{
         let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
         opsi   : any = JSON.stringify(data);
         console.log('opsi',opsi);
-         return this.http.post('http://192.168.0.107/aventon/procesos/actualizar.php', opsi, header);
+         return this.http.post('http://ionic-web.000webhostapp.com/procesos/actualizar.php', opsi, header);
       }
       obtenerHoraViaje(id_viaje){
         let info=new Array();
@@ -669,6 +669,6 @@ export class mysqlService{
         opsi   : any = JSON.stringify(data);
         console.log('opsi',opsi);
 
-         return this.http.post('http://192.168.0.107/aventon/Procesos/consulta.php', opsi, header);
+         return this.http.post('http://ionic-web.000webhostapp.com/Procesos/consulta.php', opsi, header);
         }
 }
