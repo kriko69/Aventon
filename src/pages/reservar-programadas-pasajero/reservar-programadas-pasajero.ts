@@ -116,11 +116,8 @@ export class ReservarProgramadasPasajeroPage {
           console.log('error', error);
         }
     );
-    setTimeout(()=>{
-      console.log(info);
-      this.mostrarAlerta();
-      this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario:this.id_usuario});
-    },1000);
+    this.mostrarAlerta();
+    this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario:this.id_usuario});
 
   }
 
