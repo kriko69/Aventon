@@ -25,6 +25,7 @@ import { mysqlService } from '../../services/mysql.service';
 export class PerfilConductorPage {
 
   usuario;
+  auto;
   tipo='';
   value;
   id_auto;
@@ -45,26 +46,25 @@ export class PerfilConductorPage {
       },10000);
     this.usuario = navParams.get('usuario');
     this.id_auto = navParams.get('id_auto');
+    this.auto=this.navParams.get('auto');
     console.log(this.usuario);
   }
 
   ionViewDidLoad() {
-    this.fotoAuto = this.id_auto;
-      this.mysql.validarFotoUsuario(this.id_auto).subscribe(
+    this.fotoAuto = this.auto.placa;
+      this.mysql.validarFotoUsuario(this.auto.placa).subscribe(
         data=>{
           if(data['message']=="existe")
           {
-            this.fotoAuto = "http://192.168.0.107/aventon/img/Autos/"+data['placa'] + ".jpg";//data[placa] tiene que ser devuelta de la consulta
+            this.fotoAuto = "http://192.168.0.107/aventon/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
           }
           if(data['message']=="no existe")
           {
             this.fotoAuto = "http://192.168.0.107/aventon/img/defaultAuto.jpg";
           }
-          this.base64Image=data['placa'];
-        },error=>{
-          
+          this.base64Image=this.fotoAuto;
+        },error=>{ 
         }
-        
       );
   }
   editPerfil()

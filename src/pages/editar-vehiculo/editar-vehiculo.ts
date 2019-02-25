@@ -8,8 +8,9 @@ import { ToastService } from '../../services/toast.service';
 import { mysqlService } from '../../services/mysql.service';
 
 import {FormGroup, FormBuilder, Validators} from '@angular/forms'; // Para la validacion del formulario
-import { Camera } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { HttpClient } from '@angular/common/http';
+import { Subscription, Observable } from 'rxjs';
 
 /**
  * Generated class for the EditarVehiculoPage page.
@@ -31,7 +32,9 @@ export class EditarVehiculoPage {
   submitAttempt: boolean = false;
   myForm: FormGroup;
 
-  pic : string= "http://192.168.0.107/aventon/img/Autos/312AZN.jpg"
+  fotoAuto: string;
+  val: boolean=false;
+  base64Image: string='';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService, public toast:ToastService,private platform:Platform,
@@ -49,7 +52,22 @@ export class EditarVehiculoPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad EditarVehiculoPage');
+    this.fotoAuto = this.auto.placa;
+      this.mysql.validarFotoUsuario(this.auto.placa).subscribe(
+        data=>{
+          if(data['message']=="existe")
+          {
+            this.fotoAuto = "http://192.168.0.107/aventon/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
+          }
+          if(data['message']=="no existe")
+          {
+            this.fotoAuto = "http://192.168.0.107/aventon/img/defaultAuto.jpg";
+          }
+          this.base64Image=this.fotoAuto;
+        },error=>{ 
+        }
+      );
+
   }
 
   actualizar()
@@ -91,5 +109,59 @@ export class EditarVehiculoPage {
   irConductor()
   {
     this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario,id_auto:this.auto.id_auto});
+  }
+  
+
+  openCamera(){
+    const options: CameraOptions = {
+      quality:100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation:true
+    }
+
+    this.camera.getPicture(options).then((imageData)=> {
+    this.base64Image = 'data:image/jpeg;base64,'+ imageData;
+    this.fotoAuto = this.base64Image;
+    this.val=true;
+  },(err)=>{
+    console.log('Error en la foto tomada')
+  });
+  
+  }
+
+  openGallery(){
+    const options: CameraOptions = {
+      quality:100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      correctOrientation:true
+    }
+
+    this.camera.getPicture(options).then((imageData)=> {
+    this.base64Image = 'data:image/jpeg;base64,'+ imageData;
+    this.fotoAuto = this.base64Image;
+    this.val=true;
+  },(err)=>{
+    console.log('Error en la foto tomada')
+  });
+  }
+
+  uploadingFoto(){
+    if(this.val== true)
+    {
+      let url = 'http://192.168.0.107/aventon/img/Autos/subirfotosautos.php';
+      let postData = new FormData();
+      let nombre = this.auto.placa;
+      postData.append('file',this.base64Image);
+      postData.append('nombre',nombre)
+      let data: Observable<any> = this.http.post(url,postData);
+      data.subscribe((res)=>{
+        console.log(res);
+      });
+  }
   }
 }

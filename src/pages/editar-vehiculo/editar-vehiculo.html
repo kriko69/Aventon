@@ -14,9 +14,13 @@
 
 
 <ion-content padding class="imagen">
-        <div>
-            <img [src]="pic"  class='marco'  />
-        </div>
+    <div>
+        <img [src]="fotoAuto"  class='marco'  />
+    </div>
+    <div padding>
+        <button color=yellow ion-button block (click)="openCamera()" round>Cambiar fotografia tomando fotografia</button>
+        <button color=yellow ion-button block (click)="openGallery()" round>Cambiar fotografia desde la galeria</button>
+    </div>
         <ion-item>
             <ion-label stacked color="dark">Capacidad</ion-label>
             <ion-input type="number" [(ngModel)]="auto.capacidad">{{auto.capacidad}}</ion-input>

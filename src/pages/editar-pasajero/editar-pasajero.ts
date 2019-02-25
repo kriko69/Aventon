@@ -65,8 +65,8 @@ export class EditarPasajeroPage {
     actualizarPerfil(user)//funcion para actializar el perfil
       {
         let info={};
-    this.mysql.EditarUser(this.usuario).subscribe(
-      data => {
+        this.mysql.EditarUser(this.usuario).subscribe(
+        data => {
         console.log('data', data);
         info= Object.assign(data);
         console.log('exito');
