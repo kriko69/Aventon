@@ -646,5 +646,17 @@ export class mysqlService{
 
          return this.http.post('http://192.168.0.107/aventon/procesos/actualizar.php', opsi, header);
       }
+      obtenerHoraViaje(id_viaje){
+        let info=new Array();
+        let data={
+          "key":"obtenerHoraViaje",
+          "id_viaje":id_viaje
+        };
 
+        let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+        opsi   : any = JSON.stringify(data);
+        console.log('opsi',opsi);
+
+         return this.http.post('http://192.168.0.107/aventon/Procesos/consulta.php', opsi, header);
+        }
 }
