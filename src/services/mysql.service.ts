@@ -34,7 +34,7 @@ export class mysqlService{
 
 
 
-    return this.http.post('http://192.168.0.107/aventon/Procesos/insertar.php', opsi, header);
+    return this.http.post('http://jauzled.com/Procesos/insertar.php', opsi, header);
   }
 
   ValidarrUsuario(Usuario)
@@ -51,7 +51,7 @@ export class mysqlService{
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
 
-    return this.http.post('http://192.168.0.107/aventon/procesos/consulta.php', opsi, header);
+    return this.http.post('http://jauzled.com/Procesos/consulta.php', opsi, header);
   }
   GetUsuario(ci){
     let data={

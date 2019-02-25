@@ -14,10 +14,9 @@
 
 <ion-content padding class="imagen">
     <form [formGroup]="myForm">
-            <div>
-                    <img [src]="base64Image" *ngIf="base64Image" class='roundImage' />
-                
-            </div>
+            <ion-card>
+                <img [src]="base64Image" *ngIf="base64Image" />
+            </ion-card>
             <div padding>
                 <button color=yellow ion-button block (click)="openCamera()" round>Tomar Fotografia</button>
                 <button color=yellow ion-button block (click)="openGallery()" round>Seleccionar de la galeria</button>
@@ -94,7 +93,7 @@
 </ion-content>
 <!--
     <button ion-button block (click)="registrar()" (click)="uploadingFoto()" [disabled]="myForm.invalid" round>Registrar</button>
-    
+
     <ion-item class="inputcolor" style="margin-top:0.5em">
     <ion-label stacked color="dark">Correo</ion-label>
     <ion-input type="email" formControlName="correo"></ion-input>
