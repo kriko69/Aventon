@@ -91,6 +91,8 @@ export class VerProgramadasPasajeroPage {
   }
   sacar_punt(obj){
     let puntos;
+    console.log("ID_RUTA",obj.id_ruta);
+    
     this.mysql.Get_Puntos(obj.id_ruta).subscribe(
       data => {
         puntos=Object.assign(data);
