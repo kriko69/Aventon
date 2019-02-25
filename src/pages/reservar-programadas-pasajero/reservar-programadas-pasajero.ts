@@ -107,6 +107,8 @@ export class ReservarProgramadasPasajeroPage {
   enviar()
   {
     let info;
+    console.log("SOLICITUD",this.solicitud);
+    
     this.mysql.insertarSolicitud(this.solicitud).subscribe(
       data => {
         info=Object.assign(data);
@@ -116,6 +118,8 @@ export class ReservarProgramadasPasajeroPage {
     );
     setTimeout(()=>{
       console.log(info);
+      this.mostrarAlerta();
+      this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario:this.id_usuario});
     },1000);
 
   }
@@ -129,143 +133,7 @@ export class ReservarProgramadasPasajeroPage {
     });
     alert.present();
   }
-  /*recargar(){
-    let points=this.data.ruta;
-    this.markersArray=[];
-    let latlon=points.split(';');
-    let aux:any;
-    console.log(latlon);
-    let puntos=latlon.length;
-    console.log(puntos);
-    for(let i=0;i<puntos;i++)
-    {
-      aux=latlon[i];
-      let partida=aux.split('/');
-      this.markeraux = new google.maps.Marker({position: {lat: Number(partida[0]), lng: Number(partida[1])},map: this.map,draggable: false});
-      console.log(Number(partida[0])+'/'+Number(partida[1]));
-      if(i!=0 && i!=puntos-1){
-        if(this.data.recogidas!=null){
-          let paradas=this.data.recogidas.split(';');
-          let bol=false;
-          for(let i=0;i<paradas.length;i++)
-          {
-            if(paradas[i]==aux)
-            {
-              this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/micons/blue-dot.png');
-              bol=true;
-            }
-          }
-          if(bol==false)
-          {
-            this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-          }
-
-        }
-        else{
-          this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-        }
-      }
-      this.markersArray.push(this.markeraux);
-    }
-    var directionsService = new google.maps.DirectionsService;
-      var directionsDisplay = new google.maps.DirectionsRenderer;
-     directionsDisplay = new google.maps.DirectionsRenderer({
-      //suppressMarkers: true
-  });
-     this.map = new google.maps.Map(document.getElementById('map1'), {
-      center: {lat: this.latOri, lng: this.longOri},
-      zoom:10
-    });
-    let waypts=[];
-    for(let i=0;i<puntos;i++){
-    waypts.push({
-      location: this.markersArray[i].getPosition(),
-      stopover: false
-    });}
-    console.log(waypts);
-    directionsDisplay.setMap(this.map);
-     this.start = this.markersArray[0].getPosition();
-     this.end = this.markersArray[puntos-1].getPosition();
-     var request = {
-      origin: this.start,
-      destination: this.end,
-      travelMode: 'DRIVING',
-      waypoints: waypts
-    };
-    directionsService.route(request, function(result, status) {
-      if (status == 'OK') {
-        directionsDisplay.setDirections(result);
-
-
-      }else {
-        window.alert('Directions request failed due to ' + status);
-      }
-    });
-    for(let i=1;i<puntos-1;i++){
-      this.markersArray[i].setMap(this.map);
-    }
-
-    let marker= new google.maps.Marker({position: {lat:this.latitud, lng: this.longitud},map: this.map,draggable: false});
-    marker.setIcon('http://maps.google.com/mapfiles/ms/micons/blue-pushpin.png');
-    marker.setMap(this.map);
-
-    var directionsService2=new google.maps.DirectionsService;
-    var directionsDisplay2= new google.maps.DirectionsRenderer({
-      draggable:true,
-      map:null
-    });
-    var request2 = {
-      origin: this.start,
-      destination: new google.maps.LatLng(this.latitud,this.longitud),
-      travelMode: 'DRIVING'
-    };
-    let tiempoDeMiPuntoDeRecogida;
-    let horaViaje=this.data.hora;
-    let miHora;
-    let mapa=this.map;
-    directionsService2.route(request2, function(result, status) {
-      if (status == 'OK') {
-        directionsDisplay2.setDirections(result);
-        console.log('MI RECOGIDA: ',directionsDisplay2.getDirections());
-        let sp=directionsDisplay2.getDirections().routes[0].legs[0].duration.text.split(' ');
-        let minutos=Number(sp[0]);
-        let split=horaViaje.split(':')
-        let h=Number(split[0]);
-        let m=Number(split[1]);
-        let segundos1=m*60;
-        let segundos2=h*3600;
-        let segundos3=minutos*60;
-        let suma=segundos1+segundos2+segundos3;
-        let min=Math.floor(suma/3600);
-        suma=suma-(3600*min);
-        let seg=suma/60;
-        if(seg<10)
-        {
-          tiempoDeMiPuntoDeRecogida=min+':0'+seg;
-        }else{
-          tiempoDeMiPuntoDeRecogida=min+':'+seg;
-        }
-      }
-      let separar=tiempoDeMiPuntoDeRecogida.split(':');
-      if(Number(separar[0])<11){
-        tiempoDeMiPuntoDeRecogida+=' pm';
-      }
-      else{
-        tiempoDeMiPuntoDeRecogida+=' am';
-      }
-      console.log(tiempoDeMiPuntoDeRecogida);
-      var infowindow = new google.maps.InfoWindow({
-        content: tiempoDeMiPuntoDeRecogida
-      });
-      marker.addListener('click', function() {
-        infowindow.open(mapa, marker);
-      });
-
-    });
-
-
-
-  }*/
+  
   recargar(points){
     this.markersArray=[];
 
@@ -277,7 +145,12 @@ export class ReservarProgramadasPasajeroPage {
       this.markeraux = new google.maps.Marker({position: {lat: latitud, lng: longitud},map: this.map,draggable: false});
       console.log(latitud+'/'+longitud);
       if(i!=0 && i!=points.length-1){
+        if(Number(points[i].latitud)==this.latitud && Number(points[i].longitud)==this.longitud){
+          this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/b;ue-dot.png');
+        }
+        else{
         this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+        }
       }
       this.markersArray.push(this.markeraux);
     }
@@ -388,6 +261,7 @@ export class ReservarProgramadasPasajeroPage {
   console.log("puntos ultimos para graficar",copiapuntos2);
   
   this.puntosver=copiapuntos2;
+  this.solicitud.posicion=posicion_recogida;
   this.recargar(copiapuntos2);
     /*this.mysql.insertarrecogida(this.latitud,this.longitud,posicion_recogido);
     for(let j=0;j<copiapuntos.length;j++){
@@ -423,28 +297,13 @@ export class ReservarProgramadasPasajeroPage {
       partida[1]=this.puntosver[i].longitud;
       this.markeraux = new google.maps.Marker({position: {lat: Number(partida[0]), lng: Number(partida[1])},map: this.map,draggable: false});
       console.log(Number(partida[0])+'/'+Number(partida[1]));
-      /*if(i!=0 && i!=puntos-1){
-        if(this.data.recogidas!=null){
-          let paradas=this.data.recogidas.split(';');
-          let bol=false;
-          for(let i=0;i<paradas.length;i++)
-          {
-            if(paradas[i]==aux)
-            {
-              this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/micons/blue-dot.png');
-              bol=true;
-            }
-          }
-          if(bol==false)
-          {
-            this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-          }
-
+      if(i!=0 && i!=puntos-1){
+        if(this.markeraux.lat!=this.latitud && this.markeraux.lng!=this.longitud){
+          this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');}
+         else{
+        this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
         }
-        else{
-          this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-        }
-      }*/
+      }
       this.markersArray.push(this.markeraux);
     }
     let waypts=[];
@@ -503,7 +362,6 @@ export class ReservarProgramadasPasajeroPage {
       );
       console.log(this.tiemposEntrePuntos);
       setTimeout(() => {
-        
       this.ruta(inicio);
       }, 1000);
     }
@@ -513,7 +371,7 @@ export class ReservarProgramadasPasajeroPage {
     let horaViaje=this.miHora;
     let puntitos=this.markersArray;
     let infowindow = new google.maps.InfoWindow();
-    let mapita=this.map;
+    let mapita=null;
     let horas=[];
     var directionsService= new google.maps.DirectionsService;
     var directionsDisplay= new google.maps.DirectionsRenderer({

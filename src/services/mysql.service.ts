@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 @Injectable()
 export class mysqlService{
 160
-  ServidorUrl='https://ionic-web.000webhostapp.com/Procesos/';
+  ServidorUrl='http://192.168.0.107/aventon/Procesos/';
 
   constructor(public http:HttpClient){
 
@@ -525,7 +525,8 @@ export class mysqlService{
     "sombrero":solicitud.sombrero,
     "superior":solicitud.superior,
     "inferior":solicitud.inferior,
-    "accesorio":solicitud.accesorio
+    "accesorio":solicitud.accesorio,
+    "posicion":solicitud.posicion
         };
 
         let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
@@ -599,7 +600,7 @@ export class mysqlService{
           opsi   : any = JSON.stringify(data);
           console.log('opsi',opsi);
 
-           return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+           return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
           }
       insertarcalificacion(calif)
       {
@@ -670,5 +671,20 @@ export class mysqlService{
         console.log('opsi',opsi);
 
          return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+        }
+        agregarrecogida(latitud,longitud,ci,id_viaje){
+          let data={
+            "key":"agregarrecogida",
+            "latitud":latitud,
+            "longitud":longitud,
+            "ci":ci,
+            "id_viaje":id_viaje
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'insertar.php', opsi, header);
         }
 }

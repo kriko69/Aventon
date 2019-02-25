@@ -3,6 +3,7 @@ import { BuzonPage } from './../buzon/buzon';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 import { firebaseService } from '../../services/firebase.service';
+import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the AceptarSolicitudPage page.
@@ -18,55 +19,26 @@ import { firebaseService } from '../../services/firebase.service';
 })
 export class AceptarSolicitudPage {
 
-  email;
+  id_usuario;
   solicitud;
-  rama;
-  nombreRama;
-  nombreRama2;
-  nombreRamaRutaProgramada;
+  id_auto;
   splitFecha;
   splitHora;
   aux;
   ruta:any={};
-  nuevaCapacidad={
-    capacidad:0,
-    puntosRecogidas:'',
-    integrantes:'',
-    ruta:''
-  }
+    capacidad;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService,public alerta:AlertController,private platform:Platform) {
+  public servicio:firebaseService,public alerta:AlertController,private platform:Platform,
+  public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email=this.navParams.get('email');
-    console.log(this.email);
+
+    this.id_usuario=this.navParams.get('id_usuario');
     this.solicitud=this.navParams.get('solicitud');
-    console.log(this.solicitud);
-    console.log(this.solicitud.de);
-    this.rama=this.email.split('.');
-    console.log(this.solicitud.fechaViaje);
-    this.splitFecha=this.solicitud.fechaViaje.split('-');
-    this.splitHora=this.solicitud.horaViaje.split(':');
-    console.log(this.solicitud.horaViaje);
-    this.nombreRama=this.solicitud.de+''+this.solicitud.fechaViaje+''+this.solicitud.horaViaje;
-    this.nombreRama2=this.rama[0]+''+this.solicitud.fechaViaje+''+this.solicitud.horaViaje;
+    this.id_auto=this.navParams.get('id_auto');
 
-    this.nombreRamaRutaProgramada=this.rama[0]+this.splitFecha[0]+this.splitFecha[1]+this.splitFecha[2]+this.splitHora[0]+this.splitHora[1];
-    console.log(this.nombreRamaRutaProgramada);
-
-    this.servicio.getRutaProgramada(this.nombreRamaRutaProgramada).valueChanges().subscribe(
-      (data)=>{
-        this.ruta=data;
-        console.log(this.ruta);
-      }
-    );
-
-    console.log(this.nuevaCapacidad);
-
-
-
-  }
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AceptarSolicitudPage');
@@ -74,65 +46,57 @@ export class AceptarSolicitudPage {
 
   actualizarEstado()
   {
-    if(this.ruta[2]!=0)
-    {
-      this.capacidadDiferenteA0();
-    }
-    else{
-      this.mostrarAlerta();
-    }
+    this.mysql.obtenerCapacidadViaje(this.solicitud.id_viaje).subscribe(
+      (data)=>{
+        this.capacidad=data;
+      }
+    );
+    setTimeout(() => {
+      this.capacidad=Number(this.capacidad);
+      if(this.capacidad>0)
+      {
+        let info;
+        this.mysql.actualizarEstadoSolicitud(Number(this.solicitud.id_solicitud),'Aceptado').subscribe(
+          (data)=>{
+            console.log(data);
+          },error=>{
+            console.log(error);
+          }
+        );
+        this.mysql.actualizarCapacidad(this.capacidad-1,Number(this.solicitud.id_viaje)).subscribe(
+          (data)=>{
+            console.log(data);
+          },error=>{
+            console.log(error);
+          }
+        );
+        this.mysql.agregarrecogida(Number(this.solicitud.latitud),Number(this.solicitud.longitud),this.solicitud.id_de,this.solicitud.id_viaje).subscribe(
+          (data)=>{
+            console.log(data);
+          },error=>{
+            console.log(error);
+          }
+        );
+        this.navCtrl.setRoot(BuzonPage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
+      }
+      else{
+        this.mostrarAlerta();
+        this.navCtrl.setRoot(BuzonPage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
+      }
+    }, 1000);
   }
-
-  capacidadDiferenteA0()
-  {
-    this.servicio.editarSolicitud(this.rama[0],this.nombreRama,'aceptado').then(
-      ()=>{
-        console.log('actualizado');
-
-      }
-    );
-    this.servicio.editarMiSolicitud(this.solicitud.de,this.nombreRama2,'aceptado').then(
-      ()=>{
-        console.log('actualizado');
-
-      }
-    );
-    this.nuevaCapacidad.capacidad=this.ruta[2];
-    console.log(this.nuevaCapacidad.capacidad);
-
-   this.nuevaCapacidad.ruta=this.nuevaruta(this.ruta[11],this.solicitud.latitud,this.solicitud.longitud);
-
-    this.nuevaCapacidad.capacidad=this.nuevaCapacidad.capacidad-1;
-    this.nuevaCapacidad.puntosRecogidas=this.ruta[10]+this.solicitud.latitud+'/'+this.solicitud.longitud+';';
-    this.nuevaCapacidad.integrantes=this.ruta[7]+this.solicitud.de+';';
-    this.servicio.editarCapaci(this.nombreRamaRutaProgramada,this.nuevaCapacidad).then(
-      ()=>{
-        console.log('actualizado la capacidad');
-
-      }
-    );
-    this.navCtrl.setRoot(BuzonPage,{email:this.email});
-  }
-
   actualizarEstadono()
   {
-    this.servicio.editarSolicitud(this.rama[0],this.nombreRama,'no aceptado').then(
-      ()=>{
-        console.log('actualizado');
-
-      }
-    );
-    this.servicio.editarMiSolicitud(this.solicitud.de,this.nombreRama2,'no aceptado').then(
-      ()=>{
-        console.log('actualizado');
-
-      }
-    );
-
-    this.navCtrl.setRoot(BuzonPage,{email:this.email});
+        this.mysql.actualizarEstadoSolicitud(Number(this.solicitud.id_solicitud),'Rechazado').subscribe(
+          (data)=>{
+            console.log(data);
+          },error=>{
+            console.log(error);
+          }
+        );
+        this.navCtrl.setRoot(BuzonPage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
 
   }
-
   mostrarAlerta() {
     const alert = this.alerta.create({
       title: 'No se puede Aceptar!',
