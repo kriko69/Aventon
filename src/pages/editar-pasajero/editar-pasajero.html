@@ -19,7 +19,10 @@
         </div>
         <div padding>
             <button color=yellow ion-button block (click)="openCamera()" round>Tomar Fotografia</button>
-            <button color=yellow ion-button block (click)="openGallery()" round>Cambiar Fotografia</button>
+            <button color=yellow ion-button block (click)="openGallery()" round>Cambiar Fotografia de la galeria</button>
+        </div>
+        <div>           
+            <button color=yellow ion-button block (click)="uploadingFoto()" round>Cambiar Foto</button>
         </div>
     <ion-list #pc>
         <ion-item style="margin-top:1em">
@@ -49,7 +52,7 @@
             <ion-input disabled="true" type="text" [(ngModel)]="usuario.calif_pasa"></ion-input>
         </ion-item>
         <ion-item>
-            <button ion-button block round color="yellow" (click)='uploadingFoto' (click)="actualizarPerfil()">Guardar</button>
+            <button ion-button block round color="yellow"  (click)="actualizarPerfil()">Guardar datos personales</button>
         </ion-item>
     </ion-list>
 

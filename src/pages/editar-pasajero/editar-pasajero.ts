@@ -29,6 +29,7 @@ export class EditarPasajeroPage {
   usuario;
   control:ISubscription;
   fotoUsuario: string;
+  base64Image: any='';
    constructor(public navCtrl: NavController, public navParams: NavParams, public servicio:firebaseService
     ,public alerta:AlertController, public database: AngularFireDatabase,private platform:Platform,
     public mysql:mysqlService,public toast:ToastService, public camera:Camera,
@@ -51,6 +52,7 @@ export class EditarPasajeroPage {
           {
             this.fotoUsuario = "http://192.168.0.107/aventon/img/defaultUsuario.jpg";
           }
+          this.base64Image=this.fotoUsuario;
         },error=>{
           
         }
@@ -62,11 +64,11 @@ export class EditarPasajeroPage {
     actualizarPerfil(user)//funcion para actializar el perfil
       {
         let info={};
-    this.mysql.EditarUser(this.usuario).subscribe(
-      data => {
-        console.log('data', data);
-        info= Object.assign(data);
-        console.log('exito');
+        this.mysql.EditarUser(this.usuario).subscribe(
+        data => {
+          console.log('data', data);
+          info= Object.assign(data);
+          console.log('exito');
         }, (error: any)=> {
           console.log('error', error);
         }
@@ -88,8 +90,7 @@ export class EditarPasajeroPage {
       });
       alert.present();
     }
-    
-  base64Image: any='';
+
   openCamera(){
     const options: CameraOptions = {
       quality:100,
@@ -106,6 +107,7 @@ export class EditarPasajeroPage {
   });
   
   }
+
   openGallery(){
     const options: CameraOptions = {
       quality:100,
@@ -124,15 +126,16 @@ export class EditarPasajeroPage {
   }
 
   uploadingFoto(){
-    let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotoperfil.php';
+    let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
     let postData = new FormData();
-    let nombre = this.usuario.placa;
+    let nombre = this.usuario.ci;
     postData.append('file',this.base64Image);
-    postData.append('nombre',nombre);
+    postData.append('nombre',nombre)
     let data: Observable<any> = this.http.post(url,postData);
     data.subscribe((res)=>{
       console.log(res);
     });
   }
+    
 
 }
