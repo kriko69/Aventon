@@ -18,6 +18,7 @@ declare var google: any;
   templateUrl: 'reservar-programadas-pasajero.html',
 })
 export class ReservarProgramadasPasajeroPage {
+  puntosver;
   markersArray = [];
   puntos;
   markeraux:any;
@@ -70,6 +71,16 @@ export class ReservarProgramadasPasajeroPage {
     this.solicitud.accesorio=this.vestimenta.zaccesorio;
     this.obtnuntos();
     
+    this.mysql.obtenerHoraViaje(this.data.id_viaje).subscribe(
+      data=>{
+        this.miHora=data;
+      },(error)=>{
+        console.log(error);
+      }
+    );
+    setTimeout(()=>{
+      this.miHora=this.miHora[0];
+    },1000);
   }
 
   ionViewDidLoad() {
@@ -311,7 +322,7 @@ export class ReservarProgramadasPasajeroPage {
     }
     let markerpunto= new google.maps.Marker({position: {lat: this.latitud, lng: this.longitud},map: this.map,draggable: false});
     markerpunto.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-
+    this.ver(start,end);
 
   }
   dismiss()
@@ -376,6 +387,7 @@ export class ReservarProgramadasPasajeroPage {
   });
   console.log("puntos ultimos para graficar",copiapuntos2);
   
+  this.puntosver=copiapuntos2;
   this.recargar(copiapuntos2);
     /*this.mysql.insertarrecogida(this.latitud,this.longitud,posicion_recogido);
     for(let j=0;j<copiapuntos.length;j++){
@@ -399,20 +411,19 @@ export class ReservarProgramadasPasajeroPage {
   }
   ver(inicio,fin)
   {
-    let points=this.data.ruta;
     this.markersArray=[];
-    let latlon=points.split(';');
     let aux:any;
-    console.log(latlon);
-    let puntos=latlon.length;
+    let puntos=this.puntosver.length;
     console.log(puntos);
     for(let i=0;i<puntos;i++)
     {
-      aux=latlon[i];
-      let partida=aux.split('/');
+      //aux=latlon[i];
+      let partida=[];
+      partida[0]=this.puntosver[i].latitud;
+      partida[1]=this.puntosver[i].longitud;
       this.markeraux = new google.maps.Marker({position: {lat: Number(partida[0]), lng: Number(partida[1])},map: this.map,draggable: false});
       console.log(Number(partida[0])+'/'+Number(partida[1]));
-      if(i!=0 && i!=puntos-1){
+      /*if(i!=0 && i!=puntos-1){
         if(this.data.recogidas!=null){
           let paradas=this.data.recogidas.split(';');
           let bol=false;
@@ -433,7 +444,7 @@ export class ReservarProgramadasPasajeroPage {
         else{
           this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
         }
-      }
+      }*/
       this.markersArray.push(this.markeraux);
     }
     let waypts=[];
@@ -499,7 +510,7 @@ export class ReservarProgramadasPasajeroPage {
 
   ruta(inicio)
   {
-    let horaViaje=this.data.hora;
+    let horaViaje=this.miHora;
     let puntitos=this.markersArray;
     let infowindow = new google.maps.InfoWindow();
     let mapita=this.map;
