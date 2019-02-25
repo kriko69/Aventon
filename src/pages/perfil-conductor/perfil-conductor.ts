@@ -12,6 +12,11 @@ import { ISubscription } from 'rxjs/Subscription';
 import { EditarConductorPage } from '../editar-conductor/editar-conductor';
 import { LoginPage } from '../login/login';
 
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { HttpClient } from '@angular/common/http';
+import { Subscription, Observable } from 'rxjs';
+import { mysqlService } from '../../services/mysql.service';
+
 @IonicPage()
 @Component({
   selector: 'page-perfil-conductor',
@@ -29,9 +34,13 @@ export class PerfilConductorPage {
   vehiculos=[];
   controlP:ISubscription;
   controlV:ISubscription;
+  fotoAuto: string;
+  val: boolean=false;
+  base64Image: string='';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public app:App,
-    public servicio: firebaseService,private platform:Platform) {
+    public servicio: firebaseService,private platform:Platform, public camera:Camera,
+    private http: HttpClient,public mysql:mysqlService) {
       this.platform.registerBackButtonAction(() => {
       },10000);
     this.usuario = navParams.get('usuario');
@@ -40,6 +49,23 @@ export class PerfilConductorPage {
   }
 
   ionViewDidLoad() {
+    this.fotoAuto = this.id_auto;
+      this.mysql.validarFotoUsuario(this.id_auto).subscribe(
+        data=>{
+          if(data['message']=="existe")
+          {
+            this.fotoAuto = "http://192.168.0.107/aventon/img/Autos/"+data['placa'] + ".jpg";//data[placa] tiene que ser devuelta de la consulta
+          }
+          if(data['message']=="no existe")
+          {
+            this.fotoAuto = "http://192.168.0.107/aventon/img/defaultAuto.jpg";
+          }
+          this.base64Image=data['placa'];
+        },error=>{
+          
+        }
+        
+      );
   }
   editPerfil()
   {
