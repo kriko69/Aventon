@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { AgregarVehiculosPage } from './../agregar-vehiculos/agregar-vehiculos';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
-
+import {SlideConductorPage} from './../slide-conductor/slide-conductor';
 /**
  * Generated class for the VehiculoPage page.
  *
@@ -72,4 +72,33 @@ export class VehiculoPage {
   {
     this.navCtrl.push(EditarVehiculoPage,{auto:auto,id_usuario:this.id_usuario});
   }
+  slidePrincipal3()
+  {
+    this.slide();
+    this.navCtrl.push(SlideConductorPage,{id_usuario:  this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
+    
+  }
+
+  slide(){
+    let info;
+    this.mysql.Tipo(this.id_usuario,'C').subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      console.log('info',info);
+    },1000);
+  }
+
+  
+  
 }
