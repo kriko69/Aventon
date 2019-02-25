@@ -47,7 +47,17 @@ export class EditarVehiculoPage {
     this.auto=this.navParams.get('auto');
     console.log(this.id_usuario);
     console.log('AUTO: '+this.auto.placa+' id: '+this.auto.id_auto);
-
+    
+    this.myForm = this.formBuilder.group({
+      capacidad: [ 0, Validators.compose([Validators.maxLength(1), Validators.required])],
+      color:['',Validators.compose([Validators.required])],
+      marca:['',Validators.compose([Validators.required])],
+      modelo:[ 0, Validators.compose([Validators.maxLength(4), Validators.required,Validators.minLength(4)])],
+      placa: '',
+      maletera: false,
+      placanum: ['',Validators.compose([Validators.required])],
+      placalet: ['',Validators.compose([Validators.required])],
+      });   
 
   }
 
@@ -72,6 +82,11 @@ export class EditarVehiculoPage {
 
   actualizar()
   {
+    this.auto.capacidad = this.myForm.value.capacidad;
+    this.auto.color = this.myForm.value.color;
+    this.auto.maletera = this.myForm.value.maletera;
+    this.auto.marca = this.myForm.value.marca;
+    this.auto.modelo = this.myForm.value.modelo;
     let info={};
     this.mysql.UpdateAutos(this.auto).subscribe(
       data => {

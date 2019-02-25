@@ -53,7 +53,7 @@
             <ion-item *ngIf="myForm.get('modelo').errors && myForm.get('modelo').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('modelo').hasError('required')">*Campo requerido</p>
                 <p color="danger" ion-text *ngIf="myForm.controls['modelo'].hasError('maxlength') || myForm.controls['modelo'].hasError('minlenght')">*Un modelo de un vehiculo debe poseer 4 digitos(AAAA)</p>
-            </ion-item>
+        </ion-item>
             <ion-row radio-group formControlName= "placa">
                 <ion-col col-6>
                         

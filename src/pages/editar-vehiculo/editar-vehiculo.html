@@ -14,35 +14,72 @@
 
 
 <ion-content padding class="imagen">
-    <div>
-        <img [src]="fotoAuto"  class='marco'  />
-    </div>
-    <div padding>
-        <button color=yellow ion-button block (click)="openCamera()" round>Cambiar fotografia tomando fotografia</button>
-        <button color=yellow ion-button block (click)="openGallery()" round>Cambiar fotografia desde la galeria</button>
-    </div>
-        <ion-item>
-            <ion-label stacked color="dark">Capacidad</ion-label>
-            <ion-input type="number" [(ngModel)]="auto.capacidad">{{auto.capacidad}}</ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label stacked color="dark">Color</ion-label>
-            <ion-input type="text" [(ngModel)]="auto.color">{{auto.color}}</ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label stacked color="dark">Marca</ion-label>
-            <ion-input type="text" [(ngModel)]="auto.marca">{{auto.marca}}</ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label stacked color="dark">Modelo</ion-label>
-            <ion-input type="number" [(ngModel)]="auto.modelo">{{auto.modelo}}</ion-input>
-        </ion-item>
-        <ion-item >
+    <form [formGroup]="myForm">
+        <div>
+            <img [src]="fotoAuto"  class='marco'  />
+        </div>
+        <div padding>
+            <button color=yellow ion-button block (click)="openCamera()" round>Cambiar fotografia tomando fotografia</button>
+            <button color=yellow ion-button block (click)="openGallery()" round>Cambiar fotografia desde la galeria</button>
+        </div>
+            <ion-item  style="margin-top:1em">
+                <ion-label stacked color="dark">Capacidad</ion-label>
+                <ion-input type="number" formControlName="capacidad"  name="capacidad" >{{auto.capacidad}}</ion-input>
+            </ion-item>
+            <ion-item *ngIf="myForm.get('capacidad').errors && myForm.get('capacidad').dirty">
+                <p color="danger" ion-text *ngIf="myForm.get('capacidad').hasError('required')">*Campo requerido</p>
+                <p color="danger" ion-text *ngIf="myForm.controls['capacidad'].hasError('maxlength')">*Un vehiculo no puede tener más de 9 espacios</p>
+            </ion-item>
+            <ion-item  style="margin-top:0.5em">
+                    <ion-label stacked color="dark">Color</ion-label>
+                    <ion-input type="text" formControlName="color" name="color">{{auto.color}}</ion-input>
+                </ion-item>
+                <ion-item *ngIf="myForm.get('color').errors && myForm.get('color').dirty">
+                        <p color="danger" ion-text *ngIf="myForm.get('color').hasError('required')">*Campo requerido</p>
+                </ion-item>
+                <ion-item  style="margin-top:0.5em">
+                    <ion-label stacked color="dark">Marca</ion-label>
+                    <ion-input type="text" formControlName="marca" name="marca">{{auto.marca}}</ion-input>
+                </ion-item>
+                <ion-item *ngIf="myForm.get('marca').errors && myForm.get('marca').dirty">
+                        <p color="danger" ion-text *ngIf="myForm.get('marca').hasError('required')">*Campo requerido</p>
+                </ion-item>
+                
+                <ion-item  style="margin-top: 0.5em">
+                        <ion-label stacked color="dark">Modelo(año)</ion-label>
+                        <ion-input type="number" formControlName="modelo"  name="modelo" >{{auto.modelo}}</ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="myForm.get('modelo').errors && myForm.get('modelo').dirty">
+                        <p color="danger" ion-text *ngIf="myForm.get('modelo').hasError('required')">*Campo requerido</p>
+                        <p color="danger" ion-text *ngIf="myForm.controls['modelo'].hasError('maxlength') || myForm.controls['modelo'].hasError('minlenght')">*Un modelo de un vehiculo debe poseer 4 digitos(AAAA)</p>
+                </ion-item>
+                <!--
+            <ion-item>
+                    <ion-label stacked color="dark">Capacidad</ion-label>
+                    <ion-input type="number" [(ngModel)]="auto.capacidad">{{auto.capacidad}}</ion-input>
+                </ion-item>
+            <ion-item>
+                <ion-label stacked color="dark">Color</ion-label>
+                <ion-input type="text" [(ngModel)]="auto.color">{{auto.color}}</ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked color="dark">Marca</ion-label>
+                <ion-input type="text" [(ngModel)]="auto.marca">{{auto.marca}}</ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked color="dark">Modelo</ion-label>
+                <ion-input type="number" [(ngModel)]="auto.modelo">{{auto.modelo}}</ion-input>
+            </ion-item>
+            <ion-item >
+                    <ion-label>Maletera</ion-label>
+                    <ion-checkbox color="primary"  checked="maletera"></ion-checkbox>
+            </ion-item>-->
+            <ion-item  style="margin-top: 0.5em">
                 <ion-label>Maletera</ion-label>
-                <ion-checkbox color="primary"  checked="maletera"></ion-checkbox>
-        </ion-item>
-        <button ion-button block round color="yellow" style="margin-top:25px;" (click)="irConductor()">Seleccionar Auto <ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
-        <button ion-button block round style="margin-top:25px;" (click)="actualizar()">Actualizar Datos<ion-icon name="create" style="margin-left:10px;"></ion-icon></button>
-        <button ion-button block round color="danger" style="margin-top:25px;" (click)="eliminar()">Eliminar Vehiculo<ion-icon name="trash" style="margin-left:10px;"></ion-icon></button>
-
+                <ion-checkbox color="primary" formControlName="maletera"></ion-checkbox>
+            </ion-item>
+            <button ion-button block round color="yellow" style="margin-top:25px;" (click)="irConductor()">Seleccionar Auto <ion-icon name="car" style="margin-left:10px;"></ion-icon></button>
+            <button ion-button block round style="margin-top:25px;" (click)="actualizar()">Actualizar Datos<ion-icon name="create" style="margin-left:10px;"></ion-icon></button>
+            <button ion-button block round color="danger" style="margin-top:25px;" (click)="eliminar()">Eliminar Vehiculo<ion-icon name="trash" style="margin-left:10px;"></ion-icon></button>
+        </form>
 </ion-content>
