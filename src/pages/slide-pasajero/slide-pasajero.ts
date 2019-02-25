@@ -8,6 +8,7 @@ import { Usuario } from '../../interfaces/usuario.interface';
 import { PerfilPasajeroPage } from '../perfil-pasajero/perfil-pasajero';
 import { mysqlService } from '../../services/mysql.service';
 import { PasajeroPage } from '../pasajero/pasajero';
+import { PuntoRecogidaPage } from '../punto-recogida/punto-recogida';
 /**
  * Generated class for the SlidePasajeroPage page.
  *
@@ -23,19 +24,19 @@ import { PasajeroPage } from '../pasajero/pasajero';
 export class SlidePasajeroPage {
   slides = [
     {
-      title: "Iniciar Recorrido",
-      description: " <b>Seleccione su ubicación y acepte</b> ",
-      image: "assets/InciarRecorido.gif",
+      title: "Slide 1",
+      description: " <b>Comparte un viaje.</b> ",
+    //  image: "assets/logo.png",
     },
     {
-      title: "¿Qué es Aventon?",
+      title: "Slide 2",
       description: "<b>Aventon</b> El componente Aventón ayuda a la comunidad a reservar un puesto en un vehículo particular de alguien que postea su recorrido hacia la universidad. Se tomó en cuenta 2 tipos de usuarios: Conductor y Pasajero.",
-      image: "assets/compartir.png",
+    //  image: "assets/compartir.png",
     },
     {
-      title: "¿Cómo empezar?",
+      title: "Slide 3",
       description: "<b>Seleccioné el tipo de usuario que es.</b> Para cada tipo de usuario se contara con un boton de ayuda para tener un mejor manejo de la aplicación.",
-      image: "assets/tipousuario.jpeg",
+    //  image: "assets/tipousuario.jpeg",
     }
   ];
   id_usuario;
@@ -65,21 +66,18 @@ export class SlidePasajeroPage {
   }
   ionViewDidLoad() {
     this.toast.create({
-      message:`ayuda pasajero, ${this.nombre_usuario}`,
+      message:`Te ayudaremos , ${this.id_usuario}`,
       duration:3000
     }).present();
   }
   
 
-  irPasajero()
+  
+
+  skip()
   {
-    this.cambiarTipo('P');
-    this.navCtrl.setRoot(PasajeroPage,{id_usuario: this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS
-  }
- 
-  cambiarTipo(tipo){
     let info;
-    this.mysql.Tipo(this.id_usuario,tipo).subscribe(
+    this.mysql.Tipo(this.id_usuario,'P').subscribe(
       data => {
         console.log('data', data);
         info= Object.assign(data);
@@ -94,12 +92,9 @@ export class SlidePasajeroPage {
 
     setTimeout(()=>{
       console.log('info',info);
+      var nav = this.app.getRootNav();
+      nav.setRoot(PuntoRecogidaPage ,{id_usuario: this.id_usuario});
     },1000);
   }
-    
-  
-
+ 
 }
-
-    
-  

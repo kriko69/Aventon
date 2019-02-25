@@ -105,6 +105,16 @@ export class EditarPasajeroPage {
   },(err)=>{
     console.log('Error en la foto tomada')
   });
+
+  let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
+    let postData = new FormData();
+    let nombre = this.usuario.ci;
+    postData.append('file',this.base64Image);
+    postData.append('nombre',nombre)
+    let data: Observable<any> = this.http.post(url,postData);
+    data.subscribe((res)=>{
+      console.log(res);
+    });
   
   }
 
@@ -123,10 +133,8 @@ export class EditarPasajeroPage {
   },(err)=>{
     console.log('Error en la foto tomada')
   });
-  }
 
-  uploadingFoto(){
-    let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
+  let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
     let postData = new FormData();
     let nombre = this.usuario.ci;
     postData.append('file',this.base64Image);
@@ -136,6 +144,4 @@ export class EditarPasajeroPage {
       console.log(res);
     });
   }
-    
-
 }

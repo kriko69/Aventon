@@ -113,12 +113,12 @@ export class PuntoRecogidaPage {
        slidePrincipal3()
        {
          this.slide();
-         this.navCtrl.push(SlidePasajeroPage,{id_usuario: this.id_usuario,nombre_usuario:this.nombre_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
+         this.navCtrl.push(SlidePasajeroPage,{id_usuario: this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
          
        }
        slide(){
         let info;
-        this.mysql.Tipo(this.id_usuario,'').subscribe(
+        this.mysql.Tipo(this.id_usuario,'P').subscribe(
           data => {
             console.log('data', data);
             info= Object.assign(data);
