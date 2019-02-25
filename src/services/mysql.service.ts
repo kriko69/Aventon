@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 @Injectable()
 export class mysqlService{
 160
-  ServidorUrl='http://ionic-web.000webhostapp.com/procesos/';
+  ServidorUrl='http://ionic-web.000webhostapp.com/Procesos/';
 
   constructor(public http:HttpClient){
 
@@ -34,7 +34,7 @@ export class mysqlService{
 
 
 
-    return this.http.post('http://jauzled.com/Procesos/insertar.php', opsi, header);
+    return this.http.post('http://ionic-web.000webhostapp.com/Procesos/insertar.php', opsi, header);
   }
 
   ValidarrUsuario(Usuario)
