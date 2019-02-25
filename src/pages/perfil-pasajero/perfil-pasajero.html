@@ -6,7 +6,11 @@
 </ion-header>
 
 <ion-content padding class="imagen">
-    <ion-item color="dark" class="item item-divider">Datos Personales</ion-item>
+    <div>
+        <img [src]="fotoUsuario"  class='roundImage'  />
+    </div>
+
+    <ion-item color="dark" class="item item-divider" style="margin-top:1em">Datos Personales</ion-item>
 
     <ion-list #pc>
         <ion-item>

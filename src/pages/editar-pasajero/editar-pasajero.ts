@@ -97,7 +97,8 @@ export class EditarPasajeroPage {
       quality:100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation:true
     }
 
     this.camera.getPicture(options).then((imageData)=> {
@@ -116,7 +117,8 @@ export class EditarPasajeroPage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      correctOrientation:true
     }
 
     this.camera.getPicture(options).then((imageData)=> {
@@ -131,15 +133,15 @@ export class EditarPasajeroPage {
   uploadingFoto(){
     if(this.val== true)
     {
-    let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
-    let postData = new FormData();
-    let nombre = this.usuario.ci;
-    postData.append('file',this.base64Image);
-    postData.append('nombre',nombre)
-    let data: Observable<any> = this.http.post(url,postData);
-    data.subscribe((res)=>{
-      console.log(res);
-    });
+      let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
+      let postData = new FormData();
+      let nombre = this.usuario.ci;
+      postData.append('file',this.base64Image);
+      postData.append('nombre',nombre)
+      let data: Observable<any> = this.http.post(url,postData);
+      data.subscribe((res)=>{
+        console.log(res);
+      });
   }
   }
     

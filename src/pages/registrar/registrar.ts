@@ -153,7 +153,8 @@ export class RegistrarPage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      correctOrientation:true
     }
 
     this.camera.getPicture(options).then((imageData)=> {
