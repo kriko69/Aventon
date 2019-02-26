@@ -60,6 +60,8 @@ export class BuzonPage {
 
   aceptar(solicitud)
   {
+    console.log("item",solicitud);
+    
     this.navCtrl.push(AceptarSolicitudPage,{id_usuario:this.id_usuario,solicitud:solicitud,id_auto:this.id_auto});
   }
   calif(obj)
