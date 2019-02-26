@@ -15,7 +15,7 @@
 
 <ion-content padding class="imagen">
     <ion-list *ngFor="let item of solicitudes">
-        <ion-item class="border" *ngIf="item.estado=='Activa'" style="background-color:orange;color:black;" (click)="activada(item)">
+        <ion-item class="border" *ngIf="item.estado=='Activada'" style="background-color:orange;color:black;" (click)="activada(item)">
             De: {{item.id_de}}
             <br> Fecha: {{item.fecha}}
             <br> Mensaje: {{item.mensaje}}

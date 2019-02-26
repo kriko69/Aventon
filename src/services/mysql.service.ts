@@ -736,4 +736,47 @@ export class mysqlService{
   
            return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
         }
+        registrarReporte(reporte){
+          let data={
+            "key":"registrarReporte",
+            "problema":reporte.problema,
+              "ci":reporte.ci,
+              "fecha":reporte.fecha,
+              "calle":reporte.calle,
+              "id_viaje":reporte.id_viaje
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'insertar.php', opsi, header);
+        }
+        terminarRuta(id_viaje){
+          let info=new Array();
+          let data={
+            "key":"terminarRuta",
+            "id_viaje":id_viaje,
+            "estado":"Terminado"
+          };
+      
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+      
+           return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
+          }
+          fechaviaje_solicitud(id_viaje){
+            let info=new Array();
+            let data={
+              "key":"fechaviaje_solicitud",
+              "id_viaje":id_viaje
+            };
+        
+            let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+            opsi   : any = JSON.stringify(data);
+            console.log('opsi',opsi);
+        
+             return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+            }
 }

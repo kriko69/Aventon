@@ -15,16 +15,18 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 })
 export class VerMiQrPage {
 
+  ci;
+  id_viaje;
+  fecha;
   data;
-  email;
-  fechaHora;
   constructor(public navCtrl: NavController, public navParams: NavParams,private platform:Platform) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email=this.navParams.get('email');
-    this.fechaHora=this.navParams.get('fechaHora');
-    this.data=this.email+'|'+this.fechaHora;
+    this.ci=this.navParams.get('ci');
+    this.fecha=this.navParams.get('fecha');
+    this.id_viaje=this.navParams.get('id_viaje');
+    this.data=this.ci+'|'+this.fecha+'|'+this.id_viaje;
     
   }
 
