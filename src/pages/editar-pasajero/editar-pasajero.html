@@ -14,6 +14,7 @@
 
 
 <ion-content padding class="imagen">
+    <form [formGroup]="myForm">
         <div>
             <img [src]="fotoUsuario"  class='roundImage'  />
         </div>
@@ -21,35 +22,35 @@
             <button color=yellow ion-button block (click)="openCamera()" round>Cambiar fotografia tomando fotografia</button>
             <button color=yellow ion-button block (click)="openGallery()" round>Cambiar fotografia desde la galeria</button>
         </div>
-    <ion-list #pc>
+    <ion-list >
             <ion-item style="margin-top:1em" >
                 <ion-label stacked color="dark">Nombre</ion-label>
-                <ion-input type="text" formControlName="nombre" name="nombre">{{usuario.nombre}}</ion-input>
+                <ion-input type="text" formControlName="nombre" name="nombre" [value]="nombre"></ion-input>
             </ion-item>
             <ion-item *ngIf="myForm.get('nombre').errors && myForm.get('nombre').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('nombre').hasError('required')">*Campo requerido</p>
             </ion-item>
-            <ion-item  style="margin-top:0.5em">
+            <ion-item  >
                 <ion-label stacked color="dark">Apellido</ion-label>
-                <ion-input type="text" formControlName="apellido">{{usuario.apellido}}</ion-input>
+                <ion-input type="text" formControlName="apellido" [value]="apellido"></ion-input>
             </ion-item>
             <ion-item *ngIf="myForm.get('apellido').errors && myForm.get('apellido').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('apellido').hasError('required')">*Campo requerido</p>
             </ion-item>
-            <ion-item  style="margin-top:0.5em">
+            <ion-item  >
                 <ion-label stacked color="dark">Carnet</ion-label>
-                <ion-input disabled="true" type="number" formControlName="carnet">{{usuario.ci}}</ion-input>
+                <ion-input disabled="true" type="number" formControlName="carnet" [value]="carnet"></ion-input>
             </ion-item>
-            <ion-item  style="margin-top:0.5em">
+            <ion-item  >
                 <ion-label round stacked color="dark">Fecha de nacimiento</ion-label>
-                <ion-datetime display-format="DD/MM/YYYY" picker-format="DDDD MMMM YYYY" formControlName="fecha_nac">{{usuario.fecha_nac}}</ion-datetime>
+                <ion-datetime display-format="DD/MM/YYYY" picker-format="DDDD MMMM YYYY" formControlName="fecha_nac" ></ion-datetime>
             </ion-item>
             <ion-item *ngIf="myForm.get('fecha_nac').errors && myForm.get('fecha_nac').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('fecha_nac').hasError('required')">*Campo requerido</p>
             </ion-item>
-            <ion-item  style="margin-top:0.5em">
+            <ion-item  >
                 <ion-label stacked color="dark">Telefono</ion-label>
-                <ion-input type="number" formControlName="telf">{{usuario.telefono}}</ion-input>
+                <ion-input type="number" formControlName="telf" [value]="telf"></ion-input>
             </ion-item>
             <ion-item *ngIf="myForm.get('telf').errors && myForm.get('telf').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('telf').hasError('required')">*Campo requerido</p>
@@ -89,6 +90,6 @@
             <button ion-button block round color="yellow"  (click)="actualizarPerfil()" (click)="uploadingFoto()">Guardar datos personales</button>
         </ion-item>
     </ion-list>
-
+</form>
 
 </ion-content>

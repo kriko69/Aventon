@@ -6,12 +6,8 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class mysqlService{
-160
-<<<<<<< HEAD
-  ServidorUrl='http://ionic-web.000webhostapp.com/Procesos/';
-=======
-  ServidorUrl='https://ionic-web.000webhostapp.com/Procesos/';
->>>>>>> 6b304dc47b1e2eb6752721fcda77a4c39e6c57d3
+
+  ServidorUrl='http://192.168.0.107/aventon/Procesos/';
 
   constructor(public http:HttpClient){
 
@@ -35,14 +31,7 @@ export class mysqlService{
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
-
-
-
-<<<<<<< HEAD
-    return this.http.post('http://ionic-web.000webhostapp.com/Procesos/insertar.php', opsi, header);
-=======
     return this.http.post(''+this.ServidorUrl+'insertar.php', opsi, header);
->>>>>>> 6b304dc47b1e2eb6752721fcda77a4c39e6c57d3
   }
 
   ValidarrUsuario(Usuario)
