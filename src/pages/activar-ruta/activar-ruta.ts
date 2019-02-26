@@ -45,8 +45,9 @@ capacidad;
   }
   activar()
   {
-
-    this.mysql.listarIntegrantesPorRuta(this.id_usuario,this.ruta.id_viaje).subscribe(
+    console.log("RUTAA",this.ruta);
+    
+    this.mysql.listarIntegrantesPorRuta(this.ruta.id_viaje).subscribe(
       data=>{
         console.log('integrantes',data);
         this.integrantes=data;

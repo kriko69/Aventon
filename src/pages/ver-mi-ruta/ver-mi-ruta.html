@@ -28,7 +28,7 @@
     </ion-card>
     <button ion-button round block (click)="para()">Fin del Viaje</button>
     <button ion-button round block (click)="presentPrompt()">Reportar Problema de transito</button>
-    <ion-list *ngFor="let item of btnpasa">
-        <button ion-button round block (click)="scan(item)">Recoger al pasajero: {{item}}</button>
+    <ion-list *ngFor="let item of integrantes">
+        <button ion-button round block (click)="scan(item)">Recoger al pasajero: {{item.nombre+" "+item.apellido}}</button>
     </ion-list>
 </ion-content>

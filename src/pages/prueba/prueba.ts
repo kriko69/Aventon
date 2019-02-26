@@ -72,7 +72,15 @@ export class PruebaPage {
   }
 
   submit(){
-
+    this.mysql.actualizarLocaclizacion(100,101,120).subscribe(
+      data=>{
+        console.log(data);
+        
+      },error=>{
+        console.log(error);
+        
+      }
+    );
   }
 
 }

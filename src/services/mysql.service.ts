@@ -390,11 +390,10 @@ export class mysqlService{
   }
 
 
-  listarIntegrantesPorRuta(id_usuario,id_viaje){
+  listarIntegrantesPorRuta(id_viaje){
     let info=new Array();
   let data={
     "key":"listarIntegrantesPorRuta",
-    "id_usuario":id_usuario,
     "id_viaje":id_viaje
   };
 
@@ -685,5 +684,56 @@ export class mysqlService{
           console.log('opsi',opsi);
   
            return this.http.post(this.ServidorUrl+'insertar.php', opsi, header);
+        }
+        actualizarLocaclizacion(latitud,longitud,id_viaje){
+          let data={
+            "key":"loca",
+            "latitud":latitud,
+            "longitud":longitud,
+            "id_viaje":Number(id_viaje)
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
+        }
+        obtenerVestimenta(id_viaje,id_de){
+          let data={
+            "key":"obtenerVestimenta",
+            "id_de":id_de,
+            "id_viaje":id_viaje
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+        }
+        obtener_Puntos(id_viaje){
+          let data={
+            "key":"obtener_Puntos",
+            "id_viaje":id_viaje
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+        }
+        obtener_Puntos_Recogida(id_viaje){
+          let data={
+            "key":"obtener_Puntos_Recogida",
+            "id_viaje":id_viaje
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
         }
 }
