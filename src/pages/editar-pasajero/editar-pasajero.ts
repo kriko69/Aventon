@@ -45,12 +45,12 @@ export class EditarPasajeroPage {
       this.usuario = navParams.get('usuario');
       
       this.myForm = this.formBuilder.group({
-        nombre: ['', Validators.compose([Validators.maxLength(20),Validators.required])],
-        apellido: ['', Validators.compose([Validators.maxLength(25),Validators.required])],
+        nombre: [this.usuario.nombre, Validators.compose([Validators.maxLength(20),Validators.required])],
+        apellido: [this.usuario.apellido, Validators.compose([Validators.maxLength(25),Validators.required])],
         fecha_nac: ['', Validators.compose([ Validators.required])],
-        telf: [ 0, Validators.compose([Validators.maxLength(8), Validators.required])],
-        carnet:0,
-        calif_pasa:0
+        telf: [ this.usuario.telf, Validators.compose([Validators.maxLength(8), Validators.required])],
+        carnet: this.usuario.ci,
+        calif_pasa:this.usuario.calif_pasa
       });
     }
 
@@ -60,11 +60,11 @@ export class EditarPasajeroPage {
         data=>{
           if(data['message']=="existe")
           {
-            this.fotoUsuario = "http://ionic-web.000webhostapp.com/img/Perfil/"+this.fotoUsuario + ".jpg";
+            this.fotoUsuario = "http://192.168.0.107/aventon/img/Perfil/"+this.fotoUsuario + ".jpg";
           }
           if(data['message']=="no existe")
           {
-            this.fotoUsuario = "http://ionic-web.000webhostapp.com/img/defaultUsuario.jpg";
+            this.fotoUsuario = "http://192.168.0.107/aventon/img/defaultUsuario.jpg";
           }
           this.base64Image=this.fotoUsuario;
         },error=>{
@@ -72,6 +72,9 @@ export class EditarPasajeroPage {
         }
         
       );
+      console.log(this.usuario.carnet);
+      console.log(this.usuario.ci);
+      console.log(this.usuario.nombre);
 
     }
 
@@ -94,6 +97,7 @@ export class EditarPasajeroPage {
     setTimeout(()=>{
         this.mostrarAlerta(); //alerta
         this.navCtrl.setRoot(PasajeroPage,{id_usuario:this.usuario.ci}); //redirigir login
+
       
     },1000);
     }
@@ -150,7 +154,7 @@ export class EditarPasajeroPage {
   uploadingFoto(){
     if(this.val== true)
     {
-      let url = 'http://ionic-web.000webhostapp.com/img/Perfil/subirfotosperfil.php';
+      let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
       let postData = new FormData();
       let nombre = this.usuario.ci;
       postData.append('file',this.base64Image);

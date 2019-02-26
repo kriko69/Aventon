@@ -30,9 +30,6 @@ export class mysqlService{
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
     opsi   : any = JSON.stringify(data);
     console.log('opsi',opsi);
-
-
-
     return this.http.post(''+this.ServidorUrl+'insertar.php', opsi, header);
   }
 

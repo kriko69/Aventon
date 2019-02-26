@@ -56,11 +56,11 @@ export class PerfilConductorPage {
         data=>{
           if(data['message']=="existe")
           {
-            this.fotoAuto = "http://ionic-web.000webhostapp.com/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
+            this.fotoAuto = "http://192.168.0.107/aventon/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
           }
           if(data['message']=="no existe")
           {
-            this.fotoAuto = "http://ionic-web.000webhostapp.com/img/defaultAuto.jpg";
+            this.fotoAuto = "http://192.168.0.107/aventon/img/defaultAuto.jpg";
           }
           this.base64Image=this.fotoAuto;
         },error=>{ 
