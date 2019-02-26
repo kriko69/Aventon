@@ -67,29 +67,9 @@ export class BuzonPasajeroPage {
   {
     this.navCtrl.push(HomePage,{id_usuario:this.id_usuario,obj:obj});
   }
-  /*activada(obj){
-  /*
+  
   activada(obj){
-    let fechahora=obj.fecha.split('|');
-    let aux=this.email.split('.');
-    let varia=aux[0]+fechahora[0]+fechahora[1];
-    let caux:any;
-    let diferentes=[];
-    this.suscrito1=this.servicio.getlatlon(obj.de,varia).valueChanges().subscribe(
-      data =>{
-        for(caux of data)
-        {
-          diferentes.push(caux);
-        }
-      }
-    );
-    setTimeout(() => {
-    this.suscrito1.unsubscribe();
-    let latitud=diferentes[5];
-    let longitud=diferentes[6];
-
     var nav = this.app.getRootNav();
-    nav.setRoot(VerRutaDesdePasajeroPage,{email:this.email,otro:obj.de+'.com',latitud:latitud,longitud:longitud});
-    }, 1000);
-  }*/
+    nav.setRoot(VerRutaDesdePasajeroPage,{id_usuario:this.id_usuario,solicitud:obj});
+  }
 }
