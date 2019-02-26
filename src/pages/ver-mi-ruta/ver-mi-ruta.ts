@@ -96,12 +96,14 @@ puntosordenados;
 
     },(error)=>{
       console.log(error);
-      this.integrantes=[];
 
     }
   );
   setTimeout(()=>{
     console.log("INTEGRANTES",this.integrantes);
+    if(this.integrantes.message=="No se encontro integrantes"){
+    this.integrantes=[];
+  }
     this.obtnpuntos1();
     
   },1000);}
@@ -148,7 +150,11 @@ puntosordenados;
       },(error)=>{
         console.log(error);});
         setTimeout(() => {
-          markerauto= new google.maps.Marker({position: {lat: Number(ubicacion[0].latitud), lng: Number(ubicacion[0].longitud)},map: this.map,draggable: false});
+          if(ubicacion!=undefined){
+          markerauto= new google.maps.Marker({position: {lat: Number(ubicacion[0].latitud), lng: Number(ubicacion[0].longitud)},map: this.map,draggable: false});}
+          else{
+            markerauto= new google.maps.Marker({position: {lat: 0, lng: 0},map: this.map,draggable: false}); 
+          }
           markerauto.setIcon('https://img.icons8.com/cotton/40/sedan.png');
           markerauto.setMap(this.map);
           setTimeout(() => {

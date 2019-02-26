@@ -58,6 +58,7 @@ capacidad;
       }
     );
     setTimeout(()=>{
+      if(this.integrantes.message!="No se encontro integrantes"){
       console.log(this.integrantes);
       this.mysql.activarRuta(this.ruta.id_viaje).subscribe(
         data=>{
@@ -81,6 +82,7 @@ capacidad;
         );
 
       }
+    }
     },2000);
    this.mostrarAlerta();
     var nav = this.app.getRootNav();
