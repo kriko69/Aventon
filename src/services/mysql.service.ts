@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class mysqlService{
-  ServidorUrl='http://192.168.0.107/aventon/Procesos/';
+  ServidorUrl='http://181.114.114.160/aventon/Procesos/';
 
   constructor(public http:HttpClient){
 
@@ -779,4 +779,16 @@ export class mysqlService{
         
              return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
             }
+            Get_Ubicacion(id_viaje){
+              let data={
+                "key":"Get_Ubicacion",
+                "id_viaje":id_viaje
+              };
+          
+              let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+              opsi   : any = JSON.stringify(data);
+              console.log('opsi',opsi);
+          
+               return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+              }
 }

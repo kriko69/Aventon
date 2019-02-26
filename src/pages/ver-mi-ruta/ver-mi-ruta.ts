@@ -31,7 +31,7 @@ export class VerMiRutaPage {
   latOri=-16.503720;
   longOri=-68.131247;
    ii;
-  bigboy=false;
+  pararciclo=true;
   diferentes=[];
    auxdif=[];
   suscrito1:ISubscription;
@@ -96,6 +96,7 @@ puntosordenados;
 
     },(error)=>{
       console.log(error);
+      this.integrantes=[];
 
     }
   );
@@ -136,7 +137,29 @@ puntosordenados;
     console.log("puntos_recogida",this.puntos_recogida);
     this.distancia(this.puntos_ruta,this.puntos_recogida);
   },1000);}
-  /*sesa(){
+  sesa(){
+    let markerauto;
+    let ubicacion;
+    this.mysql.Get_Ubicacion(Number(this.ruta_activada.id_viaje)).subscribe(
+      data=>{
+        console.log('Ubicacion Actual',data);
+        ubicacion=data;
+  
+      },(error)=>{
+        console.log(error);});
+        setTimeout(() => {
+          markerauto= new google.maps.Marker({position: {lat: Number(ubicacion[0].latitud), lng: Number(ubicacion[0].longitud)},map: this.map,draggable: false});
+          markerauto.setIcon('https://img.icons8.com/cotton/40/sedan.png');
+          markerauto.setMap(this.map);
+          setTimeout(() => {
+            if(this.pararciclo){
+            this.sesa();}
+          }, 3000);
+        }, 1000);
+
+      }
+  /*
+
     this.markersArray=[];
    this.pasajeros='';
    if(this.diferentes[this.ii].pasajeros!='' && this.diferentes[this.ii].pasajeros!=null){
@@ -217,7 +240,6 @@ puntosordenados;
      console.log(data[0]);
        this.marka.setMap(null);
        this.marka = new google.maps.Marker({position: {lat: Number(data[0]), lng: Number(data[1])},map: this.map,draggable: false});
-       //this.marka.setIcon('http://maps.google.com/mapfiles/ms/micons/cabs.png');
        this.marka.setIcon('https://img.icons8.com/cotton/40/sedan.png');
        if(this.bigboy==false)
        this.marka.setMap(this.map);
@@ -229,7 +251,7 @@ puntosordenados;
   }*/
   para(){
     this._ubicacion.cortar_localizacion();
-      this.bigboy=true;
+    this.pararciclo=false;
       this.mysql.terminarRuta(Number(this.ruta_activada.id_viaje)).subscribe(
         data=>{
           console.log('terminarRuta',data);
@@ -844,5 +866,6 @@ puntosordenados;
     for(let i=1;i<points.length-1;i++){
       this.markersArray[i].setMap(this.map);
     }
+    this.sesa();
   }
 }
