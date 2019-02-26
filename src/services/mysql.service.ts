@@ -6,7 +6,6 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class mysqlService{
-160
   ServidorUrl='http://192.168.0.107/aventon/Procesos/';
 
   constructor(public http:HttpClient){
@@ -424,20 +423,23 @@ export class mysqlService{
      return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
     }
 
-    enviarSolicitudDeActivada(id_de,id_para,fecha)
+    enviarSolicitudDeActivada(id_para,id_de,fecha,estado,mensaje,id_viaje)
     {
       let data={
         "key":"enviarSolicitudDeActivada",
-        'id_de':id_de,
-        'id_para':id_para,
-        'fecha':fecha
+        "id_de":id_de,
+        "id_para":id_para,
+        "fecha":fecha,
+        "estado":estado,
+        "mensaje":mensaje,
+        "id_viaje":id_viaje
       };
 
       let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
 
-      return this.http.post(this.ServidorUrl+'insertar.php', opsi, header);
+      return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
     }
 
     listarSolicitudesConductor(id_usuario){

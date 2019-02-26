@@ -3,6 +3,7 @@ import { VerMiRutaPage } from './../ver-mi-ruta/ver-mi-ruta';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController ,App, Platform} from 'ionic-angular';
 import { firebaseService } from '../../services/firebase.service';
+import { ViajePage } from '../viaje/viaje';
 
 /**
  * Generated class for the ActivarRutaPage page.
@@ -17,15 +18,8 @@ import { firebaseService } from '../../services/firebase.service';
   templateUrl: 'activar-ruta.html',
 })
 export class ActivarRutaPage {
-
-  email;
-  rama;
-  ramaMiSolicitud;
-  capacidad;
-  placa;
+capacidad;
   rutaprogramada=[];
-
-
   id_usuario;
   id_auto;
   ruta;
@@ -39,13 +33,6 @@ export class ActivarRutaPage {
     this.id_auto=this.navParams.get('id_auto');
     this.id_usuario=this.navParams.get('id_usuario');
     this.ruta=this.navParams.get('ruta');
-
-    /*this.servicio.obtenerRuta(this.rama).valueChanges().subscribe(
-      (data)=>{
-        this.rutaprogramada=data;
-        console.log(this.rutaprogramada);
-      }
-    );*/
     console.log('ruta:',this.ruta);
     this.fecha=this.dameFecha();
 
@@ -80,9 +67,11 @@ export class ActivarRutaPage {
 
         }
       );
-
+        let estado='Activada';
+        let mensaje='La Ruta ya fue activada!';
+        this.fecha=this.dameFecha();
       for (let i = 0; i < this.integrantes.length; i++) {
-        this.mysql.enviarSolicitudDeActivada(this.id_usuario,this.integrantes[i].ci,this.fecha).subscribe(
+        this.mysql.enviarSolicitudDeActivada(this.id_usuario,this.integrantes[i].ci,this.fecha,estado,mensaje,this.ruta.id_viaje).subscribe(
           data=>{
             console.log(data);
           },(error)=>{
@@ -91,48 +80,8 @@ export class ActivarRutaPage {
         );
 
       }
-    },1000);
-
-    //si tiene integrantes tiene que quitar sus solicitudes hacia el conductor
-
-    /*let integrantes=this.rutaprogramada[7].split(';');
-    console.log(integrantes);
-    console.log(this.ramaMiSolicitud);
-    for(let i=0;i<integrantes.length;i++)
-    {
-      if(integrantes[i]!='')
-        this.servicio.quitarSolicitudesIntegrantes(integrantes[i],this.ramaMiSolicitud);
-    }*/
-
-
-    //cambiar el estado de la ruta
-
-    /*this.servicio.quitarRuta(this.rama);
-    let pet=this.email.split('.');
-    let activa={
-      email:this.email,
-      alat:'',
-      along:'',
-    ruta:this.rutaprogramada[11],
-    capacidad:this.rutaprogramada[2],
-    precio:this.rutaprogramada[9],
-    pasajeros:this.rutaprogramada[7],
-    recogidas:this.rutaprogramada[10],
-    zfecha:this.rutaprogramada[5]+'|'+this.rutaprogramada[6]
-    };
-    let splitemail=this.email.split('.');
-    console.log(this.rutaprogramada[7]);
-    console.log(splitemail[0]);
-    this.servicio.agregarRutaActiva(pet[0],activa);*/
-
-
-
-    //enviar solicitudes a sus pasajeros de ruta activa
-
-    //this.enviarSolicitudes(this.rutaprogramada[7],splitemail[0]);
-
-   // this.mostrarAlerta();
-    //this.navCtrl.setRoot(VerMiRutaPage,{email:this.email,capacidad:this.capacidad,ruta:this.ruta.ruta});
+    },2000);
+   this.mostrarAlerta();
     var nav = this.app.getRootNav();
     nav.setRoot(VerMiRutaPage,{id_usuario:this.id_usuario,id_auto:this.id_auto,ruta_activada:this.ruta});
   }
@@ -144,26 +93,6 @@ export class ActivarRutaPage {
     });
     alert.present();
   }
-  /*eliminarSolicitudes(pasajeros:string,rama:string)
-  {
-    let integrantes=pasajeros.split(';');
-    console.log(integrantes);
-    console.log(rama);
-    for(let i=0;i<integrantes.length;i++)
-    {
-      this.servicio.quitarSolicitudesIntegrantes(integrantes[i],rama);
-    }
-  }
-  enviarSolicitudes(pasajeros:string,conductor:string)
-  {
-    let integrantes=pasajeros.split(';');
-    console.log(integrantes);
-    for(let i=0;i<integrantes.length;i++)
-    {
-      if(integrantes[i]!='')
-        this.servicio.enviarSolicitudesActiva(conductor,integrantes[i],this.ruta.fecha,this.ruta.hora);
-    }
-  }*/
 
   dameFecha()
   {
@@ -180,9 +109,11 @@ export class ActivarRutaPage {
       minutos='0'+minutos;
     if(hoy.getSeconds()<10)
       segundos='0'+segundos;
-    //let date=dd+'-'+mm+'-'+yyyy+'T'+hora+':'+minutos+':'+segundos+'Z';
     let date=yyyy+'-'+mm+'-'+dd+' '+hora+':'+minutos+':'+segundos;
 
     return date;
+  }
+  Cancelar(){
+    this.navCtrl.setRoot(ViajePage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
   }
 }
