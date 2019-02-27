@@ -55,8 +55,6 @@ export class EditarVehiculoPage {
       modelo:[ this.auto.modelo, Validators.compose([Validators.maxLength(4), Validators.required,Validators.minLength(4)])],
       placa: this.auto.placa,
       maletera: this.auto.maletera,
-      placanum: ['',Validators.compose([Validators.required])],
-      placalet: ['',Validators.compose([Validators.required])],
       });   
 
   }
@@ -91,6 +89,7 @@ export class EditarVehiculoPage {
     this.auto.maletera = this.myForm.value.maletera;
     this.auto.marca = this.myForm.value.marca;
     this.auto.modelo = this.myForm.value.modelo;
+    this.auto.maletera = this.myForm.value.maletera;
     let info={};
     this.mysql.UpdateAutos(this.auto).subscribe(
       data => {
