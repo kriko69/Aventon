@@ -51,13 +51,22 @@ export class AddrutaproPage {
     let info;
     this.mysql.listarRutasParaProgramar(this.id_usuario).subscribe(
       data=>{
-        console.log(data);
-        this.vec=data;
+        console.log('nombre rutas: ',data);
+        info=data;
+        console.log('vec',this.vec);
+
       },(error)=>{
         console.log(error);
 
       }
-    );
+    );setTimeout(() => {
+      if(info['message']=='No se encontro rutas con este ci' || info==undefined)
+        this.vec=[];
+      else{
+        this.vec=info;
+      }
+      
+    }, 1000);
   }
   submit(ruta){
     let divisor1=this.fechahora.split('T');

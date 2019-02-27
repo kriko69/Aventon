@@ -37,24 +37,32 @@ export class MisRutasPage {
     this.id_auto = this.navParams.get('id_auto');
 
     this.func();
+    
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViajePage');
   }
-  func(){
+  func(){let info;
     this.mysql.listarRutasParaEliminar(this.id_usuario).subscribe(
       data=>{
         console.log('nombre rutas: ',data);
-        this.vec=data;
+        info=data;
         console.log('vec',this.vec);
 
       },(error)=>{
         console.log(error);
 
       }
-    );
+    );setTimeout(() => {
+      if(info['message']=='No se encontro rutas con este ci' || info==undefined)
+        this.vec=[];
+      else{
+        this.vec=info;
+      }
+      
+    }, 1000);
   }
   borrarRuta(nombre_ruta:any,id_ruta){
             this.navCtrl.setRoot(ConfirmarEliminacionPage,{id_usuario:this.id_usuario,id_auto:this.id_auto,nombre_ruta:nombre_ruta,id_ruta:id_ruta});
