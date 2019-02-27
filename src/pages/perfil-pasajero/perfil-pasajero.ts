@@ -27,7 +27,8 @@ import { mysqlService } from '../../services/mysql.service';
 export class PerfilPasajeroPage {
 
 
-  usuario;
+  id_usuario;
+  usuario=[];
   fotoUsuario: string;
   val: boolean=false;
   base64Image: string='';
@@ -37,12 +38,31 @@ export class PerfilPasajeroPage {
     private http: HttpClient,public mysql:mysqlService) {
       this.platform.registerBackButtonAction(() => {
       },10000);
-      this.usuario = navParams.get('usuario');
-    console.log(this.usuario);
+      this.id_usuario = navParams.get('id_usuario');
+    console.log(this.id_usuario);
+    let info;
+    this.mysql.GetUsuario(this.id_usuario).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      this.usuario=info[0];
+      console.log(this.usuario);
+      
+    },1000);
   }
 
   ionViewDidLoad() {
-    this.fotoUsuario = this.usuario.ci;
+    this.fotoUsuario = this.id_usuario;
       this.mysql.validarFotoUsuario(this.fotoUsuario).subscribe(
         data=>{
           if(data['message']=="existe")
@@ -63,7 +83,7 @@ export class PerfilPasajeroPage {
   editPerfil()
   {
     var nav = this.app.getRootNav();
-    nav.setRoot(EditarPasajeroPage,{usuario: this.usuario});//MODIFICADO PARA PASAR LOS PARAMETROS
+    nav.setRoot(EditarPasajeroPage,{id_usuario: this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS
   }
 
 

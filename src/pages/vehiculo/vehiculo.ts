@@ -21,7 +21,7 @@ import { mysqlService } from '../../services/mysql.service';
 })
 export class VehiculoPage {
 
-  vehiculos$;
+  vehiculos$=[];
   value;
   id_usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -33,7 +33,7 @@ export class VehiculoPage {
     this.id_usuario=navParams.get('id_usuario');
     console.log('id:',this.id_usuario);
 
-    let info={};
+    let info;
     this.mysql.GetAutos(this.id_usuario).subscribe(
       data => {
         console.log('data',data);

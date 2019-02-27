@@ -23,7 +23,7 @@ export class OpcionesPasajeroPage {
   @ViewChild(Nav) nav: Nav;
   
   id_usuario;
-  usuario;
+  //usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public servicio: firebaseService, public app:App,private platform:Platform
     ,public mysql:mysqlService) {
@@ -31,25 +31,6 @@ export class OpcionesPasajeroPage {
         console.log('');
       },10000);
     this.id_usuario = navParams.get('id_usuario');
-      let info;
-    this.mysql.GetUsuario(this.id_usuario).subscribe(
-      data => {
-        console.log('data', data);
-        info= Object.assign(data);
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-        }
-    );
-
-    setTimeout(()=>{
-      this.usuario=info;
-      console.log(this.usuario[0]);
-      
-    },1000);
   }
 
   ionViewDidLoad() {
@@ -57,52 +38,17 @@ export class OpcionesPasajeroPage {
   }
   irPerfil()
   {
-    this.navCtrl.push(PerfilPasajeroPage,{usuario:this.usuario[0]});
+    this.navCtrl.push(PerfilPasajeroPage,{id_usuario:this.id_usuario});
   }
   cambiarUsuario()
   {
-    let info;
-    this.mysql.Tipo(this.id_usuario,'').subscribe(
-      data => {
-        console.log('data', data);
-        info= Object.assign(data);
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-        }
-    );
-
-    setTimeout(()=>{
-      console.log('info',info);
       var nav = this.app.getRootNav();
-      let nom=this.usuario[0].nombre+' '+this.usuario[0].apellido;
-      nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario,nombre_usuario:nom});
-    },1000);
+      nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario});
   }
   CerrarSesion()
   {
-    let info;
-    this.mysql.Tipo(this.id_usuario,'').subscribe(
-      data => {
-        console.log('data', data);
-        info= Object.assign(data);
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-        }
-    );
-
-    setTimeout(()=>{
-      console.log('info',info);
       var nav = this.app.getRootNav();
     nav.setRoot(LoginPage);
-    },1000);
     
   }
 

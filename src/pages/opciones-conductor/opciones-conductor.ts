@@ -25,7 +25,6 @@ export class OpcionesConductorPage {
   @ViewChild(Nav) nav: Nav;
 
   id_usuario;
-  usuario;
   tipo='';
   data:Usuario={};
   id_auto;
@@ -37,25 +36,6 @@ export class OpcionesConductorPage {
       },10000);
     this.id_usuario = navParams.get('id_usuario');
     this.id_auto=navParams.get('id_auto');
-    let info;
-    this.mysql.GetUsuario(this.id_usuario).subscribe(
-      data => {
-        console.log('data', data);
-        info= Object.assign(data);
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-        }
-    );
-
-    setTimeout(()=>{
-      this.usuario=info;
-      console.log(this.usuario[0]);
-      
-    },1000);
   }
 
 
@@ -63,7 +43,7 @@ export class OpcionesConductorPage {
   }
   irPerfil()
   {
-    this.navCtrl.push(PerfilConductorPage,{usuario: this.usuario[0],id_auto:this.id_auto});
+    this.navCtrl.push(PerfilConductorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
   }
   irMisRutas()
   {
@@ -71,49 +51,13 @@ export class OpcionesConductorPage {
   }
   cambiarUsuario()
   {
-    let info;
-    this.mysql.Tipo(this.id_usuario,'').subscribe(
-      data => {
-        console.log('data', data);
-        info= Object.assign(data);
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-        }
-    );
-
-    setTimeout(()=>{
-      console.log('info',info);
       var nav = this.app.getRootNav();
-      let nom=this.usuario[0].nombre+' '+this.usuario[0].apellido;
-      nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario,nombre_usuario:nom});
-    },1000);
+      nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario});
   }
   CerrarSesion()
   {
-    let info;
-    this.mysql.Tipo(this.id_usuario,'').subscribe(
-      data => {
-        console.log('data', data);
-        info= Object.assign(data);
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-        }
-    );
-
-    setTimeout(()=>{
-      console.log('info',info);
       var nav = this.app.getRootNav();
     nav.setRoot(LoginPage);
-    },1000);
-    
   }
 
 }

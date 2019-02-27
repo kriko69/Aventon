@@ -24,7 +24,8 @@ import { mysqlService } from '../../services/mysql.service';
 })
 export class PerfilConductorPage {
 
-  usuario;
+  id_usuario;
+  usuario=[];
   auto;
   tipo='';
   value;
@@ -44,14 +45,32 @@ export class PerfilConductorPage {
     private http: HttpClient,public mysql:mysqlService) {
       this.platform.registerBackButtonAction(() => {
       },10000);
-    this.usuario = navParams.get('usuario');
+    this.id_usuario = navParams.get('id_usuario');
     this.id_auto = navParams.get('id_auto');
-    this.auto=this.navParams.get('auto');
-    console.log(this.usuario);
+    console.log(this.id_usuario);
+    let info;
+    this.mysql.GetUsuario(this.id_usuario).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      this.usuario=info[0];
+      console.log(this.usuario);
+      
+    },1000);
   }
 
   ionViewDidLoad() {
-    this.fotoAuto = this.usuario.ci;
+    this.fotoAuto = this.id_usuario;
     this.mysql.validarFotoUsuario(this.fotoAuto).subscribe(
       data=>{
         if(data['message']=="existe")
@@ -72,12 +91,12 @@ export class PerfilConductorPage {
   editPerfil()
   {
     var nav = this.app.getRootNav();
-    nav.setRoot(EditarConductorPage,{usuario: this.usuario,id_auto:this.id_auto});//MODIFICADO PARA PASAR LOS PARAMETROS
+    nav.setRoot(EditarConductorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});//MODIFICADO PARA PASAR LOS PARAMETROS
   }
   verVehiculo()
   {
     var nav = this.app.getRootNav();
-    nav.push(VehiculoPage,{id_usuario:this.usuario.ci});
+    nav.push(VehiculoPage,{id_usuario:this.id_usuario});
 
   }
 

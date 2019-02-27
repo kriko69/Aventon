@@ -30,6 +30,7 @@ export class TipoUsuarioPage {
 
   id_usuario=0;
   nombre_usuario='';
+  usuario;
   info;
  
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -39,16 +40,34 @@ export class TipoUsuarioPage {
       console.log('');
     },10000);
     this.id_usuario = navParams.get('id_usuario');
-    this.nombre_usuario = navParams.get('nombre_usuario');
-    console.log('id:',this.id_usuario);
+    let info;
+    this.mysql.GetUsuario(this.id_usuario).subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      this.usuario=info;
+      this.usuario=this.usuario[0];
+      this.nombre_usuario = this.usuario.nombre+' '+this.usuario.apellido;
+      console.log('id:',this.id_usuario);
+      this.toast.create({
+        message:`Bienvenido, ${this.nombre_usuario}`,
+        duration:2000
+      }).present();      
+    },2000);
 
   }
 
   ionViewDidLoad() {
-    this.toast.create({
-      message:`Bienvenido, ${this.nombre_usuario}`,
-      duration:3000
-    }).present();
   }
   tipo='';
   irConductor()

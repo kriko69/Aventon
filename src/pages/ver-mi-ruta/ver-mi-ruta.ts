@@ -60,10 +60,11 @@ validar=[];
 id_usuario;
 id_auto;
 ruta_activada;
-integrantes;
+integrantes=[];
 puntos_ruta;
 puntos_recogida;
 puntosordenados;
+markerauto= new google.maps.Marker();
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toast:ToastService,private _ubicacion:UbicacionService,public servicio:firebaseService,public app:App,
     public bs:BarcodeScanner,private alert:AlertController,private platform:Platform,public alerta:AlertController,public alerta1:AlertController,
@@ -89,10 +90,11 @@ puntosordenados;
   }
   obtnintegrantes()
   {
+    let integrantesaux;
     this.mysql.listarIntegrantesPorRuta(this.ruta_activada.id_viaje).subscribe(
     data=>{
       console.log('integrantes',data);
-      this.integrantes=data;
+      integrantesaux=data;
 
     },(error)=>{
       console.log(error);
@@ -100,12 +102,17 @@ puntosordenados;
     }
   );
   setTimeout(()=>{
-    console.log("INTEGRANTES",this.integrantes);
-    if(this.integrantes.message=="No se encontro integrantes"){
+    console.log("INTEGRANTES",integrantesaux);
+if(integrantesaux==undefined){
+  this.integrantes=[];
+}
+    else if(integrantesaux['message'].localeCompare("No se encontro integrantes")==0 ){
     this.integrantes=[];
   }
+  else{
+    this.integrantes=integrantesaux;
+  }
     this.obtnpuntos1();
-    
   },1000);}
   obtnpuntos1()//obtener los puntos de la ruta original
   {
@@ -137,10 +144,14 @@ puntosordenados;
   );
   setTimeout(()=>{
     console.log("puntos_recogida",this.puntos_recogida);
+    if(this.puntos_recogida['message'].localeCompare("ERROR")!=0 && this.puntos_recogida!=undefined){
     this.distancia(this.puntos_ruta,this.puntos_recogida);
+  }
+  else{
+    this.recargar(this.puntos_ruta);
+  }
   },1000);}
   sesa(){
-    let markerauto;
     let ubicacion;
     this.mysql.Get_Ubicacion(Number(this.ruta_activada.id_viaje)).subscribe(
       data=>{
@@ -151,12 +162,14 @@ puntosordenados;
         console.log(error);});
         setTimeout(() => {
           if(ubicacion!=undefined){
-          markerauto= new google.maps.Marker({position: {lat: Number(ubicacion[0].latitud), lng: Number(ubicacion[0].longitud)},map: this.map,draggable: false});}
+            this.markerauto.setMap(null);
+          this.markerauto= new google.maps.Marker({position: {lat: Number(ubicacion[0].latitud), lng: Number(ubicacion[0].longitud)},map: this.map,draggable: false});}
           else{
-            markerauto= new google.maps.Marker({position: {lat: 0, lng: 0},map: this.map,draggable: false}); 
+            this.markerauto.setMap(null);
+            this.markerauto= new google.maps.Marker({position: {lat: 0, lng: 0},map: this.map,draggable: false}); 
           }
-          markerauto.setIcon('https://img.icons8.com/cotton/40/sedan.png');
-          markerauto.setMap(this.map);
+          this.markerauto.setIcon('https://img.icons8.com/cotton/40/sedan.png');
+          this.markerauto.setMap(this.map);
           setTimeout(() => {
             if(this.pararciclo){
             this.sesa();}
@@ -164,97 +177,6 @@ puntosordenados;
         }, 1000);
 
       }
-  /*
-
-    this.markersArray=[];
-   this.pasajeros='';
-   if(this.diferentes[this.ii].pasajeros!='' && this.diferentes[this.ii].pasajeros!=null){
-       this.pasajeros=this.diferentes[this.ii].pasajeros;}
-   let latlon=this.diferentes[this.ii].ruta.split(';');
-   let aux:any;
-   console.log(latlon);
-   let puntos=latlon.length;
-   console.log(puntos);
-
-   for(let i=0;i<puntos;i++)
-   {
-     aux=latlon[i];
-     let partida=aux.split('/');
-     this.markeraux = new google.maps.Marker({position: {lat: Number(partida[0]), lng: Number(partida[1])},map: this.map,draggable: false});
-     console.log(Number(partida[0])+'/'+Number(partida[1]));
-     if(i!=0 && i!=puntos-1){
-       if(this.diferentes[this.ii].recogidas!=null){
-         let paradas=this.diferentes[this.ii].recogidas.split(';');
-         let bol=false;
-         for(let i=0;i<paradas.length;i++)
-         {
-           if(paradas[i]==aux)
-           {
-             this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/micons/blue-dot.png');
-             bol=true;
-           }
-         }
-         if(bol==false)
-         {
-           this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-         }
-
-       }
-       else{
-         this.markeraux.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-       }
-     }
-     this.markersArray.push(this.markeraux);
-   }
-
-
-   var directionsService = new google.maps.DirectionsService;
-     var directionsDisplay = new google.maps.DirectionsRenderer;
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    this.map = new google.maps.Map(document.getElementById('mapas'), {
-     center: {lat: this.latUCB, lng: this.longUCB},
-     zoom:15
-   });
-   let waypts=[];
-   for(let i=0;i<puntos;i++){
-   waypts.push({
-     location: this.markersArray[i].getPosition(),
-     stopover: false
-   });}
-   console.log(waypts);
-   directionsDisplay.setMap(this.map);
-    var start = this.markersArray[0].getPosition();
-    var end = this.markersArray[puntos-1].getPosition();
-    var request = {
-     origin: start,
-     destination: end,
-     travelMode: 'DRIVING',
-     waypoints: waypts
-   };
-   directionsService.route(request, function(result, status) {
-     if (status == 'OK') {
-       directionsDisplay.setDirections(result);
-     }
-   });
-   for(let i=1;i<puntos-1;i++){
-     this.markersArray[i].setMap(this.map);
-   }
-   let latemail=this.email.split('.');
-   this.marka = new google.maps.Marker({position: {lat: Number(0), lng: Number(0)},map: this.map,draggable: false});
-   this.suscrito1=this.servicio.latlong(latemail[0]).valueChanges().subscribe(
-   data =>{
-     console.log(data[0]);
-       this.marka.setMap(null);
-       this.marka = new google.maps.Marker({position: {lat: Number(data[0]), lng: Number(data[1])},map: this.map,draggable: false});
-       this.marka.setIcon('https://img.icons8.com/cotton/40/sedan.png');
-       if(this.bigboy==false)
-       this.marka.setMap(this.map);
-
-   }
- );
- console.log('latlon!',latlon);
- this.calcularTiempos(latlon);
-  }*/
   para(){
     this._ubicacion.cortar_localizacion();
     this.pararciclo=false;
@@ -266,19 +188,16 @@ puntosordenados;
         }
         );
       //nuevo
+      if(this.integrantes!=[] && this.integrantes!=undefined)
+      {
       for(let i=0;i<this.integrantes.length;i++)
       {
         
-          //this.aumentarcontadores(y[i]);
           this.eliminaractivas(this.integrantes[i].ci,this.ruta_activada.id_viaje);
         
       }
-      //this.aumentarcontadorescond();
-      //nuevo
       this.calificar();
-    /*this.diferentes=this.auxdif;
-    this.suscrito1.unsubscribe();
-    let aux=this.email.split('.');*/
+    }
     var nav = this.app.getRootNav();
     nav.setRoot(ConductorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
   }
@@ -301,8 +220,7 @@ puntosordenados;
     for (let i = 0; i < this.integrantes.length; i++) {
       solicitud.id_de=Number(this.integrantes[i].ci);   
       console.log("SOLICITUD P",solicitud);
-                  //    de          para                  fecha                         id_viaje
-      this.mysql.insertarSolicitud(solicitud).subscribe(
+       this.mysql.insertarSolicitud(solicitud).subscribe(
         data=>{
           console.log('insertarsol',data);
         },(error)=>{
@@ -322,26 +240,6 @@ puntosordenados;
         }
         );
     }
-                                                //    para                fecha                         id_viaje
-
-  /*if(mensaje1.emails!=''){
-  this.servicio.calificarpasa(co[0],mensaje1);
-
-    let aux=correos.split(';');
-    for(let i=0;i<aux.length;i++){
-      let auxi=aux[i].split('.');
-      let mensaje={
-        de:this.email,
-        fecha:this.dameFecha(),
-        estado:'No Calificado',
-        mensaje:'CALIFICAME!!!'
-      }
-      console.log('915613489   '+auxi[0]);
-
-      this.servicio.calificarcond(auxi[0],mensaje);
-
-    }
-  }*/
   }
   dameFecha()
   {
@@ -400,41 +298,6 @@ puntosordenados;
     });
     alert.present();
   }
-  //nuevo
-  aumentarcontadores(pasajeros){
-    let pasajero=pasajeros.split('.');
-    let totalpasa=0;
-    let info=[];
-    this.suscrito2=this.servicio.obtenerInfo(pasajero[0]).valueChanges().subscribe(
-      (data)=>{
-        info=data;
-        totalpasa=info[13]+1;
-        console.log(totalpasa);
-      }
-    );
-    setTimeout(() => {
-      this.suscrito2.unsubscribe();
-      console.log(totalpasa);
-      this.servicio.actpasa(pasajero[0],totalpasa);
-    }, 1000);
-  }
-  aumentarcontadorescond()
-  {
-    let cond=this.email.split('.');
-    let totalcond=0;
-    let info=[];
-    this.suscrito2=this.servicio.obtenerInfo(cond[0]).valueChanges().subscribe(
-      (data)=>{
-        info=data;
-        totalcond=info[12]+1;
-      }
-    );
-    setTimeout(() => {
-      this.suscrito2.unsubscribe();
-      this.servicio.actcond(cond[0],totalcond);
-    }, 1000);
-  }
-  //nuevo
   eliminaractivas(ci,id_viaje){
     let fecha=this.dameFecha();
     this.mysql.enviarSolicitudDeActivada(this.id_usuario,ci,fecha,'Expirada','La ruta ya esta expirada',this.ruta_activada.id_viaje).subscribe(
@@ -549,17 +412,11 @@ puntosordenados;
 
   calcularTiempos(puntitos)
   {
-    console.log('DIFERENTES',this.diferentes);
     console.log('MARKERSARRAY: ',this.markersArray);
-
-    //saco la hora de la ruta activa
     let fecha=this.ruta_activada.fecha_hora.split(' ');
     let auxfecha=fecha[1].split(':');
     let horaViaje=auxfecha[0]+':'+auxfecha[1];
     console.log('horaViaje',horaViaje);
-
-   // let pasajeros=this.diferentes[this.ii].pasajeros.split(';');
-   // let recogidas=this.diferentes[this.ii].recogidas.split(';');
     let split;
     let point;
     let puntos=[];
@@ -877,4 +734,5 @@ puntosordenados;
     }
     this.sesa();
   }
+  
 }

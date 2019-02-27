@@ -31,12 +31,12 @@ export class ReservaPasajeroPage {
     },10000);
     this.id_usuario=this.navParams.get('id_usuario');
 
-
+    let info;
     this.mysql.listarMisSolicitudesAceptadas(this.id_usuario).subscribe(
       data => {
         console.log('data',data);
         console.log('exito');
-        this.solicitudes=Object.assign(data);
+        info=Object.assign(data);
 
         }, (error: any)=> {
           console.log('error', error);
@@ -44,6 +44,7 @@ export class ReservaPasajeroPage {
         }
     );
     setTimeout(()=>{
+      this.solicitudes=info;
       console.log(this.solicitudes);
       if(this.solicitudes['message']!=this.value){
         this.value='Si se encontro';

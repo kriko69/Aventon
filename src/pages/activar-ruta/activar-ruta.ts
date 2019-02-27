@@ -84,19 +84,9 @@ capacidad;
       }
     }
     },2000);
-   this.mostrarAlerta();
     var nav = this.app.getRootNav();
     nav.setRoot(VerMiRutaPage,{id_usuario:this.id_usuario,id_auto:this.id_auto,ruta_activada:this.ruta});
   }
-  mostrarAlerta() {
-    const alert = this.alerta.create({
-      title: 'Ruta Activada!',
-      subTitle: 'Ahora la ruta esta en modo activa',
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
   dameFecha()
   {
     let hoy = new Date();
