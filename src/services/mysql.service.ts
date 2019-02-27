@@ -523,7 +523,8 @@ export class mysqlService{
     "sombrero":solicitud.sombrero,
     "superior":solicitud.superior,
     "inferior":solicitud.inferior,
-    "accesorio":solicitud.accesorio
+    "accesorio":solicitud.accesorio,
+    "posicion":0
         };
 
         let header : any = new HttpHeaders({'Content-Type': 'application/json'}),

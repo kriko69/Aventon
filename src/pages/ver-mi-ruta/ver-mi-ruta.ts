@@ -285,11 +285,11 @@ puntosordenados;
   calificar(){
     let solicitud={
      id_de:0,
-     id_para:this.id_usuario,
+     id_para:Number(this.id_usuario),
      fecha:this.dameFecha(),
      estado:'No Calificado P',
      mensaje:'CALIFICAME!!!',
-     id_viaje:this.ruta_activada.id_viaje,
+     id_viaje:Number(this.ruta_activada.id_viaje),
      latitud:0,
      longitud:0,
      sombrero:'',
@@ -299,7 +299,9 @@ puntosordenados;
     posicion:0
   };
     for (let i = 0; i < this.integrantes.length; i++) {
-      solicitud.id_de=this.integrantes[i].ci;               //    de          para                  fecha                         id_viaje
+      solicitud.id_de=Number(this.integrantes[i].ci);   
+      console.log("SOLICITUD P",solicitud);
+                  //    de          para                  fecha                         id_viaje
       this.mysql.insertarSolicitud(solicitud).subscribe(
         data=>{
           console.log('insertarsol',data);
@@ -308,8 +310,9 @@ puntosordenados;
         }
         );
     }
-    for (let i = 0; i < this.integrantes.length; i++) {
-      solicitud.id_de=this.integrantes[i].ci;
+    for (let i = 0; i < this.integrantes.length; i++) { 
+      console.log("SOLICITUD C",solicitud);
+      solicitud.id_de=Number(this.integrantes[i].ci);
       solicitud.estado='No Calificado C';               //    de          para                  fecha                         id_viaje
       this.mysql.insertarSolicitud(solicitud).subscribe(
         data=>{
