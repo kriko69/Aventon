@@ -7,6 +7,7 @@ import { firebaseService } from '../../services/firebase.service';
 import { ToastService } from '../../services/toast.service';
 import { OpcionesConductorPage } from '../opciones-conductor/opciones-conductor';
 import { mysqlService } from '../../services/mysql.service';
+import { MarkadorPage } from '../markador/markador';
 
 /**
  * Generated class for the MisRutasPage page.
@@ -55,10 +56,12 @@ export class MisRutasPage {
       }
     );
   }
-  rama;
   borrarRuta(nombre_ruta:any,id_ruta){
             this.navCtrl.setRoot(ConfirmarEliminacionPage,{id_usuario:this.id_usuario,id_auto:this.id_auto,nombre_ruta:nombre_ruta,id_ruta:id_ruta});
 
+ }
+ seleccinaRuta(){
+  this.navCtrl.push(MarkadorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
  }
 
 }

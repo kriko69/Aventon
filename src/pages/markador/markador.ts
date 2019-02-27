@@ -3,7 +3,7 @@ import { VerMiRutaPage } from './../ver-mi-ruta/ver-mi-ruta';
 import { rutaactiva } from './../../interfaces/rutactiva.service';
 import { firebaseService } from './../../services/firebase.service';
 import { Component, NgModule } from '@angular/core';
-import { NavController, Platform, NavParams, AlertController,ModalController, App } from 'ionic-angular';
+import {IonicPage, NavController, Platform, NavParams, AlertController,ModalController } from 'ionic-angular';
 
 //IMPORTAR GEOLOCALIZACIÓN DE GOOGLE
 import { Geolocation } from '@ionic-native/geolocation';
@@ -12,6 +12,8 @@ import { AddRutaPage } from '../add-ruta/add-ruta';
 
 declare var google: any;
 
+
+@IonicPage()
 @Component({
   selector: 'page-markador',
   templateUrl: 'markador.html'
@@ -47,7 +49,7 @@ longUCB = -68.112290;
   id_auto;
   nombre_ruta;
   id_ruta;
-  constructor(public app:App,public navCtrl: NavController, public alerta:AlertController,public geolocation: Geolocation, public platform:Platform,
+  constructor(public navCtrl: NavController, public alerta:AlertController,public geolocation: Geolocation, public platform:Platform,
     public navParams:NavParams,public servicio:firebaseService,public modalCtrl:ModalController, public mysql:mysqlService) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
@@ -323,7 +325,7 @@ longUCB = -68.112290;
     this.isenabled3=true;
   }
   //guarda la ruta en RutaActuva
-  activarRuta(){
+  /*activarRuta(){
     console.log(this.monto);
     let zfecha=this.dameFecha();
     let varia:rutaactiva={
@@ -360,7 +362,7 @@ longUCB = -68.112290;
     this.servicio.RutaActiva(vava);
     var nav = this.app.getRootNav();
     nav.setRoot(VerMiRutaPage,{email: this.email,capacidad:this.capacidad});
-  }
+  }*/
 
 
   getKilometros(lat1,lon1,lat2,lon2)
@@ -375,7 +377,7 @@ longUCB = -68.112290;
   d=d+0.2;
  return d.toFixed(3); //Retorna tres decimales
   }
-  presentPrompt3() {
+  /*presentPrompt3() {
     let alert = this.alerta.create({
       title: 'Precio',
       inputs: [
@@ -435,7 +437,7 @@ longUCB = -68.112290;
     alert.present();
 
     console.log(alert);
-  }
+  }*/
   dameFecha()
   {
     let hoy = new Date();
