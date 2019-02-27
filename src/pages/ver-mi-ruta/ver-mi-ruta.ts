@@ -31,7 +31,7 @@ export class VerMiRutaPage {
   latOri=-16.503720;
   longOri=-68.131247;
    ii;
-  bigboy=false;
+  pararciclo=true;
   diferentes=[];
    auxdif=[];
   suscrito1:ISubscription;
@@ -101,6 +101,9 @@ puntosordenados;
   );
   setTimeout(()=>{
     console.log("INTEGRANTES",this.integrantes);
+    if(this.integrantes.message=="No se encontro integrantes"){
+    this.integrantes=[];
+  }
     this.obtnpuntos1();
     
   },1000);}
@@ -136,7 +139,33 @@ puntosordenados;
     console.log("puntos_recogida",this.puntos_recogida);
     this.distancia(this.puntos_ruta,this.puntos_recogida);
   },1000);}
-  /*sesa(){
+  sesa(){
+    let markerauto;
+    let ubicacion;
+    this.mysql.Get_Ubicacion(Number(this.ruta_activada.id_viaje)).subscribe(
+      data=>{
+        console.log('Ubicacion Actual',data);
+        ubicacion=data;
+  
+      },(error)=>{
+        console.log(error);});
+        setTimeout(() => {
+          if(ubicacion!=undefined){
+          markerauto= new google.maps.Marker({position: {lat: Number(ubicacion[0].latitud), lng: Number(ubicacion[0].longitud)},map: this.map,draggable: false});}
+          else{
+            markerauto= new google.maps.Marker({position: {lat: 0, lng: 0},map: this.map,draggable: false}); 
+          }
+          markerauto.setIcon('https://img.icons8.com/cotton/40/sedan.png');
+          markerauto.setMap(this.map);
+          setTimeout(() => {
+            if(this.pararciclo){
+            this.sesa();}
+          }, 3000);
+        }, 1000);
+
+      }
+  /*
+
     this.markersArray=[];
    this.pasajeros='';
    if(this.diferentes[this.ii].pasajeros!='' && this.diferentes[this.ii].pasajeros!=null){
@@ -217,7 +246,6 @@ puntosordenados;
      console.log(data[0]);
        this.marka.setMap(null);
        this.marka = new google.maps.Marker({position: {lat: Number(data[0]), lng: Number(data[1])},map: this.map,draggable: false});
-       //this.marka.setIcon('http://maps.google.com/mapfiles/ms/micons/cabs.png');
        this.marka.setIcon('https://img.icons8.com/cotton/40/sedan.png');
        if(this.bigboy==false)
        this.marka.setMap(this.map);
@@ -229,39 +257,71 @@ puntosordenados;
   }*/
   para(){
     this._ubicacion.cortar_localizacion();
-      this.bigboy=true;
-      let y=this.pasajeros.split(';');
-      //nuevo
-      for(let i=0;i<y.length;i++)
-      {
-        if(y[i]!='')
-        {
-          this.aumentarcontadores(y[i]);
-          this.eliminaractivas(y[i]);
+    this.pararciclo=false;
+      this.mysql.terminarRuta(Number(this.ruta_activada.id_viaje)).subscribe(
+        data=>{
+          console.log('terminarRuta',data);
+        },(error)=>{
+          console.log(error);
         }
-      }
-      this.aumentarcontadorescond();
+        );
       //nuevo
-
-      console.log(y);
-
-      this.calificar(this.pasajeros);
-    this.diferentes=this.auxdif;
+      for(let i=0;i<this.integrantes.length;i++)
+      {
+        
+          //this.aumentarcontadores(y[i]);
+          this.eliminaractivas(this.integrantes[i].ci,this.ruta_activada.id_viaje);
+        
+      }
+      //this.aumentarcontadorescond();
+      //nuevo
+      this.calificar();
+    /*this.diferentes=this.auxdif;
     this.suscrito1.unsubscribe();
-    let aux=this.email.split('.');
+    let aux=this.email.split('.');*/
     var nav = this.app.getRootNav();
-    nav.setRoot(ConductorPage,{email: this.email,capacidad:this.capacidad});
+    nav.setRoot(ConductorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
   }
-  calificar(correos:string){
-    let mensaje1={
-    fecha:this.dameFecha(),
-    estado:'No Calificado',
-    mensaje:'CALIFICAME!!!',
-    emails:correos
-  }
-  let co=this.email.split('.');
-  console.log('fkyghujik'+correos);
-  if(mensaje1.emails!=''){
+  calificar(){
+    let solicitud={
+     id_de:0,
+     id_para:this.id_usuario,
+     fecha:this.dameFecha(),
+     estado:'No Calificado P',
+     mensaje:'CALIFICAME!!!',
+     id_viaje:this.ruta_activada.id_viaje,
+     latitud:0,
+     longitud:0,
+     sombrero:'',
+      superior:'',
+     inferior:'',
+     accesorio:'',
+    posicion:0
+  };
+    for (let i = 0; i < this.integrantes.length; i++) {
+      solicitud.id_de=this.integrantes[i].ci;               //    de          para                  fecha                         id_viaje
+      this.mysql.insertarSolicitud(solicitud).subscribe(
+        data=>{
+          console.log('insertarsol',data);
+        },(error)=>{
+          console.log(error);
+        }
+        );
+    }
+    for (let i = 0; i < this.integrantes.length; i++) {
+      solicitud.id_de=this.integrantes[i].ci;
+      solicitud.estado='No Calificado C';               //    de          para                  fecha                         id_viaje
+      this.mysql.insertarSolicitud(solicitud).subscribe(
+        data=>{
+          console.log('insertarsol',data);
+        },(error)=>{
+          console.log(error);
+        }
+        );
+    }
+                                                //    para                fecha                         id_viaje
+
+  /*if(mensaje1.emails!=''){
   this.servicio.calificarpasa(co[0],mensaje1);
 
     let aux=correos.split(';');
@@ -278,7 +338,7 @@ puntosordenados;
       this.servicio.calificarcond(auxi[0],mensaje);
 
     }
-  }
+  }*/
   }
   dameFecha()
   {
@@ -295,19 +355,19 @@ puntosordenados;
       minutos='0'+minutos;
     if(hoy.getSeconds()<10)
       segundos='0'+segundos;
-      let date=yyyy+'-'+mm+'-'+dd+'|'+hora+':'+minutos;
+      let date=yyyy+'-'+mm+'-'+dd+' '+hora+':'+minutos+':'+segundos;
     return date;
   }
 
-  scan(correo:string)
+  scan(integrante)
   {
-    let correo1=correo.split('.');
+
     this.bs.scan().then(barcodeData => {
-      let data = barcodeData.text.split('|');
-      if(correo1[0]==data[0] && (this.verificarFechaHora(data[1]+'|'+data[2])) )
+      let data = barcodeData.text.split('|');  //ci|fecha_hora|id_viaje
+      if(integrante.ci==data[0] && this.ruta_activada.fecha_hora==data[1] && integrante.id_viaje==data[2])
       {
         console.log('pertenece');
-        this.navCtrl.setRoot(EsPasajeroPage,{email:this.email,correo:correo,capacidad:this.capacidad,ruta:this.ruta});
+        this.navCtrl.setRoot(EsPasajeroPage,{integrante:integrante,id_usuario:this.id_usuario,id_auto:this.id_auto,ruta_activada:this.ruta_activada});
       }
       else
       {
@@ -372,10 +432,15 @@ puntosordenados;
     }, 1000);
   }
   //nuevo
-  eliminaractivas(pasajeros){
-    let cond=this.email.split('.');
-    let pasajero=pasajeros.split('.');
-    this.servicio.eliminarSolicitudesActiva(cond[0],pasajero[0]);
+  eliminaractivas(ci,id_viaje){
+    let fecha=this.dameFecha();
+    this.mysql.enviarSolicitudDeActivada(this.id_usuario,ci,fecha,'Expirada','La ruta ya esta expirada',this.ruta_activada.id_viaje).subscribe(
+      data=>{
+        console.log('CambiarActiva',data);
+      },(error)=>{
+        console.log(error);
+      }
+      );
   }
   presentPrompt() {
     let alert = this.alerta.create({
@@ -397,13 +462,20 @@ puntosordenados;
           text: 'OK',
           handler: data => {
             let data1={
-              reporte:data.problema,
-              persona:this.email,
-              fecha:this.dameFecha(),
-              calle:data.calle
+              problema:data.problema,
+              ci:Number(this.id_usuario),
+              fecha:this.dameFecha(), //fecha del sistema
+              calle:data.calle,
+              id_viaje:Number(this.ruta_activada.id_viaje)
             };
             setTimeout(() => {
-            this.servicio.reporte(data1);
+            this.mysql.registrarReporte(data1).subscribe(
+              data=>{
+                console.log('Reporte',data);
+              },(error)=>{
+                console.log(error);
+              }
+              );
             this.mostrarAlerta();
             }, 500);
           }
@@ -800,5 +872,6 @@ puntosordenados;
     for(let i=1;i<points.length-1;i++){
       this.markersArray[i].setMap(this.map);
     }
+    this.sesa();
   }
 }

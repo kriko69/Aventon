@@ -6,8 +6,12 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class mysqlService{
+<<<<<<< HEAD
 160
   ServidorUrl='http://ionic-web.000webhostapp.com/Procesos/';
+=======
+  ServidorUrl='http://181.114.114.160/aventon/Procesos/';
+>>>>>>> 610727064ebd1ccf3f458f475da450f698340b05
 
   constructor(public http:HttpClient){
 
@@ -668,4 +672,128 @@ export class mysqlService{
 
          return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
         }
+<<<<<<< HEAD
+=======
+        agregarrecogida(latitud,longitud,ci,id_viaje){
+          let data={
+            "key":"agregarrecogida",
+            "latitud":latitud,
+            "longitud":longitud,
+            "ci":ci,
+            "id_viaje":id_viaje
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'insertar.php', opsi, header);
+        }
+        actualizarLocaclizacion(latitud,longitud,id_viaje){
+          let data={
+            "key":"loca",
+            "latitud":latitud,
+            "longitud":longitud,
+            "id_viaje":Number(id_viaje)
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
+        }
+        obtenerVestimenta(id_viaje,id_de){
+          let data={
+            "key":"obtenerVestimenta",
+            "id_de":id_de,
+            "id_viaje":id_viaje
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+        }
+        obtener_Puntos(id_viaje){
+          let data={
+            "key":"obtener_Puntos",
+            "id_viaje":id_viaje
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+        }
+        obtener_Puntos_Recogida(id_viaje){
+          let data={
+            "key":"obtener_Puntos_Recogida",
+            "id_viaje":id_viaje
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+        }
+        registrarReporte(reporte){
+          let data={
+            "key":"registrarReporte",
+            "problema":reporte.problema,
+              "ci":reporte.ci,
+              "fecha":reporte.fecha,
+              "calle":reporte.calle,
+              "id_viaje":reporte.id_viaje
+          };
+  
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+  
+           return this.http.post(this.ServidorUrl+'insertar.php', opsi, header);
+        }
+        terminarRuta(id_viaje){
+          let info=new Array();
+          let data={
+            "key":"terminarRuta",
+            "id_viaje":id_viaje,
+            "estado":"Terminado"
+          };
+      
+          let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+          opsi   : any = JSON.stringify(data);
+          console.log('opsi',opsi);
+      
+           return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
+          }
+          fechaviaje_solicitud(id_viaje){
+            let info=new Array();
+            let data={
+              "key":"fechaviaje_solicitud",
+              "id_viaje":id_viaje
+            };
+        
+            let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+            opsi   : any = JSON.stringify(data);
+            console.log('opsi',opsi);
+        
+             return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+            }
+            Get_Ubicacion(id_viaje){
+              let data={
+                "key":"Get_Ubicacion",
+                "id_viaje":id_viaje
+              };
+          
+              let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+              opsi   : any = JSON.stringify(data);
+              console.log('opsi',opsi);
+          
+               return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+              }
+>>>>>>> 610727064ebd1ccf3f458f475da450f698340b05
 }
