@@ -44,10 +44,8 @@ export class ReservaPasajeroPage {
         }
     );
     setTimeout(()=>{
-      this.solicitudes=info;
-      console.log(this.solicitudes);
-      if(this.solicitudes['message']!=this.value){
-        this.value='Si se encontro';
+      if(info['message']!=this.value && info!=undefined){
+        this.solicitudes=info;
       }
       else{
         this.solicitudes=[];
