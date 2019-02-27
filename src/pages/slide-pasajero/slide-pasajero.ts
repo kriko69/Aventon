@@ -50,25 +50,8 @@ export class SlidePasajeroPage {
     this.id_usuario = navParams.get('id_usuario');
     this.nombre_usuario = navParams.get('nombre_usuario');
       let info;
-    this.mysql.GetUsuario(this.id_usuario).subscribe(
-      data => {
-        console.log('data', data);
-        info= Object.assign(data);
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-        }
-    );
-
   }
   ionViewDidLoad() {
-    this.toast.create({
-      message:`Te ayudaremos , ${this.id_usuario}`,
-      duration:3000
-    }).present();
   }
   
 
@@ -76,25 +59,8 @@ export class SlidePasajeroPage {
 
   skip()
   {
-    let info;
-    this.mysql.Tipo(this.id_usuario,'P').subscribe(
-      data => {
-        console.log('data', data);
-        info= Object.assign(data);
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-        }
-    );
-
-    setTimeout(()=>{
-      console.log('info',info);
       var nav = this.app.getRootNav();
       nav.setRoot(PuntoRecogidaPage ,{id_usuario: this.id_usuario});
-    },1000);
   }
  
 }

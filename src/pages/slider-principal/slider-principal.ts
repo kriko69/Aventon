@@ -57,10 +57,6 @@ export class SliderPrincipalPage {
 
   }
   ionViewDidLoad() {
-    this.toast.create({
-      message:`ayuda, ${this.nombre_usuario}`,
-      duration:3000
-    }).present();
   }
   
 
@@ -68,25 +64,8 @@ export class SliderPrincipalPage {
 
   cambiarUsuario()
   {
-    let info;
-    this.mysql.Tipo(this.id_usuario,'').subscribe(
-      data => {
-        console.log('data', data);
-        info= Object.assign(data);
-        console.log('exito');
-
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-        }
-    );
-
-    setTimeout(()=>{
-      console.log('info',info);
       var nav = this.app.getRootNav();
-      nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario,nombre_usuario:this.nombre_usuario});
-    },1000);
+      nav.setRoot(TipoUsuarioPage ,{id_usuario: this.id_usuario});
   }
  
 
