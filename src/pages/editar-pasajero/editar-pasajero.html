@@ -87,7 +87,7 @@
             <ion-input disabled="true" type="text" [(ngModel)]="usuario.calif_pasa"></ion-input>
         </ion-item>-->
         <ion-item>
-            <button ion-button block round color="yellow"  (click)="actualizarPerfil()" (click)="uploadingFoto()">Guardar datos personales</button>
+            <button ion-button block round color="yellow" [disabled]="!myForm.valid" (click)="actualizarPerfil()" (click)="uploadingFoto()">Guardar datos personales</button>
         </ion-item>
     </ion-list>
 </form>

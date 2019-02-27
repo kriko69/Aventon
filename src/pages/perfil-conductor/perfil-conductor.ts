@@ -51,21 +51,23 @@ export class PerfilConductorPage {
   }
 
   ionViewDidLoad() {
-    this.fotoAuto = this.auto.placa;
-      this.mysql.validarFotoUsuario(this.auto.placa).subscribe(
-        data=>{
-          if(data['message']=="existe")
-          {
-            this.fotoAuto = "http://181.114.114.160/aventon/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
-          }
-          if(data['message']=="no existe")
-          {
-            this.fotoAuto = "http://181.114.114.160/aventon/img/defaultAuto.jpg";
-          }
-          this.base64Image=this.fotoAuto;
-        },error=>{ 
+    this.fotoAuto = this.usuario.ci;
+    this.mysql.validarFotoUsuario(this.fotoAuto).subscribe(
+      data=>{
+        if(data['message']=="existe")
+        {
+          this.fotoAuto = "http://181.114.114.160/aventon/img/Perfil/"+this.fotoAuto + ".jpg";
         }
-      );
+        if(data['message']=="no existe")
+        {
+          this.fotoAuto = "http://181.114.114.160/aventon/img/defaultUsuario.jpg";
+        }
+        this.base64Image=this.fotoAuto;
+      },error=>{
+        
+      }
+      
+    );
   }
   editPerfil()
   {

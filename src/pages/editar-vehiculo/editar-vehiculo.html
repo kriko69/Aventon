@@ -24,30 +24,30 @@
         </div>
             <ion-item  style="margin-top:1em">
                 <ion-label stacked color="dark">Capacidad</ion-label>
-                <ion-input type="number" formControlName="capacidad"  name="capacidad" >{{auto.capacidad}}</ion-input>
+                <ion-input type="number" formControlName="capacidad"  name="capacidad" [value]="capacidad"></ion-input>
             </ion-item>
             <ion-item *ngIf="myForm.get('capacidad').errors && myForm.get('capacidad').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('capacidad').hasError('required')">*Campo requerido</p>
                 <p color="danger" ion-text *ngIf="myForm.controls['capacidad'].hasError('maxlength')">*Un vehiculo no puede tener más de 9 espacios</p>
             </ion-item>
-            <ion-item  style="margin-top:0.5em">
+            <ion-item  >
                     <ion-label stacked color="dark">Color</ion-label>
-                    <ion-input type="text" formControlName="color" name="color">{{auto.color}}</ion-input>
+                    <ion-input type="text" formControlName="color" name="color" [value]="color"></ion-input>
                 </ion-item>
                 <ion-item *ngIf="myForm.get('color').errors && myForm.get('color').dirty">
                         <p color="danger" ion-text *ngIf="myForm.get('color').hasError('required')">*Campo requerido</p>
                 </ion-item>
-                <ion-item  style="margin-top:0.5em">
+                <ion-item  >
                     <ion-label stacked color="dark">Marca</ion-label>
-                    <ion-input type="text" formControlName="marca" name="marca">{{auto.marca}}</ion-input>
+                    <ion-input type="text" formControlName="marca" name="marca" [value]="marca"></ion-input>
                 </ion-item>
                 <ion-item *ngIf="myForm.get('marca').errors && myForm.get('marca').dirty">
                         <p color="danger" ion-text *ngIf="myForm.get('marca').hasError('required')">*Campo requerido</p>
                 </ion-item>
                 
-                <ion-item  style="margin-top: 0.5em">
+                <ion-item  >
                         <ion-label stacked color="dark">Modelo(año)</ion-label>
-                        <ion-input type="number" formControlName="modelo"  name="modelo" >{{auto.modelo}}</ion-input>
+                        <ion-input type="number" formControlName="modelo"  name="modelo" [value]="modelo"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="myForm.get('modelo').errors && myForm.get('modelo').dirty">
                         <p color="danger" ion-text *ngIf="myForm.get('modelo').hasError('required')">*Campo requerido</p>

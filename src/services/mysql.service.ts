@@ -390,11 +390,10 @@ export class mysqlService{
   }
 
 
-  listarIntegrantesPorRuta(id_usuario,id_viaje){
+  listarIntegrantesPorRuta(id_viaje){
     let info=new Array();
   let data={
     "key":"listarIntegrantesPorRuta",
-    "id_usuario":id_usuario,
     "id_viaje":id_viaje
   };
 
@@ -420,20 +419,23 @@ export class mysqlService{
      return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
     }
 
-    enviarSolicitudDeActivada(id_de,id_para,fecha)
+    enviarSolicitudDeActivada(id_para,id_de,fecha,estado,mensaje,id_viaje)
     {
       let data={
         "key":"enviarSolicitudDeActivada",
-        'id_de':id_de,
-        'id_para':id_para,
-        'fecha':fecha
+        "id_de":id_de,
+        "id_para":id_para,
+        "fecha":fecha,
+        "estado":estado,
+        "mensaje":mensaje,
+        "id_viaje":id_viaje
       };
 
       let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
-
-      return this.http.post(this.ServidorUrl+'insertar.php', opsi, header);
+      
+      return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
     }
 
     listarSolicitudesConductor(id_usuario){
@@ -620,6 +622,17 @@ export class mysqlService{
         let data={
           "key":"validarFotoUsuario",
           "usuarioFoto":usuarioFoto
+        };
+
+        let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+        opsi   : any = JSON.stringify(data);
+        console.log('opsi',opsi);
+         return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+      }
+      validarFotoAuto(placa){
+        let data={
+          "key":"validarFotoAuto",
+          "placa":placa
         };
 
         let header : any = new HttpHeaders({'Content-Type': 'application/json'}),

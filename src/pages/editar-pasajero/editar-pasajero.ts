@@ -72,9 +72,6 @@ export class EditarPasajeroPage {
         }
         
       );
-      console.log(this.usuario.carnet);
-      console.log(this.usuario.ci);
-      console.log(this.usuario.nombre);
 
     }
 

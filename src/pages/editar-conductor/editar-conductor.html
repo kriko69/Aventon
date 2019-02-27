@@ -14,9 +14,53 @@
 
 
 <ion-content padding class="imagen">
-
-    <ion-list #pc>
-        <ion-item>
+    <form [formGroup]="myForm">
+        <div>
+            <img [src]="fotoUsuario"  class='roundImage'  />
+        </div>
+        <div padding>
+            <button color=yellow ion-button block (click)="openCamera()" round>Cambiar fotografia tomando fotografia</button>
+            <button color=yellow ion-button block (click)="openGallery()" round>Cambiar fotografia desde la galeria</button>
+        </div>
+    <ion-list >
+            <ion-item style="margin-top:1em" >
+                <ion-label stacked color="dark">Nombre</ion-label>
+                <ion-input type="text" formControlName="nombre" name="nombre" [value]="nombre"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="myForm.get('nombre').errors && myForm.get('nombre').dirty">
+                <p color="danger" ion-text *ngIf="myForm.get('nombre').hasError('required')">*Campo requerido</p>
+            </ion-item>
+            <ion-item  >
+                <ion-label stacked color="dark">Apellido</ion-label>
+                <ion-input type="text" formControlName="apellido" [value]="apellido"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="myForm.get('apellido').errors && myForm.get('apellido').dirty">
+                <p color="danger" ion-text *ngIf="myForm.get('apellido').hasError('required')">*Campo requerido</p>
+            </ion-item>
+            <ion-item  >
+                <ion-label stacked color="dark">Carnet</ion-label>
+                <ion-input disabled="true" type="number" formControlName="carnet" [value]="carnet"></ion-input>
+            </ion-item>
+            <ion-item  >
+                <ion-label round stacked color="dark">Fecha de nacimiento</ion-label>
+                <ion-datetime display-format="DD/MM/YYYY" picker-format="DDDD MMMM YYYY" formControlName="fecha_nac" ></ion-datetime>
+            </ion-item>
+            <ion-item *ngIf="myForm.get('fecha_nac').errors && myForm.get('fecha_nac').dirty">
+                <p color="danger" ion-text *ngIf="myForm.get('fecha_nac').hasError('required')">*Campo requerido</p>
+            </ion-item>
+            <ion-item  >
+                <ion-label stacked color="dark">Telefono</ion-label>
+                <ion-input type="number" formControlName="telf" [value]="telf"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="myForm.get('telf').errors && myForm.get('telf').dirty">
+                <p color="danger" ion-text *ngIf="myForm.get('telf').hasError('required')">*Campo requerido</p>
+            </ion-item>
+            <ion-item>
+                <ion-label stacked color="dark">Calificacion Conductor</ion-label>
+                <ion-input disabled="true" type="text" formControlName="calif_cond"></ion-input>
+            </ion-item>
+        <!--
+        <ion-item style="margin-top:1em">
             <ion-label stacked>Nombre</ion-label>
             <ion-input disabled="false" type="text" [(ngModel)]="usuario.nombre"></ion-input>
         </ion-item>
@@ -37,15 +81,15 @@
         <ion-item>
             <ion-label stacked color="dark">Fecha de nacimiento</ion-label>
             <ion-datetime disabled="false" displayFormat="DD/MM/YYYY" [(ngModel)]="usuario.fecha_nac"></ion-datetime>
-          </ion-item>
-        <ion-item>
-            <ion-label stacked color="dark">Calificacion Conductor</ion-label>
-            <ion-input disabled="true" type="text" [(ngModel)]="usuario.calif_cond"></ion-input>
         </ion-item>
         <ion-item>
-            <button ion-button block round color=primary (click)="actualizarPerfil()">Guardar</button>
+            <ion-label stacked color="dark">Calificacion Pasajero</ion-label>
+            <ion-input disabled="true" type="text" [(ngModel)]="usuario.calif_pasa"></ion-input>
+        </ion-item>-->
+        <ion-item>
+            <button ion-button block round color="yellow" [disabled]="!myForm.valid" (click)="actualizarPerfil()" (click)="uploadingFoto()">Guardar datos personales</button>
         </ion-item>
     </ion-list>
-
+</form>
 
 </ion-content>

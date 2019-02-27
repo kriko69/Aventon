@@ -49,12 +49,12 @@ export class EditarVehiculoPage {
     console.log('AUTO: '+this.auto.placa+' id: '+this.auto.id_auto);
     
     this.myForm = this.formBuilder.group({
-      capacidad: [ 0, Validators.compose([Validators.maxLength(1), Validators.required])],
-      color:['',Validators.compose([Validators.required])],
-      marca:['',Validators.compose([Validators.required])],
-      modelo:[ 0, Validators.compose([Validators.maxLength(4), Validators.required,Validators.minLength(4)])],
-      placa: '',
-      maletera: false,
+      capacidad: [ this.auto.capacidad, Validators.compose([Validators.maxLength(1), Validators.required])],
+      color:[this.auto.color,Validators.compose([Validators.required])],
+      marca:[this.auto.marca,Validators.compose([Validators.required])],
+      modelo:[ this.auto.modelo, Validators.compose([Validators.maxLength(4), Validators.required,Validators.minLength(4)])],
+      placa: this.auto.placa,
+      maletera: this.auto.maletera,
       placanum: ['',Validators.compose([Validators.required])],
       placalet: ['',Validators.compose([Validators.required])],
       });   
@@ -63,14 +63,18 @@ export class EditarVehiculoPage {
 
   ionViewDidLoad() {
     this.fotoAuto = this.auto.placa;
-      this.mysql.validarFotoUsuario(this.auto.placa).subscribe(
+    console.log("FOTO ");
+      this.mysql.validarFotoAuto(this.auto.placa).subscribe(
         data=>{
+          console.log(data);
           if(data['message']=="existe")
           {
+            console.log("FOTO VALIDADA");
             this.fotoAuto = "http://181.114.114.160/aventon/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
           }
           if(data['message']=="no existe")
           {
+            console.log("FOTO  NO VALIDADA");
             this.fotoAuto = "http://181.114.114.160/aventon/img/defaultAuto.jpg";
           }
           this.base64Image=this.fotoAuto;
