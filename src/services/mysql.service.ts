@@ -6,12 +6,7 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class mysqlService{
-<<<<<<< HEAD
-160
-  ServidorUrl='http://ionic-web.000webhostapp.com/Procesos/';
-=======
   ServidorUrl='http://181.114.114.160/aventon/Procesos/';
->>>>>>> 610727064ebd1ccf3f458f475da450f698340b05
 
   constructor(public http:HttpClient){
 
@@ -672,8 +667,6 @@ export class mysqlService{
 
          return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
         }
-<<<<<<< HEAD
-=======
         agregarrecogida(latitud,longitud,ci,id_viaje){
           let data={
             "key":"agregarrecogida",
@@ -795,5 +788,4 @@ export class mysqlService{
           
                return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
               }
->>>>>>> 610727064ebd1ccf3f458f475da450f698340b05
 }
