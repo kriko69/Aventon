@@ -56,11 +56,11 @@ export class PerfilConductorPage {
         data=>{
           if(data['message']=="existe")
           {
-            this.fotoAuto = "http://192.168.0.107/aventon/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
+            this.fotoAuto = "http://181.114.114.160/aventon/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
           }
           if(data['message']=="no existe")
           {
-            this.fotoAuto = "http://192.168.0.107/aventon/img/defaultAuto.jpg";
+            this.fotoAuto = "http://181.114.114.160/aventon/img/defaultAuto.jpg";
           }
           this.base64Image=this.fotoAuto;
         },error=>{ 

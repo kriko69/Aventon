@@ -60,11 +60,11 @@ export class EditarPasajeroPage {
         data=>{
           if(data['message']=="existe")
           {
-            this.fotoUsuario = "http://192.168.0.107/aventon/img/Perfil/"+this.fotoUsuario + ".jpg";
+            this.fotoUsuario = "http://181.114.114.160/aventon/img/Perfil/"+this.fotoUsuario + ".jpg";
           }
           if(data['message']=="no existe")
           {
-            this.fotoUsuario = "http://192.168.0.107/aventon/img/defaultUsuario.jpg";
+            this.fotoUsuario = "http://181.114.114.160/aventon/img/defaultUsuario.jpg";
           }
           this.base64Image=this.fotoUsuario;
         },error=>{
@@ -154,7 +154,7 @@ export class EditarPasajeroPage {
   uploadingFoto(){
     if(this.val== true)
     {
-      let url = 'http://192.168.0.107/aventon/img/Perfil/subirfotosperfil.php';
+      let url = 'http://181.114.114.160/aventon/img/Perfil/subirfotosperfil.php';
       let postData = new FormData();
       let nombre = this.usuario.ci;
       postData.append('file',this.base64Image);

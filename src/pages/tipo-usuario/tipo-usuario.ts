@@ -33,8 +33,7 @@ export class TipoUsuarioPage {
   info;
  
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  private afAuth:AngularFireAuth, private toast:ToastController,
-  private servicio: firebaseService, private db:AngularFireDatabase,private platform:Platform, public app:App
+   private toast:ToastController, private platform:Platform, public app:App
   ,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
@@ -47,7 +46,7 @@ export class TipoUsuarioPage {
 
   ionViewDidLoad() {
     this.toast.create({
-      message:`bienvenido, ${this.nombre_usuario}`,
+      message:`Bienvenido, ${this.nombre_usuario}`,
       duration:3000
     }).present();
   }
