@@ -21,7 +21,7 @@ export class BuzonPage {
   id_usuario;
   id_auto;
   solicitudes=[];
-  value=false;
+  boleano=true;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService ,private platform:Platform,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
@@ -44,12 +44,10 @@ export class BuzonPage {
       data => {
         console.log('data',data);
         console.log('exito');
-        if(data['message']=='No se encontró'){
-          this.value=true;
-        }
-        else
+        if(data['message']!='No se encontró' && data!=undefined)
         {
            this.solicitudes=Object.assign(data);
+           this.boleano=false;
         }
       }, (error: any)=> {
         console.log('error', error);

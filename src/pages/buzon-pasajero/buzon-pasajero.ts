@@ -23,6 +23,7 @@ export class BuzonPasajeroPage {
   suscrito1:ISubscription;
   solicitudes=[];
   value='No se encontró';
+  boleano=true;
   constructor(public app:App,public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService,private platform:Platform,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
@@ -33,12 +34,13 @@ export class BuzonPasajeroPage {
      this.mysql.listarSolicitudesPasajero(this.id_usuario).subscribe(
       data => {
         console.log('data',data);
-      if(data['message']==this.value){
+      if(data['message']==this.value || data==undefined){
         this.solicitudes=[];
         console.log('exito');
       }
       else
-        {this.solicitudes=Object.assign(data);}
+        {this.solicitudes=Object.assign(data);
+          this.boleano=false;}
 
         }, (error: any)=> {
           console.log('error', error);

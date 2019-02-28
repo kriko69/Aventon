@@ -39,7 +39,7 @@ export class ConductorPage {
     let id_usuario = navParams.get('id_usuario');//MODIFICADO PARA PASAR LOS PARAMETROS
     let id_auto=navParams.get('id_auto');
     this.rootparamspage={id_usuario: id_usuario,id_auto:id_auto};//MODIFICADO PARA PASAR LOS PARAMETROS
-    this.tab1 = MarkadorPage;
+    //this.tab1 = MarkadorPage;
     this.tab2 = ViajePage;
     this.tab3=BuzonPage;
     this.tab4=OpcionesConductorPage;
@@ -48,7 +48,7 @@ export class ConductorPage {
       },1000);
       let longi=[];
       let auuux:any;
-    this.subscription1=this.servicio.getCantidadSolicitudesRef(id_usuario).valueChanges().subscribe(
+    /*this.subscription1=this.servicio.getCantidadSolicitudesRef(id_usuario).valueChanges().subscribe(
       data=>{
         for( auuux of data){
           if(auuux.estado=='pendiente' || auuux.estado=='No Calificado')
@@ -61,7 +61,7 @@ export class ConductorPage {
     //si da un error con esto es porque en firebase no tenemos aun creada la rama solicitud
     setTimeout(()=>{
       this.subscription1.unsubscribe();
-    },1000);
+    },1000);*/
   }
 
   ionViewDidLoad() {

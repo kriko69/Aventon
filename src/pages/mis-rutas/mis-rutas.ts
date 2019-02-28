@@ -27,6 +27,7 @@ export class MisRutasPage {
   vec:any=[];
   id_auto;
   control1:ISubscription;
+  boleano=true;
   public viajes:RutaModel[];
   constructor(public navCtrl: NavController, public navParams: NavParams,public modalCtrl:ModalController,public mysql:mysqlService,
     public viewCtrl:ViewController,public alertCtrl : AlertController, public toast: ToastService,private platform:Platform) {
@@ -56,10 +57,11 @@ export class MisRutasPage {
 
       }
     );setTimeout(() => {
-      if(info['message']=='No se encontro rutas con este ci' || info==undefined)
+      if(info==undefined || info['message']=='No se encontro rutas con este ci')
         this.vec=[];
       else{
         this.vec=info;
+        this.boleano=false;
       }
       
     }, 1000);
@@ -69,7 +71,10 @@ export class MisRutasPage {
 
  }
  seleccinaRuta(){
-  this.navCtrl.push(MarkadorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
+  this.navCtrl.setRoot(MarkadorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
+ }
+ dismiss(){
+  this.navCtrl.setRoot(OpcionesConductorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
  }
 
 }

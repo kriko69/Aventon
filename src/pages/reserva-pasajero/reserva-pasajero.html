@@ -20,7 +20,9 @@
     <ion-fab bottom right>
         <button ion-fab (click)="irProgramadas()" color="yellow"><ion-icon name="add"></ion-icon></button>
     </ion-fab>
-
+    <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="boleano">
+        Usted no tiene Reservas.
+    </ion-item>
     <ion-list>
         <button ion-item *ngFor="let item of solicitudes" (click)="irOpcionreserva(item)">
       <!--NEGRILLA-->

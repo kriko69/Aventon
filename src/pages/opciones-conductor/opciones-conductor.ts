@@ -47,7 +47,7 @@ export class OpcionesConductorPage {
   }
   irMisRutas()
   {
-    this.navCtrl.push(MisRutasPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
+    this.navCtrl.setRoot(MisRutasPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
   }
   cambiarUsuario()
   {

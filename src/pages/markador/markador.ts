@@ -9,6 +9,7 @@ import {IonicPage, NavController, Platform, NavParams, AlertController,ModalCont
 import { Geolocation } from '@ionic-native/geolocation';
 import{Ruta} from '../../interfaces/rutas.interface';
 import { AddRutaPage } from '../add-ruta/add-ruta';
+import { MisRutasPage } from '../mis-rutas/mis-rutas';
 
 declare var google: any;
 
@@ -457,5 +458,8 @@ longUCB = -68.112290;
     let date=yyyy+'-'+mm+'-'+dd+'|'+hora+':'+minutos;
 
     return date;
+  }
+  dismiss(){
+   this.navCtrl.setRoot(MisRutasPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
   }
 }

@@ -24,6 +24,7 @@ export class ReservaPasajeroPage {
   id_usuario;
   solicitudes=[];
   value='No se encontró';
+  boleano=true;
   constructor(public navCtrl: NavController, public navParams: NavParams,public modal:ModalController,
   public servicio:firebaseService,private platform:Platform,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
@@ -44,11 +45,11 @@ export class ReservaPasajeroPage {
         }
     );
     setTimeout(()=>{
-      if(info['message']!=this.value && info!=undefined){
+      if(info!=undefined){
+      if(info['message']!=this.value){
         this.solicitudes=info;
+        this.boleano=false;
       }
-      else{
-        this.solicitudes=[];
       }
     },1000);
 
