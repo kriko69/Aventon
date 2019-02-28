@@ -132,20 +132,21 @@ export class ConfirmarEliminacionPage {
     }
   }*/
   submit(){
-    let puntos;
+    let info;
     console.log('ruta',this.nombre_ruta);
     console.log('usuario',this.id_usuario);
     this.mysql.obtenerPuntosDeRuta(this.nombre_ruta,this.id_usuario).subscribe(
       data=>{
         console.log('puntos rutas: ',data);
-        puntos=data;
+        info=data;
       },(error)=>{
         console.log(error);
       }
     );
     setTimeout(()=>{
-      console.log('puntos',puntos);
-      this.recargar(puntos)
+      if(info!=undefined){
+      this.recargar(info);
+      }
     },1000);
   }
   recargar(points){

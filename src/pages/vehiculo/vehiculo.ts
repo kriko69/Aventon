@@ -46,7 +46,7 @@ export class VehiculoPage {
         }
     );
     setTimeout(()=>{
-
+      if(info!=undefined){
       if(info['message']=='No se encontró'){
         this.value=false;
       }
@@ -54,6 +54,9 @@ export class VehiculoPage {
         this.value=true;
         this.vehiculos$=info;
         console.log(this.vehiculos$);
+      }}
+      else{
+        this.value=false;
       }
     },1000);
   }

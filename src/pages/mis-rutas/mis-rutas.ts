@@ -71,7 +71,7 @@ export class MisRutasPage {
 
  }
  seleccinaRuta(){
-  this.navCtrl.setRoot(MarkadorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
+  this.navCtrl.push(MarkadorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
  }
  dismiss(){
   this.navCtrl.setRoot(OpcionesConductorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
