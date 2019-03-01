@@ -6,7 +6,9 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class mysqlService{
-  ServidorUrl='http://181.114.114.160/aventon/Procesos/';
+  //ServidorUrl='http://181.114.114.160/aventon/Procesos/';
+  ServidorUrl='http://jauzled.com/Procesos/';
+
 
   constructor(public http:HttpClient){
 
