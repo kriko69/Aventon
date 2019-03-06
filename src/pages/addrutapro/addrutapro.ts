@@ -32,6 +32,7 @@ export class AddrutaproPage {
   id_usuario;
   id_auto;
   capacidad;
+  fechaActual;
   constructor(public navCtrl: NavController, public navParams: NavParams,public mysql:mysqlService,
     public viewCtrl:ViewController,public toast: ToastService,private platform:Platform) {
       this.platform.registerBackButtonAction(() => {
@@ -41,7 +42,7 @@ export class AddrutaproPage {
       this.id_usuario=this.navParams.get('id_usuario');
       console.log(this.dameFecha());
       this.fechahora=this.dameFecha();
-
+      this.fechaActual=this.dameFechaPlaceHolder();
   }
 
   ionViewDidLoad() {
@@ -65,7 +66,7 @@ export class AddrutaproPage {
       else{
         this.vec=info;
       }
-      
+
     }, 1000);
   }
   submit(ruta){
@@ -173,6 +174,25 @@ export class AddrutaproPage {
     //let date=dd+'-'+mm+'-'+yyyy+'T'+hora+':'+minutos+':'+segundos+'Z';
     let date=yyyy+'-'+mm+'-'+dd+'T'+hora+':'+minutos+':'+segundos+'Z';
 
+    return date;
+  }
+
+  dameFechaPlaceHolder()
+  {
+    let hoy = new Date();
+    let dd = hoy.getDate();
+    let mm = hoy.getMonth()+1;
+    let yyyy = hoy.getFullYear();
+    let hora=''+hoy.getHours();
+    let minutos=''+hoy.getMinutes();
+    let segundos=''+hoy.getSeconds();
+    if(hoy.getHours()<10)
+      hora='0'+hora;
+    if(hoy.getMinutes()<10)
+      minutos='0'+minutos;
+    if(hoy.getSeconds()<10)
+      segundos='0'+segundos;
+    let date=dd+'/'+mm+'/'+yyyy+' '+hora+':'+minutos;
     return date;
   }
 }

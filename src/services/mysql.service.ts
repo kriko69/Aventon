@@ -436,7 +436,7 @@ export class mysqlService{
       let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
       opsi   : any = JSON.stringify(data);
       console.log('opsi',opsi);
-      
+
       return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
     }
 
@@ -452,6 +452,34 @@ export class mysqlService{
     console.log('opsi',opsi);
 
      return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+    }
+
+    borrarSolicitudesConductor(id_usuario){
+      let info=new Array();
+    let data={
+      "key":"borrarSolicitudesConductor",
+      "id_usuario":Number(id_usuario)
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post(this.ServidorUrl+'eliminar.php', opsi, header);
+    }
+
+    borrarSolicitudesPasajero(id_usuario){
+      let info=new Array();
+    let data={
+      "key":"borrarSolicitudesPasajero",
+      "id_usuario":Number(id_usuario)
+    };
+
+    let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
+    opsi   : any = JSON.stringify(data);
+    console.log('opsi',opsi);
+
+     return this.http.post(this.ServidorUrl+'eliminar.php', opsi, header);
     }
 
   //Ruta_Viaje
@@ -691,11 +719,11 @@ export class mysqlService{
             "ci":ci,
             "id_viaje":id_viaje
           };
-  
+
           let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
           opsi   : any = JSON.stringify(data);
           console.log('opsi',opsi);
-  
+
            return this.http.post(this.ServidorUrl+'insertar.php', opsi, header);
         }
         actualizarLocaclizacion(latitud,longitud,id_viaje){
@@ -705,11 +733,11 @@ export class mysqlService{
             "longitud":longitud,
             "id_viaje":Number(id_viaje)
           };
-  
+
           let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
           opsi   : any = JSON.stringify(data);
           console.log('opsi',opsi);
-  
+
            return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
         }
         obtenerVestimenta(id_viaje,id_de){
@@ -718,11 +746,11 @@ export class mysqlService{
             "id_de":id_de,
             "id_viaje":id_viaje
           };
-  
+
           let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
           opsi   : any = JSON.stringify(data);
           console.log('opsi',opsi);
-  
+
            return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
         }
         obtener_Puntos(id_viaje){
@@ -730,11 +758,11 @@ export class mysqlService{
             "key":"obtener_Puntos",
             "id_viaje":id_viaje
           };
-  
+
           let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
           opsi   : any = JSON.stringify(data);
           console.log('opsi',opsi);
-  
+
            return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
         }
         obtener_Puntos_Recogida(id_viaje){
@@ -742,11 +770,11 @@ export class mysqlService{
             "key":"obtener_Puntos_Recogida",
             "id_viaje":id_viaje
           };
-  
+
           let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
           opsi   : any = JSON.stringify(data);
           console.log('opsi',opsi);
-  
+
            return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
         }
         registrarReporte(reporte){
@@ -758,11 +786,11 @@ export class mysqlService{
               "calle":reporte.calle,
               "id_viaje":reporte.id_viaje
           };
-  
+
           let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
           opsi   : any = JSON.stringify(data);
           console.log('opsi',opsi);
-  
+
            return this.http.post(this.ServidorUrl+'insertar.php', opsi, header);
         }
         terminarRuta(id_viaje){
@@ -772,11 +800,11 @@ export class mysqlService{
             "id_viaje":id_viaje,
             "estado":"Terminado"
           };
-      
+
           let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
           opsi   : any = JSON.stringify(data);
           console.log('opsi',opsi);
-      
+
            return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
           }
           fechaviaje_solicitud(id_viaje){
@@ -785,11 +813,11 @@ export class mysqlService{
               "key":"fechaviaje_solicitud",
               "id_viaje":id_viaje
             };
-        
+
             let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
             opsi   : any = JSON.stringify(data);
             console.log('opsi',opsi);
-        
+
              return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
             }
             Get_Ubicacion(id_viaje){
@@ -797,11 +825,11 @@ export class mysqlService{
                 "key":"Get_Ubicacion",
                 "id_viaje":id_viaje
               };
-          
+
               let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
               opsi   : any = JSON.stringify(data);
               console.log('opsi',opsi);
-          
+
                return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
               }
 }

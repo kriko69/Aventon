@@ -27,6 +27,7 @@ export class ViajePage {
   cacpacidad=0;
   placa;
   control1:ISubscription;
+
   //buscardor
   fecha;
   resultados=[];
@@ -39,6 +40,7 @@ export class ViajePage {
   id_auto;
   nombres=[];
   value=false;
+  programadas=[];
   constructor(public navCtrl: NavController,
     public alertCtrl:AlertController, public toast:ToastService,public navParams: NavParams,
     public modalCtrl:ModalController,public mysql:mysqlService, public servicio:firebaseService,
@@ -81,6 +83,7 @@ export class ViajePage {
           this.value=true;
       }else{
         this.vec=info;
+        this.programadas=info;
       }
     },1000);
 
@@ -148,20 +151,35 @@ dameFecha()
   let dd = hoy.getDate();
   let mm = hoy.getMonth()+1;
   let yyyy = hoy.getFullYear();
-  let date=yyyy+'-'+mm+'-'+dd;
+  let mes,dia;
+  if(mm<10)
+  {
+    mes='0'+mm;
+  }
+  if(dd<10)
+  {
+    dia='0'+dd;
+  }
+  let date=yyyy+'-'+mes+'-'+dia;
   return date;
 }
 
 
 filtrarporfecha()
 {
-
+  this.vec=this.programadas;
   this.resultados=[]; //limpio
+  this.copia=this.vec;
+  let aux;
+  console.log(this.copia);
 
   for (let i = 0; i < this.copia.length; i++) {
-    console.log(this.copia[i].fecha);
+    aux=this.copia[i].fecha_hora.split(' ');
+    console.log('datetime:',this.fecha);
+    console.log('mi fecha',aux[0]);
 
-    if(this.copia[i].fecha==this.fecha)
+
+    if(aux[0]==this.fecha)
       this.resultados.push(this.copia[i]);
   }
   console.log(this.resultados);

@@ -1,3 +1,4 @@
+import { ToastService } from './../../services/toast.service';
 import { mysqlService } from './../../services/mysql.service';
 import { AceptarSolicitudPage } from './../aceptar-solicitud/aceptar-solicitud';
 import { Component } from '@angular/core';
@@ -23,7 +24,7 @@ export class BuzonPage {
   solicitudes=[];
   boleano=true;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService ,private platform:Platform,public mysql:mysqlService) {
+  public toast:ToastService ,private platform:Platform,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
@@ -55,11 +56,25 @@ export class BuzonPage {
     );
   }
 
+  borrarMensajes()
+  {
+    this.mysql.borrarSolicitudesConductor(this.id_usuario).subscribe(
+      data => {
+        console.log('data',data);
+        this.toast.show('Todos los mensajes eliminados')
+        this.listarMensajes();
+      }, (error: any)=> {
+        console.log('error', error);
+      }
+    );
+  }
+
+
 
   aceptar(solicitud)
   {
     console.log("item",solicitud);
-    
+
     this.navCtrl.push(AceptarSolicitudPage,{id_usuario:this.id_usuario,solicitud:solicitud,id_auto:this.id_auto});
   }
   calif(obj)
