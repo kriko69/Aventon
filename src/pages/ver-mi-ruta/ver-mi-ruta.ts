@@ -106,7 +106,7 @@ markerauto= new google.maps.Marker();
 if(integrantesaux==undefined){
   this.integrantes=[];
 }
-    else if(integrantesaux['message'].localeCompare("No se encontro integrantes")==0 ){
+    else if(integrantesaux['message']=="No se encontro integrantes" ){
     this.integrantes=[];
   }
   else{
@@ -144,7 +144,7 @@ if(integrantesaux==undefined){
   );
   setTimeout(()=>{
     console.log("puntos_recogida",this.puntos_recogida);
-    if(this.puntos_recogida['message'].localeCompare("ERROR")!=0 && this.puntos_recogida!=undefined){
+    if(this.puntos_recogida['message']!="ERROR" && this.puntos_recogida!=undefined){
     this.distancia(this.puntos_ruta,this.puntos_recogida);
   }
   else{
