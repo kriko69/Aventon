@@ -8,7 +8,7 @@
 <ion-content padding class="imagen">
     <ion-item>
         <ion-label>Buscar por fecha</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fecha" (ionChange)="filtrarporfecha()"></ion-datetime>
+        <ion-datetime displayFormat="YYYY-MM-DD" [(ngModel)]="fecha" placeholder="{{fecha}}" (ionChange)="filtrarporfecha()"></ion-datetime>
     </ion-item>
     <ion-list>
         <ion-item class="borde" style="background-color:#7cb9e3;color:white;" *ngIf="value">

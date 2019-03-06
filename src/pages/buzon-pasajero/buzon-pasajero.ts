@@ -1,3 +1,4 @@
+import { ToastService } from './../../services/toast.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, Platform } from 'ionic-angular';
 import { firebaseService } from '../../services/firebase.service';
@@ -25,13 +26,24 @@ export class BuzonPasajeroPage {
   value='No se encontró';
   boleano=true;
   constructor(public app:App,public navCtrl: NavController, public navParams: NavParams,
-  public servicio:firebaseService,private platform:Platform,public mysql:mysqlService) {
+  public toast:ToastService,private platform:Platform,public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
     this.id_usuario=this.navParams.get('id_usuario');
 
-     this.mysql.listarSolicitudesPasajero(this.id_usuario).subscribe(
+     this.listarMensajes();
+
+
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad BuzonPasajeroPage');
+  }
+
+  listarMensajes()
+  {
+    this.mysql.listarSolicitudesPasajero(this.id_usuario).subscribe(
       data => {
         console.log('data',data);
       if(data['message']==this.value || data==undefined){
@@ -50,15 +62,20 @@ export class BuzonPasajeroPage {
     setTimeout(()=>{
       console.log(this.solicitudes);
     },1000);
-
-
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BuzonPasajeroPage');
+  borrarMensajes()
+  {
+    this.mysql.borrarSolicitudesPasajero(this.id_usuario).subscribe(
+      data => {
+        console.log('data',data);
+        this.toast.show('Todos los mensajes eliminados')
+        this.listarMensajes();
+      }, (error: any)=> {
+        console.log('error', error);
+      }
+    );
   }
-
-
 
   mostrar(solicitud)
   {
@@ -69,7 +86,7 @@ export class BuzonPasajeroPage {
   {
     this.navCtrl.push(HomePage,{id_usuario:this.id_usuario,obj:obj});
   }
-  
+
   activada(obj){
     var nav = this.app.getRootNav();
     nav.setRoot(VerRutaDesdePasajeroPage,{id_usuario:this.id_usuario,solicitud:obj});

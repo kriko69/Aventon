@@ -37,6 +37,7 @@ export class VerProgramadasPasajeroPage {
   resultados=[];
   vestimenta;
   puntos=[];
+  copia_resultados;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService, public view:ViewController,private platform:Platform,
   public mysql:mysqlService) {
@@ -63,6 +64,7 @@ export class VerProgramadasPasajeroPage {
     );
     setTimeout(()=>{
       console.log(this.copia);
+      this.copia_resultados=this.copia;
       let puntos=[];
       for(let i=0;i<this.copia.length;i++){
        this.sacar_punt(this.copia[i]);
@@ -92,7 +94,7 @@ export class VerProgramadasPasajeroPage {
   sacar_punt(obj){
     let puntos;
     console.log("ID_RUTA",obj.id_ruta);
-    
+
     this.mysql.Get_Puntos(obj.id_ruta).subscribe(
       data => {
         puntos=Object.assign(data);
@@ -108,6 +110,7 @@ export class VerProgramadasPasajeroPage {
         {
           this.distancia(puntos,obj);
         }
+
     },1000);
   }
   distancia(puntos,data){
@@ -144,9 +147,10 @@ export class VerProgramadasPasajeroPage {
     console.log(this.copia);
     this.resultados=[]; //limpio
     for (let i = 0; i < this.copia.length; i++) {
-      console.log(this.copia[i].fecha);
+      let aux=this.copia[i].fecha.split(' ');
+      console.log(aux[0]);
 
-      if(this.copia[i].fecha==this.fecha)
+      if(aux[0]==this.fecha)
         this.resultados.push(this.copia[i]);
     }
     console.log(this.resultados);
@@ -156,13 +160,21 @@ export class VerProgramadasPasajeroPage {
   {
     console.log(this.filtro);
     console.log(this.nombre);
-    console.log(this.copia);
-    let aux=this.nombre.toUpperCase();
+    console.log(this.copia_resultados);
+    let copia_filtrar=this.copia_resultados;
+    console.log(copia_filtrar);
+
+    let aux=this.nombre.toUpperCase(); //el nombre
     this.resultados=[]; //limpio
-    for (let i = 0; i < this.copia.length; i++) {
-      if(this.copia[i].conductor.toUpperCase().search(aux)>-1)
-      this.resultados.push(this.copia[i]);
+    for (let i = 0; i < copia_filtrar.length; i++) {
+      let auxNombre=copia_filtrar[i].nombre+' '+copia_filtrar[i].nombre;
+      console.log(auxNombre);
+      console.log(aux);
+      if(auxNombre.toUpperCase().search(aux)>-1)
+      this.resultados.push(copia_filtrar[i]);
     }
+
+
     if(this.nombre=='') //si el nombre esta en blanco igual limpio
       this.resultados=[];
     console.log(this.resultados);
