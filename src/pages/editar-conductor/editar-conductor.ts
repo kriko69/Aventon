@@ -25,6 +25,7 @@ import { Subscription, Observable } from 'rxjs';
   templateUrl: 'editar-conductor.html',
 })
 export class EditarConductorPage {
+  id_usuario;
   usuario;
   control:ISubscription;
   id_auto;
@@ -40,21 +41,40 @@ export class EditarConductorPage {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
-      this.usuario = navParams.get('usuario');
+      this.id_usuario = navParams.get('id_usuario');
       this.id_auto=navParams.get('id_auto');
-
+      let info;
       this.myForm = this.formBuilder.group({
-        nombre: [this.usuario.nombre, Validators.compose([Validators.maxLength(20),Validators.required])],
-        apellido: [this.usuario.apellido, Validators.compose([Validators.maxLength(25),Validators.required])],
+        nombre: ['', Validators.compose([Validators.maxLength(20),Validators.required])],
+        apellido: ['', Validators.compose([Validators.maxLength(25),Validators.required])],
         fecha_nac: ['', Validators.compose([ Validators.required])],
-        telf: [ this.usuario.telf, Validators.compose([Validators.maxLength(8), Validators.required])],
-        carnet: this.usuario.ci,
-        calif_cond:this.usuario.calif_cond
+        telf: [ 0, Validators.compose([Validators.maxLength(8), Validators.required])],
+        carnet: 0,
+        calif_cond:0
       });
+      this.mysql.GetUsuario(this.id_usuario).subscribe(
+        data => {
+          console.log('data', data);
+          info= Object.assign(data);
+          console.log('exito');
+  
+  
+          }, (error: any)=> {
+            console.log('error', error);
+  
+          }
+      );
+      setTimeout(()=>{
+        if(info!=undefined)
+        {
+          this.usuario=info[0];
+          this.func();
+        }
+      },3000);
+      
     }
-
     ionViewDidLoad(){
-      this.fotoUsuario = this.usuario.ci;
+      this.fotoUsuario = this.id_usuario;
       this.mysql.validarFotoUsuario(this.fotoUsuario).subscribe(
         data=>{
           if(data['message']=="existe")
@@ -71,6 +91,16 @@ export class EditarConductorPage {
         }
         
       );
+    }
+    func(){
+      this.myForm = this.formBuilder.group({
+        nombre: [this.usuario.nombre, Validators.compose([Validators.maxLength(20),Validators.required])],
+        apellido: [this.usuario.apellido, Validators.compose([Validators.maxLength(25),Validators.required])],
+        fecha_nac: [this.usuario.fecha_nac, Validators.compose([ Validators.required])],
+        telf: [ this.usuario.telf, Validators.compose([Validators.maxLength(8), Validators.required])],
+        carnet: this.usuario.ci,
+        calif_cond:this.usuario.calif_cond
+      });
     }
     actualizarPerfil(user)//funcion para actializar el perfil
     {
@@ -90,7 +120,7 @@ export class EditarConductorPage {
   );
   setTimeout(()=>{
       this.mostrarAlerta(); //alerta
-      this.navCtrl.setRoot(ConductorPage,{id_usuario:this.usuario.ci,id_auto:this.id_auto}); //redirigir login
+      this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario.ci,id_auto:this.id_auto}); //redirigir login
     
   },1000);
   }
@@ -151,7 +181,7 @@ export class EditarConductorPage {
     {
       let url = 'http://jauzled.com/img/Perfil/subirfotosperfil.php';
       let postData = new FormData();
-      let nombre = this.usuario.ci;
+      let nombre = this.id_usuario;
       postData.append('file',this.base64Image);
       postData.append('nombre',nombre)
       let data: Observable<any> = this.http.post(url,postData);

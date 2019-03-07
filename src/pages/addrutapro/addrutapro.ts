@@ -7,6 +7,7 @@ import { IonicPage, NavController, NavParams, ViewController, Platform } from 'i
 import { Ruta } from '../../interfaces/rutas.interface';
 import { ISubscription } from 'rxjs/Subscription';
 import { ToastService } from '../../services/toast.service';
+import { MarkadorPage } from '../markador/markador';
 
 /**
  * Generated class for the AddrutaproPage page.
@@ -21,6 +22,7 @@ import { ToastService } from '../../services/toast.service';
   templateUrl: 'addrutapro.html',
 })
 export class AddrutaproPage {
+  isenabled=false;
   email='';
   aux:any;
   control1:ISubscription;
@@ -28,7 +30,7 @@ export class AddrutaproPage {
   vec:any;
   placa;
   paga=true;
-
+  ruta;
   id_usuario;
   id_auto;
   capacidad;
@@ -61,15 +63,24 @@ export class AddrutaproPage {
 
       }
     );setTimeout(() => {
-      if(info['message']=='No se encontro rutas con este ci' || info==undefined)
-        this.vec=[];
+      if(info!=undefined)
+      {
+        if(info['message']!='No se encontro rutas con este ci')
+        {
+          this.vec=info;
+        }
+        else{
+          this.vec=[];
+        }
+      }
       else{
-        this.vec=info;
+        this.vec=[];
       }
 
     }, 1000);
   }
-  submit(ruta){
+  submit(){
+    let ruta=this.ruta;
     let divisor1=this.fechahora.split('T');
     let fecha=divisor1[0];
     let divisor2=divisor1[1].split('Z');
@@ -194,5 +205,13 @@ export class AddrutaproPage {
       segundos='0'+segundos;
     let date=dd+'/'+mm+'/'+yyyy+' '+hora+':'+minutos;
     return date;
+  }
+  valor(vecs){
+    console.log("Vecs",vecs);
+    this.isenabled=!this.isenabled;
+    this.ruta=vecs;
+  }
+  NuevaRuta(){
+    this.navCtrl.setRoot(MarkadorPage,{id_usuario:this.id_usuario,id_auto:this.id_auto,pageanterior:'Addrutapro'});
   }
 }
