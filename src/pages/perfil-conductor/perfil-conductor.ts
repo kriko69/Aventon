@@ -63,8 +63,10 @@ export class PerfilConductorPage {
     );
 
     setTimeout(()=>{
-      this.usuario=info[0];
-      console.log(this.usuario);
+      if(info!=undefined)
+      {
+        this.usuario=info[0];
+      }
       
     },1000);
   }

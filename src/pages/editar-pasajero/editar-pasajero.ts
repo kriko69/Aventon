@@ -27,6 +27,7 @@ import { Subscription, Observable } from 'rxjs';
 })
 export class EditarPasajeroPage {
   usuario;
+  id_usuario;
   control:ISubscription;
   fotoUsuario: string;
   val: boolean=false;
@@ -42,20 +43,40 @@ export class EditarPasajeroPage {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
-      this.usuario = navParams.get('usuario');
+      this.id_usuario = navParams.get('id_usuario');
       
       this.myForm = this.formBuilder.group({
-        nombre: [this.usuario.nombre, Validators.compose([Validators.maxLength(20),Validators.required])],
-        apellido: [this.usuario.apellido, Validators.compose([Validators.maxLength(25),Validators.required])],
+        nombre: ['', Validators.compose([Validators.maxLength(20),Validators.required])],
+        apellido: ['', Validators.compose([Validators.maxLength(25),Validators.required])],
         fecha_nac: ['', Validators.compose([ Validators.required])],
-        telf: [ this.usuario.telf, Validators.compose([Validators.maxLength(8), Validators.required])],
-        carnet: this.usuario.ci,
-        calif_pasa:this.usuario.calif_pasa
+        telf: [0, Validators.compose([Validators.maxLength(8), Validators.required])],
+        carnet: 0,
+        calif_pasa:0
       });
+      let info;
+      this.mysql.GetUsuario(this.id_usuario).subscribe(
+        data => {
+          console.log('data', data);
+          info= Object.assign(data);
+          console.log('exito');
+  
+  
+          }, (error: any)=> {
+            console.log('error', error);
+  
+          }
+      );
+      setTimeout(()=>{
+        if(info!=undefined)
+        {
+          this.usuario=info[0];
+          this.func();
+        }
+      },3000);
     }
 
     ionViewDidLoad(){
-      this.fotoUsuario = this.usuario.ci;
+      this.fotoUsuario = this.id_usuario;
       this.mysql.validarFotoUsuario(this.fotoUsuario).subscribe(
         data=>{
           if(data['message']=="existe")
@@ -74,7 +95,16 @@ export class EditarPasajeroPage {
       );
 
     }
-
+    func(){
+      this.myForm = this.formBuilder.group({
+        nombre: [this.usuario.nombre, Validators.compose([Validators.maxLength(20),Validators.required])],
+        apellido: [this.usuario.apellido, Validators.compose([Validators.maxLength(25),Validators.required])],
+        fecha_nac: [this.usuario.fecha_nac, Validators.compose([ Validators.required])],
+        telf: [ this.usuario.telf, Validators.compose([Validators.maxLength(8), Validators.required])],
+        carnet: this.usuario.ci,
+        calif_pasa:this.usuario.calif_pasa
+      });
+    }
     actualizarPerfil()//funcion para actializar el perfil
       {
         this.usuario.nombre = this.myForm.value.nombre;

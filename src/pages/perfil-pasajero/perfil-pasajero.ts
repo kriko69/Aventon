@@ -54,8 +54,11 @@ export class PerfilPasajeroPage {
         }
     );
 
-    setTimeout(()=>{
-      this.usuario=info[0];
+    setTimeout(()=>{ 
+      if(info!=undefined)
+      {
+        this.usuario=info[0];
+      }
       console.log(this.usuario);
       
     },1000);
