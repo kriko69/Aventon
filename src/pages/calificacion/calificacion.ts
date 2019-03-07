@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { firebaseService } from './../../services/firebase.service';
 import { BuzonPage } from '../buzon/buzon';
 import { solicitud } from '../../interfaces/solicitud';
+import { mysqlService } from '../../services/mysql.service';
 
 /**
  * Generated class for the CalificacionPage page.
@@ -19,51 +20,68 @@ import { solicitud } from '../../interfaces/solicitud';
 export class CalificacionPage {
   rate : any = 0;
   obj:any;
-  obj2=[];
-  email;
-  cant;
-  constructor(public navCtrl: NavController,public navParams: NavParams,public servicio:firebaseService,private platform:Platform) {
+  id_usuario;
+  id_auto;
+  problemas='';
+  califi={
+    id_de: 0,
+    id_para:0,
+    rol:'Pasajero',
+    calificacion:0,
+    problemas:'',
+    id_viaje:0
+  };
+  constructor(public navCtrl: NavController,public navParams: NavParams,public servicio:firebaseService,private platform:Platform,
+    public mysql:mysqlService) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
-    this.email = this.navParams.get('email');
+    this.id_usuario = this.navParams.get('id_usuario');
+    this.id_auto = this.navParams.get('id_auto');
     this.obj=this.navParams.get('obj');
-
-    let aux=this.obj.emails.split(';');
-    
-    this.cant=aux.length;
-    
-    for(let i=0;i<this.cant;i++){
-      console.log(aux[i]);
-      let varia={
-        email:'',
-        fecha:'',
-        calificacion:0
-    }
-    if(aux[i]!='' && aux[i]!=' ' && aux[i]!=null){
-      varia.email=aux[i];
-      varia.fecha=this.obj.fecha;
-      varia.calificacion=0;
-      this.obj2.push(varia);
-    }
-    }
-    console.log(this.obj2);
-    
   }
 
-  onModelChange(event,item){
-  	item.calificacion = event;
+  onModelChange(event){
+  	this.rate = event;
   	console.log(event);
   }
   calif(){
-   console.log(this.obj2);
-    for(let i=0;i<this.obj2.length;i++){
-      let mio=this.email.split('.');
-      let tuyo=this.obj2[i].email.split('.');
-      this.servicio.calif2(mio[0],tuyo[0],this.obj2[i].calificacion,this.obj2[i].fecha);
-    }
-    this.obj.estado='Calificado';
-    this.servicio.upca1(this.email,this.obj);
-    this.navCtrl.setRoot(BuzonPage,{email:this.email});
+    let estado='Calificado C';
+    let info;
+    this.mysql.actualizarEstadoSolicitud(estado,this.obj.id_solicitud).subscribe(
+      data => {
+        console.log('data',data);
+        console.log('exito');
+        info=Object.assign(data);
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+    setTimeout(()=>{
+      console.log(info);
+      this.califi.id_de=this.obj.id_para;
+      this.califi.id_para=this.obj.id_de;
+      this.califi.rol='Pasajero';
+      this.califi.calificacion=this.rate;
+      this.califi.problemas=this.problemas;
+      this.califi.id_viaje=this.obj.id_viaje;
+      this.mysql.insertarcalificacion(this.califi).subscribe(
+        data => {
+          console.log('data',data);
+          console.log('exito');
+          info=Object.assign(data);
+  
+          }, (error: any)=> {
+            console.log('error', error);
+  
+          }
+      );
+      setTimeout(()=>{
+        console.log(info);
+        this.navCtrl.setRoot(BuzonPage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
+      },1000);
+    },1000);
   }
 }

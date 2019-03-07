@@ -628,7 +628,7 @@ export class mysqlService{
           opsi   : any = JSON.stringify(data);
           console.log('opsi',opsi);
 
-           return this.http.post(this.ServidorUrl+'consulta.php', opsi, header);
+           return this.http.post(this.ServidorUrl+'actualizar.php', opsi, header);
           }
       insertarcalificacion(calif)
       {

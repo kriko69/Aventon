@@ -36,7 +36,7 @@ export class HomePage {
   	console.log(event);
   }
   calif(){
-    let estado='Calificado';
+    let estado='Calificado P';
     let info;
     this.mysql.actualizarEstadoSolicitud(estado,this.obj.id_solicitud).subscribe(
       data => {
@@ -70,8 +70,8 @@ export class HomePage {
       );
       setTimeout(()=>{
         console.log(info);
+        this.navCtrl.setRoot(BuzonPasajeroPage,{id_usuario:this.id_usuario});
       },1000);
     },1000);
-    this.navCtrl.setRoot(BuzonPasajeroPage,{id_usuario:this.id_usuario});
   }
 }

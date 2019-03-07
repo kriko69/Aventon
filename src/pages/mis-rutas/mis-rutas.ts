@@ -57,11 +57,18 @@ export class MisRutasPage {
 
       }
     );setTimeout(() => {
-      if(info==undefined || info['message']=='No se encontro rutas con este ci')
-        this.vec=[];
+      if(info!=undefined)
+      {
+        if(info['message']!='No se encontro rutas con este ci'){
+          this.vec=info;
+          this.boleano=false;
+        }
+        else{
+          this.vec=[];
+        }
+      }
       else{
-        this.vec=info;
-        this.boleano=false;
+        this.vec=[];
       }
       
     }, 1000);

@@ -45,10 +45,18 @@ export class BuzonPage {
       data => {
         console.log('data',data);
         console.log('exito');
-        if(data['message']!='No se encontró' && data!=undefined)
-        {
-           this.solicitudes=Object.assign(data);
-           this.boleano=false;
+        if(data!=undefined){
+          if(data['message']!='No se encontró')
+          {
+            this.solicitudes=Object.assign(data);
+            this.boleano=false;
+          }
+          else{
+            this.solicitudes=[];
+          }
+        }
+        else{
+          this.solicitudes=[];
         }
       }, (error: any)=> {
         console.log('error', error);
