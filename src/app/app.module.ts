@@ -71,6 +71,7 @@ import { SlidePasajeroPage } from './../pages/slide-pasajero/slide-pasajero';
 import { SlideConductorPage } from './../pages/slide-conductor/slide-conductor';
 import { HttpClientModule } from '@angular/common/http';
 import { Camera} from '@ionic-native/camera';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -128,7 +129,8 @@ import { Camera} from '@ionic-native/camera';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgxQRCodeModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -6,7 +6,7 @@ import { firebaseService } from '../../services/firebase.service';
 import { Usuario } from '../../interfaces/usuario.interface';
 import { PerfilPasajeroPage } from '../perfil-pasajero/perfil-pasajero';
 import { mysqlService } from '../../services/mysql.service';
-
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the OpcionesPasajeroPage page.
  *
@@ -26,7 +26,7 @@ export class OpcionesPasajeroPage {
   //usuario;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public servicio: firebaseService, public app:App,private platform:Platform
-    ,public mysql:mysqlService) {
+    ,public mysql:mysqlService, public storage:Storage) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
@@ -48,6 +48,7 @@ export class OpcionesPasajeroPage {
   CerrarSesion()
   {
       var nav = this.app.getRootNav();
+      this.storage.set('user',null);
     nav.setRoot(LoginPage);
     
   }

@@ -7,6 +7,7 @@ import { TipoUsuarioPage } from '../tipo-usuario/tipo-usuario';
 import { LoginPage } from '../login/login';
 import { MisRutasPage } from '../mis-rutas/mis-rutas';
 import { mysqlService } from '../../services/mysql.service';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the OpcionesPage page.
@@ -30,7 +31,7 @@ export class OpcionesConductorPage {
   id_auto;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public servicio: firebaseService,public app:App,private platform:Platform,
-    public mysql:mysqlService) {
+    public mysql:mysqlService, public storage:Storage) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
@@ -57,6 +58,7 @@ export class OpcionesConductorPage {
   CerrarSesion()
   {
       var nav = this.app.getRootNav();
+      this.storage.set('user',null);
     nav.setRoot(LoginPage);
   }
 

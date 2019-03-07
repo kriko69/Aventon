@@ -20,6 +20,7 @@ import { Usuario } from '../../interfaces/usuario.interface';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { PasajeroPage } from '../pasajero/pasajero';
 import { mysqlService } from '../../services/mysql.service';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -35,7 +36,15 @@ export class TipoUsuarioPage {
  
   constructor(public navCtrl: NavController, public navParams: NavParams,
    private toast:ToastController, private platform:Platform, public app:App
-  ,public mysql:mysqlService) {
+  ,public mysql:mysqlService,public storage:Storage) {
+
+    
+    this.storage.get('user').then((val) => {
+      console.log('YYYYYYYYYYYYYYYYYYY', val);
+    });
+    this.storage.get('pass').then((valor) => {
+      console.log('yyyyyyy', valor);
+    });
     this.platform.registerBackButtonAction(() => {
       console.log('');
     },10000);
@@ -68,6 +77,14 @@ export class TipoUsuarioPage {
   }
 
   ionViewDidLoad() {
+    this.storage.get('user').then((val) => {
+      console.log('YYYYYYYYYYYYYYYYYYY', val);
+    });
+    this.storage.get('pass').then((val) => {
+      console.log('yyyyyyy', val);
+    });
+
+
   }
   tipo='';
   irConductor()
@@ -125,5 +142,9 @@ export class TipoUsuarioPage {
     },1000);
   }
  
-
+  cerrarSesion(){
+    this.storage.set('user',null);
+    this.navCtrl.setRoot(LoginPage);
+    
+  }
 }
