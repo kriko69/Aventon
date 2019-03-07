@@ -113,7 +113,7 @@ if(integrantesaux==undefined){
     this.integrantes=integrantesaux;
   }
     this.obtnpuntos1();
-  },1000);}
+  },3000);}
   obtnpuntos1()//obtener los puntos de la ruta original
   {
     this.mysql.obtener_Puntos(this.ruta_activada.id_viaje).subscribe(
