@@ -11,6 +11,7 @@ import{Ruta} from '../../interfaces/rutas.interface';
 import { AddRutaPage } from '../add-ruta/add-ruta';
 import { MisRutasPage } from '../mis-rutas/mis-rutas';
 import { OpcionesConductorPage } from '../opciones-conductor/opciones-conductor';
+import { AddrutaproPage } from '../addrutapro/addrutapro';
 
 declare var google: any;
 
@@ -51,6 +52,7 @@ longUCB = -68.112290;
   id_auto;
   nombre_ruta;
   id_ruta;
+  pageanterior
   constructor(public navCtrl: NavController, public alerta:AlertController,public geolocation: Geolocation, public platform:Platform,
     public navParams:NavParams,public servicio:firebaseService,public modalCtrl:ModalController, public mysql:mysqlService) {
       this.platform.registerBackButtonAction(() => {
@@ -58,7 +60,8 @@ longUCB = -68.112290;
       },10000);
     this.id_usuario = this.navParams.get('id_usuario');
     this.id_auto = this.navParams.get('id_auto');
-    console.log(this.id_usuario+'/'+this.id_auto);
+    this.pageanterior = this.navParams.get('pageanterior');
+    console.log(this.pageanterior);
 
   }
   ionViewDidLoad() { this.geolocation.getCurrentPosition().then((result) => {
@@ -461,6 +464,10 @@ longUCB = -68.112290;
     return date;
   }
   dismiss(){
-    this.navCtrl.pop();
+    if(this.pageanterior=='MisRutas'){
+    this.navCtrl.setRoot(MisRutasPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});}
+    else{
+      this.navCtrl.setRoot(AddrutaproPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
+    }
   }
 }
