@@ -75,11 +75,11 @@ export class PerfilConductorPage {
       data=>{
         if(data['message']=="existe")
         {
-          this.fotoAuto = "http://181.114.114.160/aventon/img/Perfil/"+this.fotoAuto + ".jpg";
+          this.fotoAuto = "http://jauzled.com/img/Perfil/"+this.fotoAuto + ".jpg";
         }
         if(data['message']=="no existe")
         {
-          this.fotoAuto = "http://181.114.114.160/aventon/img/defaultUsuario.jpg";
+          this.fotoAuto = "http://jauzled.com/img/defaultUsuario.jpg";
         }
         this.base64Image=this.fotoAuto;
       },error=>{

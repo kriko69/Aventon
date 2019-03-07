@@ -68,12 +68,12 @@ export class EditarVehiculoPage {
           if(data['message']=="existe")
           {
             console.log("FOTO VALIDADA");
-            this.fotoAuto = "http://181.114.114.160/aventon/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
+            this.fotoAuto = "http://jauzled.com/img/Autos/"+this.fotoAuto + ".jpg";//data[placa] tiene que ser devuelta de la consulta
           }
           if(data['message']=="no existe")
           {
             console.log("FOTO  NO VALIDADA");
-            this.fotoAuto = "http://181.114.114.160/aventon/img/defaultAuto.jpg";
+            this.fotoAuto = "http://jauzled.com/img/defaultAuto.jpg";
           }
           this.base64Image=this.fotoAuto;
         },error=>{ 
@@ -171,7 +171,7 @@ export class EditarVehiculoPage {
   uploadingFoto(){
     if(this.val== true)
     {
-      let url = 'http://181.114.114.160/aventon/img/Autos/subirfotosautos.php';
+      let url = 'http://jauzled.com/img/Autos/subirfotosautos.php';
       let postData = new FormData();
       let nombre = this.auto.placa;
       postData.append('file',this.base64Image);
