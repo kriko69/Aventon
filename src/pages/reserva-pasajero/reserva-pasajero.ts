@@ -31,31 +31,29 @@ export class ReservaPasajeroPage {
       console.log('');
     },10000);
     this.id_usuario=this.navParams.get('id_usuario');
-
-    let info;
-    this.mysql.listarMisSolicitudesAceptadas(this.id_usuario).subscribe(
-      data => {
-        console.log('data',data);
-        console.log('exito');
-        info=Object.assign(data);
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-        }
-    );
-    setTimeout(()=>{
-      if(info!=undefined){
-      if(info['message']!=this.value){
-        this.solicitudes=info;
-        this.boleano=false;
-      }
-      }
-    },1000);
-
-
   }
+func(){
+  let info;
+  this.mysql.listarMisSolicitudesAceptadas(this.id_usuario).subscribe(
+    data => {
+      console.log('data',data);
+      console.log('exito');
+      info=Object.assign(data);
 
+      }, (error: any)=> {
+        console.log('error', error);
+
+      }
+  );
+  setTimeout(()=>{
+    if(info!=undefined){
+    if(info['message']!=this.value){
+      this.solicitudes=info;
+      this.boleano=false;
+    }
+    }
+  },1000);
+}
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReservaPasajeroPage');
   }
