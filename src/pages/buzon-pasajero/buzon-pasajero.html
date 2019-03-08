@@ -29,14 +29,12 @@
             <br> Viaje del dia: {{item.fecha}}
             <br> Estado: {{item.estado}}
             <br> Mensaje: {{item.mensaje}}
-            <br> Enviado el: {{item.fechasort}}
         </ion-item>
         <ion-item class="border" *ngIf="item.estado=='Calificado P'" style="background-color:#5FB404;color:white;">
             De: {{item.nombre+" "+item.apellido}}
             <br> Viaje del dia: {{item.fecha}}
             <br> Estado: {{item.estado}}
             <br> Mensaje: {{item.mensaje}}
-            <br> Enviado el: {{item.fechasort}}
         </ion-item>
 
         <ion-item class="border" *ngIf="item.estado=='No Aceptado'" style="background-color:#ffff00;color:black;">
