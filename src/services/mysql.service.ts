@@ -634,12 +634,12 @@ export class mysqlService{
       {
         let data={
           "key":"insertarcalificacion",
-          "id_de": calif.id_de,
-          "id_para":calif.id_para,
+          "id_de":Number(calif.id_de),
+          "id_para":Number(calif.id_para),
           "rol":calif.rol,
-        "calificacion":calif.calificacion,
+        "calificacion":Number(calif.calificacion),
         "problemas":calif.problemas,
-        "id_viaje":calif.id_viaje
+        "id_viaje":Number(calif.id_viaje)
         };
 
         let header : any = new HttpHeaders({'Content-Type': 'application/json'}),

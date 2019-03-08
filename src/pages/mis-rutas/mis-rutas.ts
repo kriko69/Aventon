@@ -65,10 +65,12 @@ export class MisRutasPage {
         }
         else{
           this.vec=[];
+          this.boleano=true;
         }
       }
       else{
         this.vec=[];
+        this.boleano=true;
       }
       
     }, 1000);

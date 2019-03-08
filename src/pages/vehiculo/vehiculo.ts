@@ -32,39 +32,41 @@ export class VehiculoPage {
     },10000);
     this.id_usuario=navParams.get('id_usuario');
     console.log('id:',this.id_usuario);
-
-    let info;
-    this.mysql.GetAutos(this.id_usuario).subscribe(
-      data => {
-        console.log('data',data);
-        console.log('exito');
-        info=Object.assign(data);
-
-        }, (error: any)=> {
-          console.log('error', error);
-
-        }
-    );
-    setTimeout(()=>{
-      if(info!=undefined){
-      if(info['message']=='No se encontró'){
-        this.value=false;
-      }
-      else{
-        this.value=true;
-        this.vehiculos$=info;
-        console.log(this.vehiculos$);
-      }}
-      else{
-        this.value=false;
-      }
-    },1000);
+    this.listarAutos();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad VehiculoPage');
   }
+listarAutos(){
+  this.vehiculos$=[];
+  let info;
+  this.mysql.GetAutos(this.id_usuario).subscribe(
+    data => {
+      console.log('data',data);
+      console.log('exito');
+      info=Object.assign(data);
 
+      }, (error: any)=> {
+        console.log('error', error);
+
+      }
+  );
+  setTimeout(()=>{
+    if(info!=undefined){
+    if(info['message']=='No se encontró'){
+      this.value=false;
+    }
+    else{
+      this.value=true;
+      this.vehiculos$=info;
+      console.log(this.vehiculos$);
+    }}
+    else{
+      this.value=false;
+    }
+  },1000);
+}
   irAgregar()
   {
     this.navCtrl.push(AgregarVehiculosPage,{id_usuario:this.id_usuario});

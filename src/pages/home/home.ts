@@ -38,7 +38,7 @@ export class HomePage {
   calif(){
     let estado='Calificado P';
     let info;
-    this.mysql.actualizarEstadoSolicitud(estado,this.obj.id_solicitud).subscribe(
+    this.mysql.actualizarEstadoSolicitud(this.obj.id_solicitud,estado).subscribe(
       data => {
         console.log('data',data);
         console.log('exito');

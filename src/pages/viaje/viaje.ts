@@ -63,6 +63,8 @@ export class ViajePage {
     console.log('ionViewDidLoad ViajePage');
   }
   listarProgramadas(){
+    this.vec=[];
+          this.programadas=[];
     let info;
     this.mysql.listarProgramadas(this.id_usuario).subscribe(
       data=>{
@@ -75,15 +77,19 @@ export class ViajePage {
       }
     );
     setTimeout(()=>{
-      let mensaje='';
-      mensaje=info['message'];
-      if(typeof mensaje != 'undefined')
+      if(info != undefined)
       {
-        if(mensaje=="No se encontro rutas_viaje")
+        if(info['message']!="No se encontro rutas_viaje")
+        {
+          this.vec=info;
+          this.programadas=info;
+          this.value=false;
+        }
+        else{
           this.value=true;
+        }
       }else{
-        this.vec=info;
-        this.programadas=info;
+        this.value=true;
       }
     },1000);
 

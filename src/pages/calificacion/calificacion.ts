@@ -48,7 +48,7 @@ export class CalificacionPage {
   calif(){
     let estado='Calificado C';
     let info;
-    this.mysql.actualizarEstadoSolicitud(estado,this.obj.id_solicitud).subscribe(
+    this.mysql.actualizarEstadoSolicitud(this.obj.id_solicitud,estado).subscribe(
       data => {
         console.log('data',data);
         console.log('exito');
@@ -61,7 +61,7 @@ export class CalificacionPage {
     );
     setTimeout(()=>{
       console.log(info);
-      this.califi.id_de=this.obj.id_para;
+      this.califi.id_de=this.id_usuario;
       this.califi.id_para=this.obj.id_de;
       this.califi.rol='Pasajero';
       this.califi.calificacion=this.rate;
