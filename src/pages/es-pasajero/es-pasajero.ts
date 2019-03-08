@@ -38,6 +38,8 @@ export class EsPasajeroPage {
   inferior='';
   accesorio='';
 
+  fotoUsuario:string;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private servicio:firebaseService,private platform:Platform,public mysql:mysqlService) {
@@ -63,10 +65,27 @@ export class EsPasajeroPage {
       this.accesorio=this.vestimenta.accesorio;
       
     }, 1000);
+    this.fotoUsuario = this.id_usuario;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EsPasajeroPage');
+    this.fotoUsuario = this.id_usuario;
+    this.mysql.validarFotoUsuario(this.fotoUsuario).subscribe(
+      data=>{
+        if(data['message']=="existe")
+        {
+          this.fotoUsuario = "http://jauzled.com/img/Perfil/"+this.fotoUsuario + ".jpg";
+        }
+        if(data['message']=="no existe")
+        {
+          this.fotoUsuario = "http://jauzled.com/img/defaultUsuario.jpg";
+        }
+      },error=>{
+          this.fotoUsuario = "http://jauzled.com/img/defaultUsuario.jpg";      
+      }
+      
+    );
   }
 
   aceptar()
