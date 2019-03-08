@@ -40,10 +40,10 @@ export class TipoUsuarioPage {
 
     
     this.storage.get('user').then((val) => {
-      console.log('YYYYYYYYYYYYYYYYYYY', val);
+      console.log('user', val);
     });
     this.storage.get('pass').then((valor) => {
-      console.log('yyyyyyy', valor);
+      console.log('pass', valor);
     });
     this.platform.registerBackButtonAction(() => {
       console.log('');
@@ -78,11 +78,8 @@ export class TipoUsuarioPage {
 
   ionViewDidLoad() {
     this.storage.get('user').then((val) => {
-      console.log('YYYYYYYYYYYYYYYYYYY', val);
-    });
-    this.storage.get('pass').then((val) => {
-      console.log('yyyyyyy', val);
-    });
+      console.log('user', val);
+    });  
 
 
   }

@@ -43,7 +43,6 @@ export class LoginPage {
       if(val!=null){
         this.navCtrl.setRoot(TipoUsuarioPage,{id_usuario:val});
       }
-      console.log('YYYYYYYYYYYYYYYYYYY', val);
     });
     //this.tabBarElement.style.display='none';
     setTimeout(()=>{
