@@ -22,24 +22,25 @@
 </ion-header>
 -->
 
-<ion-content padding class="imagen">
+<ion-content padding class="imagen1">
     <ion-list style="margin-top:5em;">
         <img src="../assets/logo.png">
 
-        <ion-item class="inputcolor">
+        <ion-item class="campo_personalizado">
             <ion-label stacked color="blue">Carnet</ion-label>
             <ion-input type="number" [(ngModel)]="user.carnet"></ion-input>
         </ion-item>
-        <ion-item class="inputcolor" style="margin-top:1em">
+        <ion-item class="campo_personalizado" style="margin-top:1em">
             <ion-label stacked color="blue">Password</ion-label>
             <ion-input class="redondeado" type="password" [(ngModel)]="user.password"></ion-input>
         </ion-item>
     </ion-list>
+
     <div>
-        <button color="yellow" ion-button block round (click)="ingresar(user)">Ingresar</button>
+        <button class="boton_personalizado" color="yellow" ion-button block round (click)="ingresar(user)">Ingresar</button>
     </div>
     <div style="margin-top:1em">
-        <button color="yellow" ion-button block round (click)="irRegistro()">Registrarme</button>
+        <button class="boton_personalizado" color="yellow" ion-button block round (click)="irRegistro()">Registrarme</button>
     </div>
 </ion-content>
 <!--<ion-content>

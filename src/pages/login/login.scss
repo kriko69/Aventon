@@ -2,6 +2,28 @@
     background-color: #44ab6c;
 }
 
+.campo_personalizado {
+    text-decoration: none;
+    padding: 1px;
+    font-weight: 100px;
+    font-size: 20px;
+    color: #000;
+    background-color: #f4f3f1;
+    border-radius: 20px;
+    border: 1px solid #bcbbb9;
+}
+
+.boton_personalizado {
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #000;
+    background-color: #faca32;
+    border-radius: 16px;
+    border: 3px solid #27649b;
+}
+
 .inputcolor {
     border-radius: 90px 90px 90px 90px;
     -moz-border-radius: 100px 100px 100px 100px;
