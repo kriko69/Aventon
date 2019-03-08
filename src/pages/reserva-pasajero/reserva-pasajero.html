@@ -6,8 +6,10 @@
 -->
 <ion-header>
 
-    <ion-navbar color="yellow">
-        <ion-title>Reserva de Viaje</ion-title>
+    <ion-navbar class="navbar_personalizado" color="yellow">
+        <ion-title>
+            RESERVA DE VIAJE
+        </ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -19,7 +21,8 @@
     <!--fab-->
     <ion-fab bottom right>
         <button ion-fab (click)="irProgramadas()" color="yellow"><ion-icon name="add"></ion-icon></button>
-    </ion-fab><ion-fab bottom left>
+    </ion-fab>
+    <ion-fab bottom left>
         <button ion-fab color="yellow" (click)="func()"><ion-icon name="refresh"></ion-icon></button>
     </ion-fab>
     <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="boleano">

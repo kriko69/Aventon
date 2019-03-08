@@ -5,40 +5,41 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-    <ion-navbar color="yellow" hideBackButton>
-        <ion-title>Tipo de Usuario</ion-title>
+    <!--
+    <ion-navbar class="navbar_personalizado" color="yellow" hideBackButton>
+        <ion-title>TIPO DE USUARIO</ion-title>
     </ion-navbar>
-
+-->
 </ion-header>
 
 
 <ion-content padding class="imagen" style="margin-top:0px;">
     <div align:center>
+        <br><br><br>
         <img src="../assets/logo.png" alt="Aventon">
     </div>
 
     <div padding style="margin-top:50px;">
         <div padding>
-            <button ion-button color="yellow" icon-start block round (click)="irPasajero()">
+            <button class="boton_personalizado" ion-button color="yellow" icon-start block round (click)="irPasajero()">
         <ion-icon name="body"></ion-icon>
-        Pasajero
+        PASAJERO
       </button>
         </div>
 
         <div padding>
-            <button ion-button color="yellow" icon-start block round (click)="irConductor()">
+            <button class="boton_personalizado" ion-button color="yellow" icon-start block round (click)="irConductor()">
         <ion-icon name="car"></ion-icon>
-        Conductor
+        CONDUCTOR
       </button>
         </div>
     </div>
     <ion-fab right bottom>
-        <button ion-fab  (click)="slidePrincipal3()" ><ion-icon ></ion-icon>Ayuda</button>
-      
+        <button ion-fab (click)="slidePrincipal3()"><ion-icon ></ion-icon>Ayuda</button>
+
     </ion-fab>
 
     <div padding>
-        <button ion-button color="danger" icon-start block round (click)="cerrarSesion()">Cerrar Sesion</button>  
+        <button ion-button color="yellow" icon-start block round (click)="cerrarSesion()">CERRAR SESION</button>
     </div>
 </ion-content>
