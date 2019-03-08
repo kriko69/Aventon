@@ -2,6 +2,18 @@
     background-color: #44ab6c;
 }
 
+.navbar_personalizado {
+    text-decoration: none;
+    padding: 10px;
+    margin-top: 1em;
+    font-weight: 200px;
+    font-size: 20px;
+    color: #000;
+    background-color: #488aff;
+    border-radius: 10px 10px 10px 10px;
+    border: 1px solid #d1d1d0;
+}
+
 .campo_personalizado {
     text-decoration: none;
     padding: 1px;
@@ -22,6 +34,17 @@
     background-color: #faca32;
     border-radius: 16px;
     border: 3px solid #27649b;
+}
+
+.foto_personalizado {
+    text-decoration: none;
+    padding: 0px;
+    font-weight: 1200;
+    font-size: 2px;
+    color: #000;
+    //background-color: #57491b;
+    border-radius: 100px;
+    border: 3px solid #000;
 }
 
 .inputcolor {

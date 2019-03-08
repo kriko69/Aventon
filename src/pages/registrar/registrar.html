@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-    <ion-navbar color="yellow">
+    <ion-navbar class="navbar_personalizado">
         <ion-title>Registro</ion-title>
     </ion-navbar>
 
@@ -14,43 +14,43 @@
 
 <ion-content padding class="imagen">
     <form [formGroup]="myForm">
-            <ion-card>
-                <img [src]="base64Image" *ngIf="base64Image" />
-            </ion-card>
-            <div padding>
-                <button color=yellow ion-button block (click)="openCamera()" round>Tomar Fotografia</button>
-                <button color=yellow ion-button block (click)="openGallery()" round>Seleccionar de la galeria</button>
-            </div>
+        <ion-card class="foto_personalizado">
+            <img [src]="base64Image" *ngIf="base64Image" />
+        </ion-card>
+        <div padding>
+            <button color=yellow ion-button block (click)="openCamera()" round>Tomar Fotografia</button>
+            <button color=yellow ion-button block (click)="openGallery()" round>Seleccionar de la galeria</button>
+        </div>
         <ion-list>
-            <ion-item class="inputcolor">
+            <ion-item class="campo_personalizado">
                 <ion-label stacked color="dark">Nombre</ion-label>
                 <ion-input type="text" formControlName="nombre" name="nombre"></ion-input>
             </ion-item>
             <ion-item *ngIf="myForm.get('nombre').errors && myForm.get('nombre').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('nombre').hasError('required')">*Campo requerido</p>
             </ion-item>
-            <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-item class="campo_personalizado" style="margin-top:0.5em">
                 <ion-label stacked color="dark">Apellido</ion-label>
                 <ion-input type="text" formControlName="apellido"></ion-input>
             </ion-item>
             <ion-item *ngIf="myForm.get('apellido').errors && myForm.get('apellido').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('apellido').hasError('required')">*Campo requerido</p>
             </ion-item>
-            <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-item class="campo_personalizado" style="margin-top:0.5em">
                 <ion-label stacked color="dark">Carnet</ion-label>
                 <ion-input type="number" formControlName="carnet"></ion-input>
             </ion-item>
             <ion-item *ngIf="myForm.get('carnet').errors && myForm.get('carnet').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('carnet').hasError('required')">*Campo requerido</p>
             </ion-item>
-            <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-item class="campo_personalizado" style="margin-top:0.5em">
                 <ion-label round stacked color="dark">Fecha de nacimiento</ion-label>
                 <ion-datetime display-format="DD/MM/YYYY" picker-format="DDDD MMMM YYYY" formControlName="fecha_nac"></ion-datetime>
             </ion-item>
             <ion-item *ngIf="myForm.get('fecha_nac').errors && myForm.get('fecha_nac').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('fecha_nac').hasError('required')">*Campo requerido</p>
             </ion-item>
-            <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-item class="campo_personalizado" style="margin-top:0.5em">
                 <ion-label stacked color="dark">Telefono</ion-label>
                 <ion-input type="number" formControlName="telf"></ion-input>
             </ion-item>
@@ -58,7 +58,7 @@
                 <p color="danger" ion-text *ngIf="myForm.get('telf').hasError('required')">*Campo requerido</p>
             </ion-item>
 
-            <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-item class="campo_personalizado" style="margin-top:0.5em">
                 <ion-label stacked color="dark">Password</ion-label>
                 <ion-input type="password" formControlName="pass1"></ion-input>
             </ion-item>
@@ -66,7 +66,7 @@
                 <p color="danger" ion-text *ngIf="myForm.get('pass1').hasError('required')">*Campo requerido</p>
                 <p color="danger" ion-text *ngIf="myForm.get('pass1').hasError('pattern')">*La contraseña es debil</p>
             </ion-item>
-            <ion-item class="inputcolor" style="margin-top:0.5em">
+            <ion-item class="campo_personalizado" style="margin-top:0.5em">
                 <ion-label stacked color="dark">Confirmar Password</ion-label>
                 <ion-input type="password" formControlName="confirm_password"></ion-input>
             </ion-item>
@@ -81,12 +81,12 @@
                 <ion-label color="blue">Acepto los terminos.</ion-label>
                 <ion-checkbox color="dark"></ion-checkbox>
             </ion-item>
-            <u style="color:white"><p style="color:white"> Ver Terminos y condiciones</p></u>
+            <u style="color:black"><p style="color:black"> Ver Terminos y condiciones</p></u>
         </ion-list>
 
 
         <div padding>
-            <button color=yellow ion-button block (click)="registrar()" (click)="uploadingFoto()" [disabled]="myForm.invalid" round>Registrar</button>
+            <button class="boton_personalizado" color=yellow ion-button block (click)="registrar()" (click)="uploadingFoto()" [disabled]="myForm.invalid" round>Registrar</button>
 
         </div>
     </form>
