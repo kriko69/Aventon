@@ -113,7 +113,7 @@ if(integrantesaux==undefined){
     this.integrantes=integrantesaux;
   }
     this.obtnpuntos1();
-  },1000);}
+  },3000);}
   obtnpuntos1()//obtener los puntos de la ruta original
   {
     this.mysql.obtener_Puntos(this.ruta_activada.id_viaje).subscribe(
@@ -144,12 +144,19 @@ if(integrantesaux==undefined){
   );
   setTimeout(()=>{
     console.log("puntos_recogida",this.puntos_recogida);
-    if(this.puntos_recogida['message']!="ERROR" && this.puntos_recogida!=undefined){
-    this.distancia(this.puntos_ruta,this.puntos_recogida);
-  }
-  else{
-    this.recargar(this.puntos_ruta);
-  }
+
+    if(this.puntos_recogida!=undefined){
+      if(this.puntos_recogida['message']!="ERROR"){
+        this.distancia(this.puntos_ruta,this.puntos_recogida);
+      }
+      else{
+        this.recargar(this.puntos_ruta);          
+      }
+    }
+    else{
+      this.recargar(this.puntos_ruta);
+    }
+
   },1000);}
   sesa(){
     let ubicacion;
@@ -188,7 +195,8 @@ if(integrantesaux==undefined){
         }
         );
       //nuevo
-      if(this.integrantes!=[] && this.integrantes!=undefined)
+      if(this.integrantes!=undefined){
+      if(this.integrantes!=[])
       {
       for(let i=0;i<this.integrantes.length;i++)
       {
@@ -196,8 +204,8 @@ if(integrantesaux==undefined){
           this.eliminaractivas(this.integrantes[i].ci,this.ruta_activada.id_viaje);
         
       }
-      this.calificar();
-    }
+    }}
+    this.calificar();
     var nav = this.app.getRootNav();
     nav.setRoot(ConductorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
   }

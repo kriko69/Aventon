@@ -48,7 +48,10 @@ export class AceptarSolicitudPage {
   {
     this.mysql.obtenerCapacidadViaje(this.solicitud.id_viaje).subscribe(
       (data)=>{
+        console.log('data',data);
         this.capacidad=data;
+        console.log('capacidad',this.capacidad);
+        
       }
     );
     setTimeout(() => {
