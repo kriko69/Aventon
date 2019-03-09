@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-    <ion-navbar color="yellow">
+    <ion-navbar class="navbar_personalizado" color="yellow">
         <ion-title>Vehículo</ion-title>
         <ion-buttons end>
             <button ion-button (click)="irAgregar()">
@@ -20,13 +20,13 @@
 
 <ion-content padding class="imagen">
     <ion-list>
-        <ion-list-header *ngIf="value">
+        <ion-list-header class="titulo_lista_personalizado" *ngIf="value">
             <b>
             <strong>VEHÍCULOS</strong>
         </b>
         </ion-list-header>
-
-        <ion-item *ngFor="let auto of vehiculos$" round (click)="irEditar(auto)">
+        <br>Elija un vehiculo:
+        <ion-item class="lista_personalizado" *ngFor="let auto of vehiculos$" round (click)="irEditar(auto)">
             <b>Placa: {{auto.placa}}<br>
             Marca: {{auto.marca}}<br>
             Color: {{auto.color}}<br>
@@ -37,12 +37,12 @@
         <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="!value">
             Usted no tiene vehículos.
         </ion-item>
- <ion-fab right bottom>
-      <button ion-fab  (click)="slidePrincipal3()" ><ion-icon ></ion-icon>Ayuda</button>
-    
-  </ion-fab>
-  <ion-fab bottom left>
-    <button ion-fab color="yellow" (click)="listarAutos()"><ion-icon name="refresh"></ion-icon></button>
-</ion-fab>
+        <ion-fab right bottom>
+            <button ion-fab (click)="slidePrincipal3()"><ion-icon ></ion-icon>Ayuda</button>
+
+        </ion-fab>
+        <ion-fab bottom left>
+            <button ion-fab color="yellow" (click)="listarAutos()"><ion-icon name="refresh"></ion-icon></button>
+        </ion-fab>
     </ion-list>
 </ion-content>

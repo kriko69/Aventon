@@ -2,6 +2,28 @@
     background-color: #44ab6c;
 }
 
+.titulo_lista_personalizado {
+    text-decoration: none;
+    padding: -10px;
+    font-weight: 10px;
+    font-size: 16px;
+    color: #000;
+    background-color: #dddcd8;
+    border-radius: 5px 5px 5px 5px;
+    border: 2px solid #a8a8a8;
+}
+
+.lista_personalizado {
+    text-decoration: none;
+    padding: -20px;
+    font-weight: 10px;
+    font-size: 16px;
+    color: #000;
+    background-color: #f3ecd5;
+    border-radius: 20px 20px 20px 20px;
+    border: 1px solid #488aff;
+}
+
 .navbar_personalizado {
     text-decoration: none;
     padding: 10px;
@@ -34,6 +56,28 @@
     background-color: #faca32;
     border-radius: 16px;
     border: 3px solid #27649b;
+}
+
+.boton_editar_personalizado {
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #000;
+    background-color: #faca32;
+    border-radius: 16px;
+    border: 5px solid #008311;
+}
+
+.boton_borrar_personalizado {
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 20px;
+    color: #000;
+    background-color: #faca32;
+    border-radius: 16px;
+    border: 5px solid #9c0505;
 }
 
 .foto_personalizado {
