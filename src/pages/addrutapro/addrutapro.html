@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-    <ion-toolbar color="yellow">
+    <ion-toolbar class="navbar_personalizado" color="yellow">
         <ion-title>Programar ruta</ion-title>
         <ion-buttons start>
             <button ion-button (click)="dismiss()"><span color="dark" showWhen="ios">Close</span><ion-icon name="md-close" showWhen="android, windows"></ion-icon></button>
@@ -20,10 +20,11 @@
     <ion-item>
         <ion-label>Seleccione la Fecha:</ion-label>
     </ion-item>
-    <ion-item>
+    <ion-item class="campo_personalizado">
         <ion-label>Fecha</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY HH:mm" [(ngModel)]="fechahora" placeholder="{{fechaActual}}"></ion-datetime>
     </ion-item>
+    <br>
     <ion-item>
         <ion-label>Seleccione la Ruta:</ion-label>
     </ion-item>
@@ -32,14 +33,15 @@
             <button ion-button block round (click)="submit(vecs)">{{vecs.nombre}}</button>
         </ion-item>
     </ion-list>-->
+
     <ion-list radio-group round>
-        <ion-item *ngFor="let vecs of vec">
+        <ion-item class="campo_personalizado" *ngFor="let vecs of vec">
             <ion-label>{{vecs.nombre}}</ion-label>
             <ion-radio (ionSelect)="valor(vecs)"></ion-radio>
         </ion-item>
     </ion-list>
     <div>
-        <button ion-button color="yellow" ion-button round [disabled]="!isenabled" (click)="submit()" block>ACEPTAR</button></div>
+        <button class="boton_personalizado" ion-button color="yellow" ion-button round [disabled]="!isenabled" (click)="submit()" block>ACEPTAR</button></div>
     <ion-fab bottom right>
         <button ion-fab color="yellow" (click)="NuevaRuta()"><ion-icon name="add"></ion-icon></button>
     </ion-fab>

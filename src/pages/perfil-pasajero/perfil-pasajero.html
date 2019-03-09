@@ -1,16 +1,16 @@
 <ion-header>
 
-    <ion-navbar color="yellow">
-        <ion-title>Perfil</ion-title>
+    <ion-navbar class="navbar_personalizado" color="yellow">
+        <ion-title>PERFIL</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding class="imagen">
     <div>
-        <img [src]="fotoUsuario"  class='roundImage'  />
+        <img [src]="fotoUsuario" class="foto_personalizado" />
     </div>
 
-    <ion-item color="dark" class="item item-divider" style="margin-top:1em">Datos Personales</ion-item>
+    <ion-item color="yellow" class="item item-divider" style="margin-top:1em">Datos Personales</ion-item>
 
     <ion-list #pc>
         <ion-item>
@@ -40,7 +40,7 @@
             <ion-input disabled="true" type="text" [(ngModel)]="usuario.calif_pasa"></ion-input>
         </ion-item>
 
-        <button ion-button round block color="yellow" (click)="editPerfil()">Editar Datos de Perfil</button>
+        <button class="boton_editar_personalizado" ion-button round block color="yellow" (click)="editPerfil()">Editar Datos de Perfil</button>
 
     </ion-list>
 

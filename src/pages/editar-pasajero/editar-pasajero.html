@@ -5,9 +5,9 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar color="yellow">
+    <ion-navbar class="navbar_personalizado" color="yellow">
 
-        <ion-title>Editar</ion-title>
+        <ion-title>EDITAR</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -16,39 +16,39 @@
 <ion-content padding class="imagen">
     <form [formGroup]="myForm">
         <div>
-            <img [src]="fotoUsuario"  class='roundImage'  />
+            <img [src]="fotoUsuario" class="foto_personalizado" />
         </div>
         <div padding>
-            <button color=yellow ion-button block (click)="openCamera()" round>Cambiar fotografia tomando fotografia</button>
-            <button color=yellow ion-button block (click)="openGallery()" round>Cambiar fotografia desde la galeria</button>
+            <button color=yellow ion-button block (click)="openCamera()" round>CAMBIAR FOTO DESDE LA CÁMARA</button>
+            <button color=yellow ion-button block (click)="openGallery()" round>CAMBIAR FOTO DESDE LA GALERÍA</button>
         </div>
-    <ion-list >
-            <ion-item style="margin-top:1em" >
+        <ion-list>
+            <ion-item style="margin-top:1em">
                 <ion-label stacked color="dark">Nombre</ion-label>
                 <ion-input type="text" formControlName="nombre" name="nombre" [value]="nombre"></ion-input>
             </ion-item>
             <ion-item *ngIf="myForm.get('nombre').errors && myForm.get('nombre').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('nombre').hasError('required')">*Campo requerido</p>
             </ion-item>
-            <ion-item  >
+            <ion-item>
                 <ion-label stacked color="dark">Apellido</ion-label>
                 <ion-input type="text" formControlName="apellido" [value]="apellido"></ion-input>
             </ion-item>
             <ion-item *ngIf="myForm.get('apellido').errors && myForm.get('apellido').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('apellido').hasError('required')">*Campo requerido</p>
             </ion-item>
-            <ion-item  >
+            <ion-item>
                 <ion-label stacked color="dark">Carnet</ion-label>
                 <ion-input disabled="true" type="number" formControlName="carnet" [value]="carnet"></ion-input>
             </ion-item>
-            <ion-item  >
+            <ion-item>
                 <ion-label round stacked color="dark">Fecha de nacimiento</ion-label>
-                <ion-datetime display-format="DD/MM/YYYY" picker-format="DDDD MMMM YYYY" formControlName="fecha_nac" ></ion-datetime>
+                <ion-datetime display-format="DD/MM/YYYY" picker-format="DDDD MMMM YYYY" formControlName="fecha_nac"></ion-datetime>
             </ion-item>
             <ion-item *ngIf="myForm.get('fecha_nac').errors && myForm.get('fecha_nac').dirty">
                 <p color="danger" ion-text *ngIf="myForm.get('fecha_nac').hasError('required')">*Campo requerido</p>
             </ion-item>
-            <ion-item  >
+            <ion-item>
                 <ion-label stacked color="dark">Telefono</ion-label>
                 <ion-input type="number" formControlName="telf" [value]="telf"></ion-input>
             </ion-item>
@@ -59,7 +59,7 @@
                 <ion-label stacked color="dark">Calificacion Pasajero</ion-label>
                 <ion-input disabled="true" type="text" formControlName="calif_pasa"></ion-input>
             </ion-item>
-        <!--
+            <!--
         <ion-item style="margin-top:1em">
             <ion-label stacked>Nombre</ion-label>
             <ion-input disabled="false" type="text" [(ngModel)]="usuario.nombre"></ion-input>
@@ -86,10 +86,10 @@
             <ion-label stacked color="dark">Calificacion Pasajero</ion-label>
             <ion-input disabled="true" type="text" [(ngModel)]="usuario.calif_pasa"></ion-input>
         </ion-item>-->
-        <ion-item>
-            <button ion-button block round color="yellow" [disabled]="!myForm.valid" (click)="actualizarPerfil()" (click)="uploadingFoto()">Guardar datos personales</button>
-        </ion-item>
-    </ion-list>
-</form>
+            <ion-item>
+                <button class="boton_personalizado" ion-button block round color="yellow" [disabled]="!myForm.valid" (click)="actualizarPerfil()" (click)="uploadingFoto()">Guardar datos personales</button>
+            </ion-item>
+        </ion-list>
+    </form>
 
 </ion-content>

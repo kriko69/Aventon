@@ -6,52 +6,52 @@
 -->
 <ion-header>
 
-    <ion-navbar color="yellow">
-        <ion-title>Buzon</ion-title>
+    <ion-navbar class="navbar_personalizado" color="yellow">
+        <ion-title>BUZÓN</ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding class="imagen">
-        <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="boleano">
-                Usted no tiene Mensajes.
-            </ion-item>
+    <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="boleano">
+        Usted no tiene Mensajes.
+    </ion-item>
     <ion-list *ngFor="let item of solicitudes">
-        <ion-item class="border" *ngIf="item.estado=='Activada'" style="background-color:orange;color:black;" (click)="activada(item)">
+        <ion-item class="aceptado" *ngIf="item.estado=='Activada'" click)="activada(item)">
             De: {{item.nombre+" "+item.apellido}}
             <br> Fecha: {{item.fecha}}
             <br> Mensaje: {{item.mensaje}}
             <br> Enviado el: {{item.fechasort}}
         </ion-item>
-        <ion-item class="border" *ngIf="item.estado=='No Calificado P'" style="background-color:#7cb9e3;color:white;" (click)="calif(item)">
+        <ion-item class="calificar" *ngIf="item.estado=='No Calificado P'" (click)="calif(item)">
             De: {{item.nombre+" "+item.apellido}}
             <br> Viaje del dia: {{item.fecha}}
-            <br> Estado: {{item.estado}}
+            <br><b> Estado: {{item.estado}}</b>
             <br> Mensaje: {{item.mensaje}}
         </ion-item>
-        <ion-item class="border" *ngIf="item.estado=='Calificado P'" style="background-color:#5FB404;color:white;">
+        <ion-item class="calificado" *ngIf="item.estado=='Calificado P'">
             De: {{item.nombre+" "+item.apellido}}
             <br> Viaje del dia: {{item.fecha}}
-            <br> Estado: {{item.estado}}
+            <br><b> Estado: {{item.estado}}</b>
             <br> Mensaje: {{item.mensaje}}
         </ion-item>
 
-        <ion-item class="border" *ngIf="item.estado=='No Aceptado'" style="background-color:#ffff00;color:black;">
+        <ion-item class="rechazado" *ngIf="item.estado=='No Aceptado'">
             A: {{item.nombre+" "+item.apellido}}
-            <br> Estado: {{item.estado}}
+            <br><b> Estado: {{item.estado}}</b>
             <br> Fecha: {{item.fecha}}
             <br> Enviado el: {{item.fechasort}}
         </ion-item>
-        <ion-item class="border" *ngIf="item.estado=='Aceptado'" style="background-color:green;color:white;">
+        <ion-item class="aceptado" *ngIf="item.estado=='Aceptado'">
             A: {{item.nombre+" "+item.apellido}}
-            <br> Estado: {{item.estado}}
+            <br> <b>Estado: {{item.estado}}</b>
             <br> Fecha: {{item.fecha}}
             <br> Enviado el: {{item.fechasort}}
         </ion-item>
-        <ion-item class="border" *ngIf="item.estado=='Pendiente'" style="background-color:#7cb9e3;color:white;">
+        <ion-item class="pendiente" *ngIf="item.estado=='Pendiente'">
             A: {{item.nombre+" "+item.apellido}}
-            <br>Estado: {{item.estado}}
+            <br><b>Estado: {{item.estado}}</b>
             <br>Fecha de Viaje: {{item.fecha}}
             <br> Enviado el: {{item.fechasort}}
         </ion-item>
@@ -60,9 +60,9 @@
         </ion-item>
     </ion-list>
     <ion-fab bottom right>
-      <button ion-fab color="yellow" (click)="listarMensajes()"><ion-icon name="refresh"></ion-icon></button>
-  </ion-fab>
-  <ion-fab bottom left>
-    <button ion-fab color="red" (click)="borrarMensajes()"><ion-icon name="trash"></ion-icon></button>
-</ion-fab>
+        <button ion-fab color="yellow" (click)="listarMensajes()"><ion-icon name="refresh"></ion-icon></button>
+    </ion-fab>
+    <ion-fab bottom left>
+        <button ion-fab color="red" (click)="borrarMensajes()"><ion-icon name="trash"></ion-icon></button>
+    </ion-fab>
 </ion-content>

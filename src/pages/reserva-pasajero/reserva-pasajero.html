@@ -29,7 +29,7 @@
         Usted no tiene Reservas.
     </ion-item>
     <ion-list>
-        <button ion-item *ngFor="let item of solicitudes" (click)="irOpcionreserva(item)">
+        <button class="lista_personalizado1" ion-item *ngFor="let item of solicitudes" (click)="irOpcionreserva(item)">
       <!--NEGRILLA-->
             <b>
             Conductor: {{item.nombre+" "+item.apellido}}

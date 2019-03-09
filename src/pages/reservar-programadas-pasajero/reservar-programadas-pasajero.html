@@ -6,7 +6,7 @@
 -->
 
 <ion-header>
-    <ion-toolbar color="yellow">
+    <ion-toolbar class="navbar_personalizado" color="yellow">
         <ion-title>
             CONFIRMAR
         </ion-title>
@@ -23,33 +23,33 @@
 <ion-content padding class="imagen">
     <div id="map1"></div>
     <div>
-        <button ion-button block color="secondary" (click)="enviar()">
+        <button class="boton_editar_personalizado" ion-button block color="secondary" (click)="enviar()">
     Solicitar   <ion-icon name="mail" style="margin-left:15px;" ></ion-icon>
   </button></div>
 
 
 
-  <ion-card>
+    <ion-card class="campo_personalizado">
 
-    <ion-card-header>
-      Tiempos Estimados
-    </ion-card-header>
+        <ion-card-header>
+            Tiempos Estimados
+        </ion-card-header>
 
-    <ion-card-content >
-      <p id='tiempos'></p>
-      <p id="recogida"></p>
-    </ion-card-content>
+        <ion-card-content>
+            <p id='tiempos'></p>
+            <p id="recogida"></p>
+        </ion-card-content>
 
-  </ion-card>
-  <ion-card>
+    </ion-card>
+    <ion-card class="campo_personalizado">
 
-      <ion-card-header>
-        Horarios
-      </ion-card-header>
+        <ion-card-header>
+            Horarios
+        </ion-card-header>
 
-      <ion-card-content >
-        <p id='horario'></p>
-      </ion-card-content>
+        <ion-card-content>
+            <p id='horario'></p>
+        </ion-card-content>
 
     </ion-card>
 </ion-content>

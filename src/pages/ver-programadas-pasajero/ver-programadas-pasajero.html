@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-toolbar color="yellow">
+    <ion-toolbar class="navbar_personalizado" color="yellow">
         <ion-title>
             Ver Rutas
         </ion-title>
@@ -33,7 +33,7 @@
         <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fecha" (ionChange)="filtrarporfecha()"></ion-datetime>
     </ion-item>
     <ion-list>
-        <button ion-item *ngFor="let rutas of viajes" (click)="irReservarProgramada(rutas)">
+        <button class="lista_personalizado" ion-item *ngFor="let rutas of viajes" (click)="irReservarProgramada(rutas)">
       <p>Nombre de la Ruta: {{rutas.ruta}}</p>
       <p>Nombre Conductor: {{rutas.nombre+' '+rutas.apellido}}</p>
       <p>Capacidad: {{rutas.capacidad}}</p>

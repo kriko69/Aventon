@@ -1,7 +1,7 @@
 <ion-header>
-    <ion-toolbar color="yellow">
+    <ion-toolbar class="navbar_personalizado" color="yellow">
         <ion-title>
-            Seleccione un Punto de Recogida
+            ELIJA UN PUNTA DE RECOGIDA
         </ion-title>
         <ion-buttons start>
             <button ion-button (click)="dismiss()">
@@ -16,9 +16,9 @@
 <ion-content class="imagen">
     <div id="mapa"></div>
     <div>
-        <button ion-button color="yellow" (click)="aceptar()" round block>ACEPTAR</button>
+        <button class="boton_personalizado" ion-button color="yellow" (click)="aceptar()" round block>ACEPTAR</button>
     </div>
     <div>
-        <button ion-button color="yellow" (click)="posicion()" round block>IR A MI POSICION</button>
+        <button class="boton_personalizado" ion-button color="yellow" (click)="posicion()" round block>IR A MI POSICION</button>
     </div>
 </ion-content>

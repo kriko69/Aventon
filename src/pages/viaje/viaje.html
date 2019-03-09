@@ -1,7 +1,7 @@
 <ion-header>
 
-    <ion-toolbar color="yellow">
-        <ion-title>Mis Rutas Programadas</ion-title>
+    <ion-toolbar class="navbar_personalizado" color="yellow">
+        <ion-title>MIS RUTAS PROGRAMADAS</ion-title>
     </ion-toolbar>
 
 </ion-header>
@@ -15,26 +15,26 @@
             Usted no tiene rutas.
         </ion-item>
         <ion-item-sliding #item *ngFor="let vecs of vec">
-            <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha_hora)=='falta' && vecs.estado=='programada'" style="background-color:#3CBC08">
-                <ion-badge color="danger" item-end>Aun Falta</ion-badge>
-                <p class="cambioText">Nombre de la Ruta: {{ vecs.nombre }}</p>
-                <p class="cambioText">Fecha: {{ vecs.fecha_hora }}</p>
-                <p class="cambioText">Capacidad Actual: {{ vecs.capacidad }}</p>
+            <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha_hora)=='falta' && vecs.estado=='programada'" style="background-color:#faca32">
+                <ion-badge color="yellow" item-end>Aun Falta</ion-badge>
+                <p class="cambioText1">Nombre de la Ruta: {{ vecs.nombre }}</p>
+                <p class="cambioText1">Fecha: {{ vecs.fecha_hora }}</p>
+                <p class="cambioText1">Capacidad Actual: {{ vecs.capacidad }}</p>
             </ion-item>
-            <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha_hora)=='pasado' && vecs.estado=='programada'" style="background-color:#D54100">
+            <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha_hora)=='pasado' && vecs.estado=='programada'" style="background-color:rgb(172, 171, 170)">
                 <ion-badge color="light" item-end>Ya Paso</ion-badge>
                 <p class="cambioText">Nombre de la Ruta: {{ vecs.nombre }}</p>
                 <p class="cambioText">Fecha: {{ vecs.fecha_hora }}</p>
                 <p class="cambioText">Capacidad Actual: {{ vecs.capacidad }}</p>
             </ion-item>
-            <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha_hora)=='falta un dia' && vecs.estado=='programada'" style="background-color:#FFA754">
-                <ion-badge color="danger" item-end>Un Dia</ion-badge>
-                <p class="cambioText">Nombre de la Ruta: {{ vecs.nombre }}</p>
-                <p>Fecha: {{ vecs.fecha_hora }}</p>
-                <p class="cambioText">Capacidad Actual: {{ vecs.capacidad }}</p>
+            <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha_hora)=='falta un dia' && vecs.estado=='programada'" style="background-color:#faca32">
+                <ion-badge color="yellow" item-end>Un Dia</ion-badge>
+                <p class="cambioText1">Nombre de la Ruta: {{ vecs.nombre }}</p>
+                <p class="cambioText1">Fecha: {{ vecs.fecha_hora }}</p>
+                <p class="cambioText1">Capacidad Actual: {{ vecs.capacidad }}</p>
             </ion-item>
             <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha_hora)=='hoy' && vecs.estado=='programada'" color="primary" (click)="activarRuta(vecs)">
-                <ion-badge color="light" item-end>Hoy</ion-badge>
+                <ion-badge color="light" item-end>HOY</ion-badge>
                 <p class="cambioText">Nombre de la Ruta: {{ vecs.nombre }}</p>
                 <p>Fecha: {{ vecs.fecha_hora }}</p>
                 <p class="cambioText">Capacidad Actual: {{ vecs.capacidad }}</p>
