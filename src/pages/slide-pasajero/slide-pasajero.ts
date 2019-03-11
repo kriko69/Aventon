@@ -9,6 +9,7 @@ import { PerfilPasajeroPage } from '../perfil-pasajero/perfil-pasajero';
 import { mysqlService } from '../../services/mysql.service';
 import { PasajeroPage } from '../pasajero/pasajero';
 import { PuntoRecogidaPage } from '../punto-recogida/punto-recogida';
+import { ReservaPasajeroPage } from '../reserva-pasajero/reserva-pasajero';
 /**
  * Generated class for the SlidePasajeroPage page.
  *
@@ -46,7 +47,7 @@ export class SlidePasajeroPage {
     ,public mysql:mysqlService) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
-      },10000);
+      },1000);
     this.id_usuario = navParams.get('id_usuario');
     this.nombre_usuario = navParams.get('nombre_usuario');
       let info;
@@ -60,7 +61,7 @@ export class SlidePasajeroPage {
   skip()
   {
       var nav = this.app.getRootNav();
-      nav.setRoot(PuntoRecogidaPage ,{id_usuario: this.id_usuario});
+      nav.setRoot(ReservaPasajeroPage ,{id_usuario: this.id_usuario});
   }
  
 }

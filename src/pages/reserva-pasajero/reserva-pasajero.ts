@@ -6,6 +6,7 @@ import { VerProgramadasPasajeroPage } from '../ver-programadas-pasajero/ver-prog
 import { firebaseService } from '../../services/firebase.service';
 import { OpcionReservaPage } from '../opcion-reserva/opcion-reserva';
 import { mysqlService } from '../../services/mysql.service';
+import {SlidePasajeroPage} from './../slide-pasajero/slide-pasajero';
 
 /**
  * Generated class for the ReservaPasajeroPage page.
@@ -65,4 +66,29 @@ func(){
 
     this.navCtrl.push(OpcionReservaPage,{id_usuario:this.id_usuario,reserva:reserva});
   }
+  slidePrincipal3()
+  {
+    this.slide();
+    this.navCtrl.push(SlidePasajeroPage,{id_usuario:  this.id_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
+    
+  }
+  slide(){
+    let info;
+    this.mysql.Tipo(this.id_usuario,'P').subscribe(
+      data => {
+        console.log('data', data);
+        info= Object.assign(data);
+        console.log('exito');
+
+
+        }, (error: any)=> {
+          console.log('error', error);
+
+        }
+    );
+
+    setTimeout(()=>{
+      console.log('info',info);
+    },1000);
+}
 }

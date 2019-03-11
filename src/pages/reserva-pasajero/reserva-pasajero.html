@@ -28,6 +28,11 @@
     <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="boleano">
         Usted no tiene Reservas.
     </ion-item>
+
+    <ion-fab  bottom left>
+        <button ion-fab (click)="slidePrincipal3()"><ion-icon ></ion-icon>Ayuda </button>
+
+    </ion-fab>
     <ion-list>
         <button class="lista_personalizado1" ion-item *ngFor="let item of solicitudes" (click)="irOpcionreserva(item)">
       <!--NEGRILLA-->
