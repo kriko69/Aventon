@@ -22,13 +22,13 @@ export class SliderPrincipalPage {
     },
     {
       title: "¿Qué es Aventon?",
-      description: "<b>Aventon</b> El componente Aventón ayuda a la comunidad a reservar un puesto en un vehículo particular de alguien que postea su recorrido hacia la universidad. Se tomó en cuenta 2 tipos de usuarios: Conductor y Pasajero.",
+      description: "<b>Aventon</b> La aplicación Aventon ayuda a la comunidad a reservar un puesto en un vehículo particular de alguien que postea su recorrido hacia la universidad. Se tomó en cuenta 2 tipos de usuarios: Conductor y Pasajero.",
       image: "assets/compartir.png",
     },
     {
       title: "¿Cómo empezar?",
       description: "<b>Seleccioné el tipo de usuario que es.</b> Para cada tipo de usuario se contara con un boton de ayuda para tener un mejor manejo de la aplicación.",
-      image: "assets/tipousuario.jpeg",
+      image: "assets/tipousuario.png",
     }
   ];
   id_usuario;

@@ -12,20 +12,61 @@ import { VehiculoPage } from './../vehiculo/vehiculo';
 export class SlideConductorPage {
   slides = [
     {
-      title: "Slide 1",
-      description: " <b>Comparte un viaje.</b> ",
-    //  image: "assets/logo.png",
+      title: "Agregar un Vehículo",
+      description: " <b>Puede agregar los vehículos que tenga.</b> ",
+      image: "assets/slideConductor/addv.jpg",
     },
     {
-      title: "Slide 2",
-      description: "<b>Aventon</b> El componente Aventón ayuda a la comunidad a reservar un puesto en un vehículo particular de alguien que postea su recorrido hacia la universidad. Se tomó en cuenta 2 tipos de usuarios: Conductor y Pasajero.",
-    //  image: "assets/compartir.png",
+      title: "Información del Vehículo",
+      description: "<b>Complete todos los campos con la información del vehículo.</b> ",
+      image: "assets/slideConductor/infov.jpg",
     },
     {
-      title: "Slide 3",
-      description: "<b>Seleccioné el tipo de usuario que es.</b> Para cada tipo de usuario se contara con un boton de ayuda para tener un mejor manejo de la aplicación.",
-    //  image: "assets/tipousuario.jpeg",
-    }
+      title: "Listado de Vehículos ",
+      description: "<b>Seleccioné el vehículo que va a utilizar para compartir un viaje.</b>",
+      image: "assets/slideConductor/listav.jpg",
+    },
+    {
+      title: "Confirmar el uso del Vehículo",
+      description: "<b>Si los datos son correctos, entonces presione seleccionar vehículo.</b> ",
+      image: "assets/slideConductor/selectv.jpg",
+    },
+    {
+      title: "Rutas programadas",
+      description: "<b>Para agregar una ruta nueva seleccione el boton +.</b> ",
+      image: "assets/slideConductor/rutasv.jpg",
+    },
+    {
+      title: "Programar ruta",
+      description: "<b>Programe una ruta o agregue nuevas rutas con el boton +.</b> ",
+      image: "assets/slideConductor/addruta.jpg",
+    },
+    {
+      title: "Seleccione los puntos",
+      description: "<b></b> ",
+      image: "assets/slideConductor/puntos.gif",
+    },
+    {
+      title: "Programando la ruta",
+      description: "<b>Seleccione la ruta que agrego o una existente. Definir la hora y fecha en la realizara en recorrido.</b> ",
+      image: "assets/slideConductor/programada.jpg",
+    },
+    {
+      title: "Rutas programadas",
+      description: "<b>Seleccione una ruta programada.</b> ",
+      image: "assets/slideConductor/ruta.jpg",
+    },
+    {
+      title: "Activar la ruta",
+      description: "<b>Active la ruta si ya la comenzará.</b> ",
+      image: "assets/slideConductor/activar.jpg",
+    },
+    {
+      title: "Buzon",
+      description: "<b>Seleccione un usuario, puede aceptar o rechazar su solicitud del pasajero.</b> ",
+      image: "assets/slideConductor/buzon.jpg",
+    },
+
   ];
   id_usuario;
   nombre_usuario;
