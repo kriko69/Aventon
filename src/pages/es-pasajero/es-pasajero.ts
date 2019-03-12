@@ -65,12 +65,12 @@ export class EsPasajeroPage {
       this.accesorio=this.vestimenta.accesorio;
       
     }, 1000);
-    this.fotoUsuario = this.id_usuario;
+    this.fotoUsuario = this.integrante.ci;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EsPasajeroPage');
-    this.fotoUsuario = this.id_usuario;
+    this.fotoUsuario = this.integrante.ci;
     this.mysql.validarFotoUsuario(this.fotoUsuario).subscribe(
       data=>{
         if(data['message']=="existe")
