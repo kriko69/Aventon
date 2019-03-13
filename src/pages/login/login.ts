@@ -85,7 +85,7 @@ export class LoginPage {
       else{
         this.mostrarAlerta();
       }
-    },1000);
+    },3000);
 
   }
 
