@@ -91,7 +91,7 @@ export class LoginPage {
 
   presentLoading() {
     const loader = this.load.create({
-      content: "Please wait...",
+      content: "Espere por favor...",
       duration: 3000
     });
     loader.present();
