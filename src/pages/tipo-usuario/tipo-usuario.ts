@@ -33,17 +33,17 @@ export class TipoUsuarioPage {
   nombre_usuario='';
   usuario;
   info;
- 
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
    private toast:ToastController, private platform:Platform, public app:App
   ,public mysql:mysqlService,public storage:Storage,public alerta:AlertController,
   public load:LoadingController) {
 
-    
+
     this.storage.get('user').then((val) => {
       console.log('user', val);
     });
-    this.storage.get('pass').then((valor) => {
+    this.storage.get('password').then((valor) => {
       console.log('pass', valor);
     });
     this.platform.registerBackButtonAction(() => {
@@ -74,12 +74,12 @@ export class TipoUsuarioPage {
       this.toast.create({
         message:`Bienvenido, ${this.nombre_usuario}`,
         duration:1000
-      }).present();    
-    } 
+      }).present();
+    }
     else{
       this.mostrarAlerta();
       this.cerrarSesion();
-    } 
+    }
     },2000);
 
   }
@@ -87,7 +87,7 @@ export class TipoUsuarioPage {
   ionViewDidLoad() {
     this.storage.get('user').then((val) => {
       console.log('user', val);
-    });  
+    });
 
 
   }
@@ -121,7 +121,7 @@ export class TipoUsuarioPage {
   {
     this.slide();
     this.navCtrl.push(SliderPrincipalPage,{id_usuario: this.id_usuario,nombre_usuario:this.nombre_usuario});//MODIFICADO PARA PASAR LOS PARAMETROS*/
-    
+
   }
   cambiarTipo(tipo){
     let info;
@@ -161,10 +161,10 @@ export class TipoUsuarioPage {
       console.log('info',info);
     },1000);
   }
- 
+
   cerrarSesion(){
     this.storage.set('user',null);
     this.navCtrl.setRoot(LoginPage);
-    
+
   }
 }

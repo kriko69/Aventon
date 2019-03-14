@@ -1,6 +1,6 @@
 import { ConductorPage } from './../conductor/conductor';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,LoadingController, AlertController, Platform } from 'ionic-angular';
 import { OpcionesConductorPage } from '../opciones-conductor/opciones-conductor';
 import { ISubscription } from 'rxjs/Subscription';
 import { AngularFireDatabase } from '@angular/fire/database';
@@ -36,7 +36,7 @@ export class EditarConductorPage {
   myForm: FormGroup;
    constructor(public navCtrl: NavController, public navParams: NavParams, public servicio:firebaseService
     ,public alerta:AlertController, public database: AngularFireDatabase,private platform:Platform,
-    public mysql:mysqlService, public camera:Camera,
+    public mysql:mysqlService, public camera:Camera,public load:LoadingController,
     private http: HttpClient,public formBuilder: FormBuilder) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
@@ -57,13 +57,14 @@ export class EditarConductorPage {
           console.log('data', data);
           info= Object.assign(data);
           console.log('exito');
-  
-  
+
+
           }, (error: any)=> {
             console.log('error', error);
-  
+
           }
       );
+      this.presentLoading();
       setTimeout(()=>{
         if(info!=undefined)
         {
@@ -71,7 +72,7 @@ export class EditarConductorPage {
           this.func();
         }
       },3000);
-      
+
     }
     ionViewDidLoad(){
       this.fotoUsuario = this.id_usuario;
@@ -87,9 +88,9 @@ export class EditarConductorPage {
           }
           this.base64Image=this.fotoUsuario;
         },error=>{
-          
+
         }
-        
+
       );
     }
     func(){
@@ -120,8 +121,8 @@ export class EditarConductorPage {
   );
   setTimeout(()=>{
       this.mostrarAlerta(); //alerta
-      this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario.ci,id_auto:this.id_auto}); //redirigir login
-    
+      this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario,id_auto:this.id_auto}); //redirigir login
+
   },1000);
   }
 
@@ -137,7 +138,7 @@ export class EditarConductorPage {
       alert.present();
     }
 
-    
+
   openCamera(){
     const options: CameraOptions = {
       quality:100,
@@ -154,7 +155,7 @@ export class EditarConductorPage {
   },(err)=>{
     console.log('Error en la foto tomada')
   });
-  
+
   }
 
   openGallery(){
@@ -191,7 +192,14 @@ export class EditarConductorPage {
   }
   }
   dismiss(){
-    this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario.ci,id_auto:this.id_auto});
+    this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario,id_auto:this.id_auto});
   }
 
+  presentLoading() {
+    const loader = this.load.create({
+      content: "Espere por favor...",
+      duration: 3000
+    });
+    loader.present();
+  }
 }
