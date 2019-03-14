@@ -44,6 +44,7 @@ export class EditarPasajeroPage {
         console.log('');
       },10000);
       this.id_usuario = navParams.get('id_usuario');
+      console.log('iddd',this.id_usuario);
 
       this.myForm = this.formBuilder.group({
         nombre: ['', Validators.compose([Validators.maxLength(20),Validators.required])],
@@ -124,7 +125,7 @@ export class EditarPasajeroPage {
     );
     setTimeout(()=>{
         this.mostrarAlerta(); //alerta
-        this.navCtrl.setRoot(PasajeroPage,{id_usuario:this.usuario}); //redirigir login
+        this.navCtrl.setRoot(PasajeroPage,{id_usuario:this.id_usuario}); //redirigir login
 
 
     },1000);
@@ -195,7 +196,7 @@ export class EditarPasajeroPage {
   }
 
   dismiss(){
-    this.navCtrl.setRoot(PasajeroPage,{id_usuario:this.usuario}); //redirigir login
+    this.navCtrl.setRoot(PasajeroPage,{id_usuario:this.id_usuario}); //redirigir login
   }
   presentLoading() {
     const loader = this.load.create({
