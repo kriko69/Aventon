@@ -30,6 +30,8 @@ export class PasajeroPage {
       console.log('');
     },10000);
     let id_usuario = navParams.get('id_usuario');
+    console.log('id pass',id_usuario);
+
     this.rootparamspage={id_usuario: id_usuario};
     this.tab1 = PuntoRecogidaPage;
     this.tab2 = ReservaPasajeroPage;
@@ -38,7 +40,7 @@ export class PasajeroPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ConductorPage');
+    console.log('ionViewDidLoad PasajeroPage');
   }
 
 }
