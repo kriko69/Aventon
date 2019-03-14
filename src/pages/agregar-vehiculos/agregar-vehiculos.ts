@@ -60,7 +60,7 @@ export class AgregarVehiculosPage {
       maletera: false,
       placanum: ['',Validators.compose([Validators.required])],
       placalet: ['',Validators.compose([Validators.required])],
-      });   
+      });
 
   }
 
@@ -74,10 +74,10 @@ export class AgregarVehiculosPage {
     this.auto.maletera = this.myForm.value.maletera;
     this.auto.marca = this.myForm.value.marca;
     this.auto.modelo = this.myForm.value.modelo;
-    this.auto.placa = this.myForm.value.placanum + this.myForm.value.placalet.toUpperCase(); 
+    this.auto.placa = this.myForm.value.placanum + this.myForm.value.placalet.toUpperCase();
     let info={};
     let id_auto;
-    this.mysql.AgregarAuto(this.auto).subscribe( 
+    this.mysql.AgregarAuto(this.auto).subscribe(
       data => {
         console.log('data auto', data);
         info= Object.assign(data);
@@ -110,6 +110,7 @@ export class AgregarVehiculosPage {
      setTimeout(()=>{
 
        console.log('info',info);
+       this.toast.show('Auto agregado con exito.');
        this.navCtrl.setRoot(VehiculoPage,{id_usuario:this.id_usuario});
      },1000);
 
@@ -130,7 +131,7 @@ export class AgregarVehiculosPage {
   },(err)=>{
     console.log('Error en la foto tomada')
   });
-  
+
   }
   openGallery(){
     const options: CameraOptions = {

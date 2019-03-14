@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Platform, LoadingController } from 'ionic-angular';
 import { OpcionesPasajeroPage } from '../opciones-pasajero/opciones-pasajero';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Usuario } from '../../interfaces/usuario.interface';
@@ -38,13 +38,13 @@ export class EditarPasajeroPage {
 
    constructor(public navCtrl: NavController, public navParams: NavParams, public servicio:firebaseService
     ,public alerta:AlertController, public database: AngularFireDatabase,private platform:Platform,
-    public mysql:mysqlService,public toast:ToastService, public camera:Camera,
+    public mysql:mysqlService,public load:LoadingController,public toast:ToastService, public camera:Camera,
     private http: HttpClient,public formBuilder: FormBuilder) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
       this.id_usuario = navParams.get('id_usuario');
-      
+
       this.myForm = this.formBuilder.group({
         nombre: ['', Validators.compose([Validators.maxLength(20),Validators.required])],
         apellido: ['', Validators.compose([Validators.maxLength(25),Validators.required])],
@@ -59,13 +59,14 @@ export class EditarPasajeroPage {
           console.log('data', data);
           info= Object.assign(data);
           console.log('exito');
-  
-  
+
+
           }, (error: any)=> {
             console.log('error', error);
-  
+
           }
       );
+      this.presentLoading();
       setTimeout(()=>{
         if(info!=undefined)
         {
@@ -89,9 +90,9 @@ export class EditarPasajeroPage {
           }
           this.base64Image=this.fotoUsuario;
         },error=>{
-          
+
         }
-        
+
       );
 
     }
@@ -123,9 +124,9 @@ export class EditarPasajeroPage {
     );
     setTimeout(()=>{
         this.mostrarAlerta(); //alerta
-        this.navCtrl.setRoot(PasajeroPage,{id_usuario:this.usuario.ci}); //redirigir login
+        this.navCtrl.setRoot(PasajeroPage,{id_usuario:this.usuario}); //redirigir login
 
-      
+
     },1000);
     }
 
@@ -156,7 +157,7 @@ export class EditarPasajeroPage {
   },(err)=>{
     console.log('Error en la foto tomada')
   });
-  
+
   }
 
   openGallery(){
@@ -192,8 +193,15 @@ export class EditarPasajeroPage {
       });
   }
   }
-    
+
   dismiss(){
-    this.navCtrl.setRoot(PasajeroPage,{id_usuario:this.usuario.ci}); //redirigir login
+    this.navCtrl.setRoot(PasajeroPage,{id_usuario:this.usuario}); //redirigir login
+  }
+  presentLoading() {
+    const loader = this.load.create({
+      content: "Espere por favor...",
+      duration: 3000
+    });
+    loader.present();
   }
 }

@@ -161,10 +161,15 @@ dameFecha()
   if(mm<10)
   {
     mes='0'+mm;
+  }else{
+    mes=mm;
   }
+
   if(dd<10)
   {
     dia='0'+dd;
+  }else{
+    dia=dd;
   }
   let date=yyyy+'-'+mes+'-'+dia;
   return date;
