@@ -193,5 +193,7 @@ export class EditarPasajeroPage {
   }
   }
     
-
+  dismiss(){
+    this.navCtrl.setRoot(PasajeroPage,{id_usuario:this.usuario.ci}); //redirigir login
+  }
 }

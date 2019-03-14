@@ -3,7 +3,7 @@ import { VerMiRutaPage } from './../ver-mi-ruta/ver-mi-ruta';
 import { rutaactiva } from './../../interfaces/rutactiva.service';
 import { firebaseService } from './../../services/firebase.service';
 import { Component, NgModule } from '@angular/core';
-import {IonicPage, NavController, Platform, NavParams, AlertController,ModalController } from 'ionic-angular';
+import {IonicPage, NavController, Platform, NavParams, AlertController,ModalController, LoadingController } from 'ionic-angular';
 
 //IMPORTAR GEOLOCALIZACIÓN DE GOOGLE
 import { Geolocation } from '@ionic-native/geolocation';
@@ -23,6 +23,7 @@ declare var google: any;
 })
 
 export class MarkadorPage {
+  text;
   isenabled: boolean=false;
   isenabled1:boolean=false;
   isenabled2:boolean=true;
@@ -54,7 +55,7 @@ longUCB = -68.112290;
   id_ruta;
   pageanterior
   constructor(public navCtrl: NavController, public alerta:AlertController,public geolocation: Geolocation, public platform:Platform,
-    public navParams:NavParams,public servicio:firebaseService,public modalCtrl:ModalController, public mysql:mysqlService) {
+    public navParams:NavParams,public load:LoadingController,public servicio:firebaseService,public modalCtrl:ModalController, public mysql:mysqlService) {
       this.platform.registerBackButtonAction(() => {
         console.log('');
       },10000);
@@ -161,8 +162,38 @@ longUCB = -68.112290;
   }
   //funcion para mostrar alerta de confirmacion pasando un string
    mostrarAlerta(aux:string) {
+     let tit;
+     if(aux=='Ocurrio un error, vuelva a intentarlo!'){
+      tit='Error';
+      try{
+        this.mysql.obtenerIdRuta(this.nombre_ruta).subscribe(
+          data=>{
+            console.log('id_ruta:',data);
+            this.id_ruta=data
+            console.log('exito');
+          },(error)=>{
+            console.log(error);
+            this.text='Ocurrio un error, vuelva a intentarlo!';
+          }
+        );
+        setTimeout(() => {
+          this.mysql.EliminarRuta(this.id_ruta).subscribe(
+            data=>{
+              console.log(data);
+            },(error)=>{
+              console.log(error);
+            }
+          );
+        }, 1000);
+      }
+      catch(e){
+
+      }
+     }
+     else
+      tit='Exito';
     const alert = this.alerta.create({
-      title: 'Exito',
+      title: tit,
       subTitle: aux,
       buttons: ['OK']
     });
@@ -187,53 +218,7 @@ longUCB = -68.112290;
               console.log(data.nombre);
               if(data.nombre!='' && data.nombre!=null)
               this.nombre_ruta=data.nombre;
-
-      console.log('nombre ruta:',this.nombre_ruta);
-
-     for(let i=0;i<this.markersArray.length;i++){
-       console.log('punto '+(i+1));
-
-      console.log(this.markersArray[i].getPosition().lat()+"/"+this.markersArray[i].getPosition().lng());
-
-      }
-      this.mysql.agregarRuta(Number(this.id_usuario),this.nombre_ruta).subscribe(
-        data=>{
-          console.log(data);
-          console.log('exito');
-        },(error)=>{
-          console.log(error);
-        }
-      );
-      setTimeout(()=>{
-        this.mysql.obtenerIdRuta(this.nombre_ruta).subscribe(
-          data=>{
-            console.log('id_ruta:',data);
-            this.id_ruta=data
-            console.log('exito');
-          },(error)=>{
-            console.log(error);
-          }
-        );
-        setTimeout(()=>{
-          for(let i=0;i<this.markersArray.length;i++){
-            let latitud=Number(this.markersArray[i].getPosition().lat());
-            let longitud=Number(this.markersArray[i].getPosition().lng());
-           console.log('punto: '+this.markersArray[i].getPosition().lat()+"/"+this.markersArray[i].getPosition().lng());
-           let posicion=i+1;
-            this.mysql.agregarPunto(Number(this.id_ruta),latitud,longitud,posicion).subscribe(
-              data=>{
-                console.log('puntos:',data);
-                this.id_ruta=data
-                console.log('exito');
-              },(error)=>{
-                console.log(error);
-              }
-            );
-          }
-        },1000);
-      },1000);
-    let text='Ruta guardada con exito!';
-    this.mostrarAlerta(text); //alerta
+            this.text=this.Agregar();
     this.isenabled1=false;
           }
         },
@@ -329,46 +314,58 @@ longUCB = -68.112290;
     this.isenabled2=false;
     this.isenabled3=true;
   }
-  //guarda la ruta en RutaActuva
-  /*activarRuta(){
-    console.log(this.monto);
-    let zfecha=this.dameFecha();
-    let varia:rutaactiva={
-      email:'',
-      ruta:'',
-      precio:this.monto,
-      capacidad:this.capacidad,
-      zfecha: zfecha,
-      pasajeros:'',
-      recogidas:''
-    };
-    let cadena='';
-     for(let i=0;i<this.contador;i++){
-      cadena=cadena+this.markersArray[i].getPosition().lat()+"/"+this.markersArray[i].getPosition().lng();
-      if(i!=this.contador-1)
-        cadena=cadena+';';
-      }
-    varia.ruta=cadena;
-    varia.email=this.email;
-    let vava={
-      ruta:'',
-      capacidad:this.capacidad,
-      email:'',
-      precio:this.monto,
-      zfecha: zfecha,
-      pasajeros:'',
-      recogidas:'',
-      alat:'',
-      along:''
+  presentLoading() {
+    const loader = this.load.create({
+      content: "Espere por favor...",
+      duration: 4000
+    });
+    loader.present();
+  }
+Agregar(){
+  this.presentLoading();
+  this.text='Ruta guardada con exito!';
+  this.mysql.agregarRuta(Number(this.id_usuario),this.nombre_ruta).subscribe(
+    data=>{
+      console.log(data);
+      console.log('exito');
+    },(error)=>{
+      console.log(error);
     }
-    vava.email=varia.email;
-    vava.ruta=varia.ruta;
-    vava.capacidad=varia.capacidad;
-    this.servicio.RutaActiva(vava);
-    var nav = this.app.getRootNav();
-    nav.setRoot(VerMiRutaPage,{email: this.email,capacidad:this.capacidad});
-  }*/
-
+  );
+  setTimeout(()=>{
+    this.mysql.obtenerIdRuta(this.nombre_ruta).subscribe(
+      data=>{
+        console.log('id_ruta:',data);
+        this.id_ruta=data
+        console.log('exito');
+      },(error)=>{
+        console.log(error);
+        this.text='Ocurrio un error, vuelva a intentarlo!';
+      }
+    );
+    setTimeout(()=>{
+      for(let i=0;i<this.markersArray.length;i++){
+        let latitud=Number(this.markersArray[i].getPosition().lat());
+        let longitud=Number(this.markersArray[i].getPosition().lng());
+       console.log('punto: '+this.markersArray[i].getPosition().lat()+"/"+this.markersArray[i].getPosition().lng());
+       let posicion=i+1;
+        this.mysql.agregarPunto(Number(this.id_ruta),latitud,longitud,posicion).subscribe(
+          data=>{
+            console.log('puntos:',data);
+            this.id_ruta=data
+            console.log('exito');
+          },(error)=>{
+            console.log(error);
+            this.text='Ocurrio un error, vuelva a intentarlo!';
+          }
+        );
+      }
+      setTimeout(() => {
+    this.mostrarAlerta(this.text); //alerta
+      },1000);
+    },1000);
+  },1000);
+}
 
   getKilometros(lat1,lon1,lat2,lon2)
   {
@@ -382,67 +379,6 @@ longUCB = -68.112290;
   d=d+0.2;
  return d.toFixed(3); //Retorna tres decimales
   }
-  /*presentPrompt3() {
-    let alert = this.alerta.create({
-      title: 'Precio',
-      inputs: [
-        {
-          name: 'paga',
-          type: 'checkbox',
-          label: 'Deseo que me paguen.',
-          value: 'true'
-        }
-      ],
-      buttons: [
-        {
-          text: 'OK',
-          handler: data => {
-            if(data[0]){
-              this.presentPrompt2();
-            }
-            else{
-              this.monto=0;
-              this.activarRuta();
-
-            }
-          }
-        },
-      {
-        text: 'CANCELAR'
-      }]
-    });
-    alert.present();
-
-    console.log(alert);
-  }
-  presentPrompt2() {
-    let alert = this.alerta.create({
-      title: 'Precio',
-      inputs: [
-        {
-          name: 'precio',
-          placeholder: 'Precio',
-          type: 'number'
-        }
-      ],
-      buttons: [
-        {
-          text: 'OK',
-          handler: data => {
-              if(data.precio!=0)
-              this.monto=Number(data.precio);
-
-              this.activarRuta();
-          }
-        },
-      {
-        text: 'CANCELAR'
-      }]
-    });
-    alert.present();
-
-    console.log(alert);
-  }*/
   dameFecha()
   {
     let hoy = new Date();

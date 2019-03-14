@@ -114,8 +114,21 @@ export class RegistrarPage {
 
     setTimeout(()=>{
       console.log('info',info);
-      this.mostrarAlerta();
-      this.navCtrl.push(LoginPage);
+      if(info!=undefined)
+      {
+        /*if(info['message']=='OK')
+        {*/
+          this.mostrarAlerta();
+          this.navCtrl.push(LoginPage);
+       /* }
+      else
+        this.mostrarAlerta2();*/
+      }
+      else{
+        this.mostrarAlerta2();
+      }
+        
+
     },1000);
 
 
@@ -125,6 +138,15 @@ export class RegistrarPage {
     const alert = this.alerta.create({
       title: 'Registrado exitoso!',
       subTitle: 'Ahora ya puedes ingresar a la aplicacion',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+    
+  mostrarAlerta2() {
+    const alert = this.alerta.create({
+      title: 'Registrado Fallido!',
+      subTitle: 'Vuelva a intentar por favor.',
       buttons: ['OK']
     });
     alert.present();

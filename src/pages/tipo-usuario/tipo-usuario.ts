@@ -1,7 +1,7 @@
 import { VehiculoPage } from './../vehiculo/vehiculo';
 import { Vehiculo } from './../../interfaces/vehiculo.interface';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Nav,App, ToastController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Nav,App, ToastController, Platform, AlertController, LoadingController } from 'ionic-angular';
 import { SliderPrincipalPage } from '../slider-principal/slider-principal';
 
 /**
@@ -36,7 +36,8 @@ export class TipoUsuarioPage {
  
   constructor(public navCtrl: NavController, public navParams: NavParams,
    private toast:ToastController, private platform:Platform, public app:App
-  ,public mysql:mysqlService,public storage:Storage) {
+  ,public mysql:mysqlService,public storage:Storage,public alerta:AlertController,
+  public load:LoadingController) {
 
     
     this.storage.get('user').then((val) => {
@@ -50,6 +51,7 @@ export class TipoUsuarioPage {
     },10000);
     this.id_usuario = navParams.get('id_usuario');
     let info;
+    this.presentLoading();
     this.mysql.GetUsuario(this.id_usuario).subscribe(
       data => {
         console.log('data', data);
@@ -64,14 +66,20 @@ export class TipoUsuarioPage {
     );
 
     setTimeout(()=>{
+      if(info!=undefined){
       this.usuario=info;
       this.usuario=this.usuario[0];
       this.nombre_usuario = this.usuario.nombre+' '+this.usuario.apellido;
       console.log('id:',this.id_usuario);
       this.toast.create({
         message:`Bienvenido, ${this.nombre_usuario}`,
-        duration:2000
-      }).present();      
+        duration:1000
+      }).present();    
+    } 
+    else{
+      this.mostrarAlerta();
+      this.cerrarSesion();
+    } 
     },2000);
 
   }
@@ -82,6 +90,21 @@ export class TipoUsuarioPage {
     });  
 
 
+  }
+  presentLoading() {
+    const loader = this.load.create({
+      content: "Espere por favor...",
+      duration: 2000
+    });
+    loader.present();
+  }
+  mostrarAlerta() {
+    const alert = this.alerta.create({
+      title: 'Error!',
+      subTitle: 'Ocurrio un error, por favor vuelva a iniciar sesion.',
+      buttons: ['OK']
+    });
+    alert.present();
   }
   tipo='';
   irConductor()

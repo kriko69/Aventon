@@ -190,5 +190,8 @@ export class EditarConductorPage {
       });
   }
   }
+  dismiss(){
+    this.navCtrl.setRoot(ConductorPage,{id_usuario:this.id_usuario.ci,id_auto:this.id_auto});
+  }
 
 }

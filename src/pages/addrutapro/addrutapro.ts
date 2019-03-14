@@ -208,7 +208,7 @@ export class AddrutaproPage {
   }
   valor(vecs){
     console.log("Vecs",vecs);
-    this.isenabled=!this.isenabled;
+    this.isenabled=true;
     this.ruta=vecs;
   }
   NuevaRuta(){
