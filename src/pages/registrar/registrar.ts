@@ -116,13 +116,13 @@ export class RegistrarPage {
       console.log('info',info);
       if(info!=undefined)
       {
-        if(info['message']=='OK')
-        {
+        /*if(info['message']=='OK')
+        {*/
           this.mostrarAlerta();
           this.navCtrl.push(LoginPage);
-        }
+       /* }
       else
-        this.mostrarAlerta2();
+        this.mostrarAlerta2();*/
       }
       else{
         this.mostrarAlerta2();
