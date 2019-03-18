@@ -10,6 +10,7 @@ import { mysqlService } from '../../services/mysql.service';
 import { PasajeroPage } from '../pasajero/pasajero';
 import { PuntoRecogidaPage } from '../punto-recogida/punto-recogida';
 import { ReservaPasajeroPage } from '../reserva-pasajero/reserva-pasajero';
+
 /**
  * Generated class for the SlidePasajeroPage page.
  *
@@ -66,7 +67,7 @@ export class SlidePasajeroPage {
   skip()
   {
       var nav = this.app.getRootNav();
-      nav.setRoot(ReservaPasajeroPage ,{id_usuario: this.id_usuario});
+      nav.setRoot(PasajeroPage ,{id_usuario: this.id_usuario});
   }
  
 }
