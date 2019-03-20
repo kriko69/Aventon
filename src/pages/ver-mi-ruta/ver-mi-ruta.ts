@@ -742,5 +742,8 @@ if(integrantesaux==undefined){
     }
     this.sesa();
   }
-  
+  dismiss(){
+    var nav = this.app.getRootNav();
+    nav.setRoot(ConductorPage,{id_usuario: this.id_usuario,id_auto:this.id_auto});
+  }
 }

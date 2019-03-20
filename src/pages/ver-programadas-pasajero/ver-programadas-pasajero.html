@@ -43,5 +43,8 @@
         <ion-item style="background-color:#7cb9e3;color:white;" *ngIf="viajes.length===0">
             No hay viajes.
         </ion-item>
+        <ion-fab bottom left>
+            <button ion-fab color="yellow" (click)="func()"><ion-icon name="refresh"></ion-icon></button>
+        </ion-fab>
     </ion-list>
 </ion-content>

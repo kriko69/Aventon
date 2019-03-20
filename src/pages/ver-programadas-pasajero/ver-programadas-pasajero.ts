@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, Platform, LoadingController } from 'ionic-angular';
 import { ReservaPasajeroPage } from '../reserva-pasajero/reserva-pasajero';
 import { ReservarProgramadasPasajeroPage } from '../reservar-programadas-pasajero/reservar-programadas-pasajero';
 
@@ -40,17 +40,25 @@ export class VerProgramadasPasajeroPage {
   copia_resultados;
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public servicio:firebaseService, public view:ViewController,private platform:Platform,
-  public mysql:mysqlService) {
+  public mysql:mysqlService,public load:LoadingController) {
     this.platform.registerBackButtonAction(() => {
       console.log('');
-    },10000);
+    },15000);
     this.latitud=this.navParams.get('latitud');
     this.longitud=this.navParams.get('longitud');
     console.log(this.latitud+'////'+this.longitud);
 
     this.id_usuario=this.navParams.get('id_usuario');
     this.vestimenta=this.navParams.get('vestimenta');
+    this.func();
+   
+  }
 
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad VerProgramadasPasajeroPage');
+  }
+  func(){
+    this.presentLoading();
     this.mysql.listarRuta_viaje_programada().subscribe(
       data => {
         console.log('data',data);
@@ -69,13 +77,8 @@ export class VerProgramadasPasajeroPage {
       for(let i=0;i<this.copia.length;i++){
        this.sacar_punt(this.copia[i]);
         }
-    },1000);
+    },1500);
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad VerProgramadasPasajeroPage');
-  }
-
   irReservaPasajero()
   {
     this.navCtrl.setRoot(ReservaPasajeroPage,{id_usuario:this.id_usuario});
@@ -106,12 +109,13 @@ export class VerProgramadasPasajeroPage {
     setTimeout(()=>{
       console.log('obj',obj);
       console.log('puntos',puntos);
+      if(puntos!=undefined){
         if(puntos['message']!='No se encontro rutas_viaje')
         {
           this.distancia(puntos,obj);
         }
-
-    },1000);
+      }
+    },1500);
   }
   distancia(puntos,data){
     let lat;let long;
@@ -198,6 +202,13 @@ export class VerProgramadasPasajeroPage {
       this.filtrarporfecha();
     if(this.filtro=='Nombre')
       this.filtrarpornombre();
+  }
+  presentLoading() {
+    const loader = this.load.create({
+      content: "Espere por favor...",
+      duration: 3000
+    });
+    loader.present();
   }
 }
 

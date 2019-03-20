@@ -2,7 +2,7 @@ import { mysqlService } from './../../services/mysql.service';
 import { ActivarRutaPage } from './../activar-ruta/activar-ruta';
 import { ToastService } from './../../services/toast.service';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, ToastController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, ToastController, Platform, App } from 'ionic-angular';
 import {RutaModel} from '../../shared/ruta-model';
 import {AddRutaPage} from '../add-ruta/add-ruta';
 import { firebaseService } from '../../services/firebase.service';
@@ -15,6 +15,7 @@ import { rutaprogramada } from '../../interfaces/ruta.programada.interface';
  * Ionic pages and navigation.
  */
 import { ISubscription } from 'rxjs/Subscription';
+import { VerMiRutaPage } from '../ver-mi-ruta/ver-mi-ruta';
 
 @IonicPage()
 @Component({
@@ -41,7 +42,7 @@ export class ViajePage {
   nombres=[];
   value=false;
   programadas=[];
-  constructor(public navCtrl: NavController,
+  constructor(public app:App,public navCtrl: NavController,
     public alertCtrl:AlertController, public toast:ToastService,public navParams: NavParams,
     public modalCtrl:ModalController,public mysql:mysqlService, public servicio:firebaseService,
     public viewCtrl:ViewController,private platform:Platform)
@@ -252,7 +253,11 @@ verificarFecha(fecha_hora)
 
 
 }
-
+iractiva(ruta){
+  var nav = this.app.getRootNav();
+    nav.setRoot(VerMiRutaPage,{id_usuario:this.id_usuario,id_auto:this.id_auto,ruta_activada:Number(ruta.id_viaje)});
+  
+}
 
   activarRuta(ruta)
   {

@@ -58,8 +58,6 @@ capacidad;
       }
     );
     setTimeout(()=>{
-      if(this.integrantes.message!="No se encontro integrantes"){
-      console.log(this.integrantes);
       this.mysql.activarRuta(this.ruta.id_viaje).subscribe(
         data=>{
           console.log(data);
@@ -69,6 +67,8 @@ capacidad;
 
         }
       );
+      if(this.integrantes.message!="No se encontro integrantes"){
+      console.log(this.integrantes);
         let estado='Activada';
         let mensaje='La Ruta ya fue activada!';
         this.fecha=this.dameFecha();

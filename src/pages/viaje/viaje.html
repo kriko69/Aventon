@@ -15,6 +15,14 @@
             Usted no tiene rutas.
         </ion-item>
         <ion-item-sliding #item *ngFor="let vecs of vec">
+
+                <ion-item class="borde" *ngIf="vecs.estado=='Activa'" style="background-color:#faca32" (click)="iractiva(vecs)">
+                        <ion-badge color="yellow" item-end>ACTIVA</ion-badge>
+                        <p class="cambioText1">Nombre de la Ruta: {{ vecs.nombre }}</p>
+                        <p class="cambioText1">Fecha: {{ vecs.fecha_hora }}</p>
+                        <p class="cambioText1">Capacidad Actual: {{ vecs.capacidad }}</p>
+                    </ion-item>
+
             <ion-item class="borde" *ngIf="verificarFecha(vecs.fecha_hora)=='falta' && vecs.estado=='programada'" style="background-color:#faca32">
                 <ion-badge color="yellow" item-end>Aun Falta</ion-badge>
                 <p class="cambioText1">Nombre de la Ruta: {{ vecs.nombre }}</p>

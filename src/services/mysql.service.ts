@@ -411,7 +411,7 @@ export class mysqlService{
     let info=new Array();
     let data={
       "key":"activarRuta",
-      "id_viaje":id_viaje
+      "id_viaje":Number(id_viaje)
     };
 
     let header : any = new HttpHeaders({'Content-Type': 'application/json'}),
